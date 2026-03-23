@@ -3,6 +3,1182 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>NightCode Academy v3 - Graduate Dev IA</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#05050c;color:#e2e8f0;font-family:'Segoe UI',sans-serif;min-height:100vh;overflow-x:hidden}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes blink{50%{opacity:0}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+@keyframes glow{0%,100%{box-shadow:0 0 5px #22d3ee40}50%{box-shadow:0 0 20px #22d3ee60}}
+@keyframes matrixFall{0%{transform:translateY(-100%);opacity:1}100%{transform:translateY(100vh);opacity:0}}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#22d3ee40;border-radius:10px}
+button{font-family:inherit;cursor:pointer}
+textarea,input{font-family:'JetBrains Mono',monospace}
+#matrix-bg{position:fixed;inset:0;z-index:0;opacity:.06;pointer-events:none}
+.app{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:16px 14px}
+.card{padding:16px;border-radius:14px;background:#0a0a14;border:1px solid #1a1a2e;margin-bottom:10px}
+.badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;font-family:'JetBrains Mono',monospace}
+.cyan{color:#22d3ee}.violet{color:#a78bfa}.rose{color:#f472b6}.green{color:#4ade80}.yellow{color:#fbbf24}.red{color:#f87171}
+.bg-cyan{background:#22d3ee20;border:1px solid #22d3ee40}
+.bg-violet{background:#a78bfa20;border:1px solid #a78bfa40}
+.bg-rose{background:#f472b640;border:1px solid #f472b660}
+.bg-green{background:#4ade8020;border:1px solid #4ade8040}
+.bg-yellow{background:#fbbf2420;border:1px solid #fbbf2440}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:12px}
+.tab-btn{padding:8px 14px;border:1px solid #1a1a2e;background:#0a0a14;color:#888;border-radius:8px;font-size:12px;transition:all .3s}
+.tab-btn:hover{color:#ccc;border-color:#333}
+.tab-btn.active{color:#22d3ee;border-color:#22d3ee;background:#22d3ee10}
+.ticker{overflow:hidden;background:#0a0a14;border:1px solid #1a1a2e;border-radius:8px;padding:8px 0;margin-bottom:12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#22d3ee80}
+.ticker-inner{display:flex;gap:40px;animation:scroll 30s linear infinite;white-space:nowrap}
+@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.xp-bar{height:6px;background:#1a1a2e;border-radius:3px;overflow:hidden;margin-top:6px}
+.xp-fill{height:100%;background:linear-gradient(90deg,#22d3ee,#a78bfa);border-radius:3px;transition:width .5s}
+.lesson-item{display:flex;align-items:center;gap:8px;padding:8px;border-radius:8px;cursor:pointer;transition:background .2s;border-bottom:1px solid #ffffff08}
+.lesson-item:hover{background:#ffffff08}
+.lesson-item input[type=checkbox]{accent-color:#22d3ee;width:16px;height:16px;cursor:pointer}
+.lesson-content{background:#0d0d1a;border:1px solid #1a1a2e;border-radius:12px;padding:20px;margin-top:12px;animation:fadeIn .3s}
+h1{font-family:'JetBrains Mono',monospace;font-size:22px;color:#22d3ee}
+h2{font-family:'JetBrains Mono',monospace;font-size:16px;color:#a78bfa;margin:16px 0 8px}
+h3{font-family:'JetBrains Mono',monospace;font-size:14px;color:#f472b6;margin:12px 0 6px}
+.concept-card{background:#0f0f1e;border:1px solid #22d3ee20;border-radius:10px;padding:14px;margin:8px 0}
+.concept-card h4{color:#22d3ee;font-family:'JetBrains Mono',monospace;font-size:13px;margin-bottom:6px}
+.concept-card p{font-size:13px;line-height:1.6;color:#b0b0c0}
+.code-block{background:#0a0a14;border:1px solid #22d3ee20;border-radius:8px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#22d3ee;margin:8px 0;overflow-x:auto;white-space:pre}
+.quiz-option{display:block;width:100%;text-align:left;padding:10px 14px;margin:6px 0;border:1px solid #1a1a2e;background:#0a0a14;color:#e2e8f0;border-radius:8px;font-size:13px;transition:all .2s}
+.quiz-option:hover{border-color:#22d3ee;background:#22d3ee08}
+.quiz-option.correct{border-color:#4ade80;background:#4ade8020;color:#4ade80}
+.quiz-option.wrong{border-color:#f87171;background:#f8717120;color:#f87171}
+.quiz-option.disabled{pointer-events:none;opacity:.7}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:12px 0}
+.stat-card{text-align:center;padding:14px;border-radius:10px;background:#0a0a14;border:1px solid #1a1a2e}
+.stat-val{font-size:24px;font-weight:700;font-family:'JetBrains Mono',monospace}
+.stat-label{font-size:11px;color:#888;margin-top:4px}
+.difficulty-bar{display:flex;gap:2px;margin-top:4px}
+.diff-seg{height:4px;flex:1;border-radius:2px;background:#1a1a2e}
+.diff-seg.filled{background:#22d3ee}
+.diff-seg.medium{background:#fbbf24}
+.diff-seg.hard{background:#f87171}
+.sr-badge{font-size:10px;padding:2px 6px;border-radius:4px;margin-left:6px}
+.sr-new{background:#22d3ee20;color:#22d3ee}
+.sr-learning{background:#fbbf2420;color:#fbbf24}
+.sr-review{background:#4ade8020;color:#4ade80}
+.sr-mastered{background:#a78bfa20;color:#a78bfa}
+.expand-btn{background:none;border:none;color:#22d3ee;font-size:12px;padding:4px 8px;font-family:'JetBrains Mono',monospace}
+.module-header{display:flex;justify-content:space-between;align-items:center;cursor:pointer;padding:10px;border-radius:8px;transition:background .2s}
+.module-header:hover{background:#ffffff06}
+.hidden{display:none}
+.flex-between{display:flex;justify-content:space-between;align-items:center}
+.timer-display{font-family:'JetBrains Mono',monospace;color:#22d3ee;font-size:14px}
+.streak-fire{font-size:20px;animation:pulse 1s infinite}
+.weak-topic{padding:8px 12px;margin:4px 0;border-radius:8px;border-left:3px solid #f87171;background:#f8717108;font-size:13px}
+.strong-topic{padding:8px 12px;margin:4px 0;border-radius:8px;border-left:3px solid #4ade80;background:#4ade8008;font-size:13px}
+.progress-ring{position:relative;display:inline-block}
+.progress-ring svg{transform:rotate(-90deg)}
+.progress-ring .label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:14px}
+.flash-card{perspective:800px;cursor:pointer;margin:8px 0}
+.flash-inner{position:relative;width:100%;min-height:120px;transition:transform .6s;transform-style:preserve-3d}
+.flash-card.flipped .flash-inner{transform:rotateY(180deg)}
+.flash-front,.flash-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:16px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14px}
+.flash-front{background:#0f0f1e;border:1px solid #22d3ee30;color:#e2e8f0}
+.flash-back{background:#0f0f1e;border:1px solid #4ade8030;color:#4ade80;transform:rotateY(180deg)}
+.speed-indicator{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-family:'JetBrains Mono',monospace}
+.speed-fast{background:#4ade8020;color:#4ade80}
+.speed-normal{background:#fbbf2420;color:#fbbf24}
+.speed-slow{background:#f8717120;color:#f87171}
+</style>
+</head>
+<body>
+<canvas id="matrix-bg"></canvas>
+<div class="app" id="root"></div>
+<script>
+// ====== DATA: FORMATION COMPLETE ======
+const FORMATION = {
+  name: "Graduate Developpeur IA",
+  promo: "JUIN-JUILLET 2026",
+  matieres: [
+    {
+      id:"fond",name:"Les fondamentaux du developpement",modules:[
+        {id:"eco",name:"Ecosysteme et outils du developpeur",lessons:[
+          {id:"l1",name:"Histoire de l informatique et d Internet",concepts:["Genese informatique","ARPANET vers Internet","TCP/IP et protocoles","Web (Tim Berners-Lee 1989)","FTP SMTP TELNET","Interoperabilite"],quiz:[
+            {q:"Qui est le createur du World Wide Web?",o:["Tim Berners-Lee","Steve Jobs","Bill Gates","Linus Torvalds"],a:0},
+            {q:"En quelle annee le Web a-t-il ete cree?",o:["1969","1989","1995","2000"],a:1},
+            {q:"Quel protocole permet le transfert de fichiers?",o:["SMTP","HTTP","FTP","DNS"],a:2},
+            {q:"ARPANET est l ancetre de:",o:["Windows","Internet","Linux","Python"],a:1},
+            {q:"TCP/IP est:",o:["Un langage de prog","Un protocole de communication","Un navigateur","Un OS"],a:1}
+          ]},
+          {id:"l2",name:"Le fonctionnement d Internet",concepts:["Modele client-serveur","DNS resolution","HTTP/HTTPS","Adresses IP v4 v6","Routage des paquets","FAI et infrastructure"],quiz:[
+            {q:"Que fait un serveur DNS?",o:["Heberge des sites","Traduit noms de domaine en IP","Protege le reseau","Envoie des mails"],a:1},
+            {q:"HTTPS ajoute quoi par rapport a HTTP?",o:["Vitesse","Chiffrement SSL/TLS","Couleurs","Cookies"],a:1},
+            {q:"Une adresse IPv4 est composee de:",o:["2 octets","4 octets","8 octets","16 octets"],a:1},
+            {q:"Le modele client-serveur implique:",o:["Un seul ordinateur","Un demandeur et un fournisseur","Deux serveurs","Aucun reseau"],a:1}
+          ]},
+          {id:"l3",name:"Sensibilisation a la cybersecurite",concepts:["Phishing et ingenierie sociale","Malware types","Mots de passe securises","Pare-feu et antivirus","RGPD et donnees perso","Chiffrement"],quiz:[
+            {q:"Le phishing vise a:",o:["Accelerer Internet","Voler des identifiants","Reparer un PC","Installer Linux"],a:1},
+            {q:"RGPD protege:",o:["Les serveurs","Les donnees personnelles","Les logiciels","Les cables"],a:1},
+            {q:"Un ransomware:",o:["Optimise le PC","Chiffre les fichiers et demande rancon","Nettoie le disque","Met a jour l OS"],a:1}
+          ]},
+          {id:"l4",name:"Les metiers de l informatique",concepts:["Dev Front-end Back-end Fullstack","DevOps et SysAdmin","Data Scientist et IA Engineer","Chef de projet IT","UX/UI Designer","Cybersecurite analyst"],quiz:[
+            {q:"Un developpeur Fullstack maitrise:",o:["Uniquement le front","Uniquement le back","Front et back","Uniquement les BDD"],a:2},
+            {q:"Le DevOps combine:",o:["Design et marketing","Dev et operations","Securite et reseau","Data et IA"],a:1}
+          ]},
+          {id:"l5",name:"Les methodologies de gestion de projets",concepts:["Agile et Scrum","Sprint et backlog","Kanban board","Methode Waterfall","User stories","Daily standup"],quiz:[
+            {q:"En Scrum un sprint dure generalement:",o:["1 jour","1 a 4 semaines","6 mois","1 an"],a:1},
+            {q:"Le Product Backlog contient:",o:["Le code source","La liste des fonctionnalites","Les bugs uniquement","Les tests"],a:1}
+          ]},
+          {id:"l6",name:"L IDE: outil essentiel",concepts:["VS Code editeur principal","Extensions utiles","Terminal integre","IntelliSense autocompletion","Debug integre","Raccourcis clavier"],quiz:[
+            {q:"VS Code est:",o:["Un navigateur","Un editeur de code","Un OS","Un langage"],a:1},
+            {q:"IntelliSense permet:",o:["Envoyer des mails","Autocompletion du code","Naviguer sur le web","Compiler du C"],a:1}
+          ]},
+          {id:"l7",name:"Le terminal et les lignes de commande",concepts:["cd ls mkdir rm cp mv","pwd et chemins absolus/relatifs","Pipes et redirections","Variables d environnement","chmod et permissions","Bash scripting bases"],quiz:[
+            {q:"La commande 'ls' sert a:",o:["Supprimer un fichier","Lister le contenu d un dossier","Creer un fichier","Deplacer un dossier"],a:1},
+            {q:"pwd affiche:",o:["La liste des fichiers","Le repertoire courant","L historique","Les permissions"],a:1},
+            {q:"'mkdir' permet de:",o:["Supprimer un dossier","Creer un dossier","Copier un fichier","Lire un fichier"],a:1}
+          ]},
+          {id:"l8",name:"Le systeme d exploitation",concepts:["Windows Linux macOS","Kernel et processus","Gestion memoire RAM","Systeme de fichiers","Utilisateurs et droits","Services et daemons"],quiz:[
+            {q:"Le kernel est:",o:["Un logiciel bureau","Le coeur du systeme d exploitation","Un navigateur","Un langage de prog"],a:1},
+            {q:"Linux est:",o:["Proprietaire","Open source","Un navigateur","Un editeur"],a:1}
+          ]},
+          {id:"l9",name:"Les reseaux informatiques",concepts:["LAN WAN MAN","Modele OSI 7 couches","Switch routeur hub","Adressage IP et masques","Wi-Fi et Ethernet","Pare-feu et proxy"],quiz:[
+            {q:"Un LAN est:",o:["Un reseau mondial","Un reseau local","Un protocole","Un logiciel"],a:1},
+            {q:"Le modele OSI a combien de couches?",o:["4","5","7","10"],a:2}
+          ]},
+          {id:"l10",name:"Le cloud computing",concepts:["IaaS PaaS SaaS","AWS Azure GCP","Virtualisation et conteneurs","Scalabilite horizontale/verticale","Serverless computing","Stockage cloud S3"],quiz:[
+            {q:"SaaS signifie:",o:["Software as a Service","System as a Server","Security as a Service","Storage as a System"],a:0},
+            {q:"AWS est un service de:",o:["Microsoft","Amazon","Google","Apple"],a:1}
+          ]},
+          {id:"l11",name:"Les bases de donnees - intro",concepts:["BDD relationnelles SQL","BDD NoSQL MongoDB","Tables lignes colonnes","Cles primaires etrangeres","CRUD operations","Schemas et modeles"],quiz:[
+            {q:"SQL signifie:",o:["Simple Query Language","Structured Query Language","System Query Logic","Standard Query Library"],a:1},
+            {q:"CRUD signifie:",o:["Create Read Update Delete","Copy Run Upload Download","Cache Render Update Deploy","Compile Run Use Debug"],a:0}
+          ]},
+          {id:"l12",name:"Les API et services web",concepts:["REST API principes","JSON format donnees","Endpoints et methodes HTTP","GET POST PUT DELETE","Authentification API key/JWT","CORS et securite"],quiz:[
+            {q:"Une API REST utilise principalement:",o:["FTP","HTTP","SMTP","SSH"],a:1},
+            {q:"JSON est un format de:",o:["Images","Donnees structurees","Videos","Audio"],a:1}
+          ]},
+          {id:"l13",name:"La veille technologique",concepts:["Sources fiables dev","GitHub Trending","Stack Overflow","Newsletters tech","Conferences et meetups","RSS et agrgateurs"],quiz:[
+            {q:"GitHub Trending montre:",o:["Les bugs","Les projets populaires","Les emplois","Les cours"],a:1}
+          ]}
+        ]},
+        {id:"intro_prog",name:"Introduction a la programmation",lessons:[
+          {id:"p1",name:"Qu est-ce que la programmation",concepts:["Definition de la programmation","Langages haut/bas niveau","Compilation vs interpretation","Code source et executable","Algorithme vers programme"],quiz:[
+            {q:"Un langage de haut niveau est:",o:["Plus proche du materiel","Plus proche du langage humain","Plus rapide","Plus ancien"],a:1},
+            {q:"La compilation transforme:",o:["HTML en CSS","Code source en code machine","Images en texte","Donnees en graphiques"],a:1}
+          ]},
+          {id:"p2",name:"Les variables et types de donnees",concepts:["Declaration de variable","Types: int float string bool","Typage statique vs dynamique","Constantes","Conversion de types (casting)"],quiz:[
+            {q:"Une variable de type boolean peut valoir:",o:["Un nombre","true ou false","Une chaine","Un tableau"],a:1},
+            {q:"Le casting permet de:",o:["Supprimer une variable","Convertir un type en un autre","Creer une boucle","Definir une fonction"],a:1},
+            {q:"let x = 42; x est de quel type?",o:["String","Boolean","Number/int","Array"],a:2}
+          ]},
+          {id:"p3",name:"Les operateurs",concepts:["Arithmetiques + - * / %","Comparaison == != > < >= <=","Logiques && || !","Affectation = += -= *=","Operateur ternaire","Priorite des operateurs"],quiz:[
+            {q:"L operateur % retourne:",o:["La division","Le reste de la division","La multiplication","La puissance"],a:1},
+            {q:"&& signifie:",o:["OU logique","ET logique","NON logique","EGAL"],a:1}
+          ]},
+          {id:"p4",name:"Les conditions if else",concepts:["if simple","if...else","if...else if...else","Switch case","Conditions imbriquees","Operateur ternaire cond ? a : b"],quiz:[
+            {q:"Que fait else if?",o:["Termine le programme","Teste une condition supplementaire","Cree une boucle","Definit une variable"],a:1},
+            {q:"switch compare une variable a:",o:["Des fonctions","Des cas (case)","Des boucles","Des fichiers"],a:1}
+          ]},
+          {id:"p5",name:"Les boucles for while",concepts:["Boucle for classique","Boucle while","Boucle do...while","break et continue","Boucles imbriquees","for...of et for...in"],quiz:[
+            {q:"Une boucle while s execute:",o:["Un nombre fixe de fois","Tant que la condition est vraie","Une seule fois","Jamais"],a:1},
+            {q:"break dans une boucle:",o:["Continue l iteration","Sort de la boucle","Redemarre la boucle","Pause la boucle"],a:1},
+            {q:"do...while execute le bloc:",o:["0 fois minimum","1 fois minimum","2 fois minimum","Indefiniment"],a:1}
+          ]},
+          {id:"p6",name:"Les fonctions",concepts:["Declaration de fonction","Parametres et arguments","Valeur de retour return","Portee des variables (scope)","Fonctions anonymes","Fonctions flechees =>"],quiz:[
+            {q:"return dans une fonction:",o:["Affiche un message","Renvoie une valeur et arrete la fonction","Cree une variable","Appelle une autre fonction"],a:1},
+            {q:"La portee (scope) determine:",o:["La vitesse du code","Ou une variable est accessible","La taille du fichier","Le type de donnee"],a:1}
+          ]},
+          {id:"p7",name:"Les tableaux (arrays)",concepts:["Declaration et initialisation","Index commence a 0","push pop shift unshift","length et acces par index","Parcourir avec for/forEach","slice splice concat"],quiz:[
+            {q:"Le premier element d un tableau a l index:",o:["1","0","-1","null"],a:1},
+            {q:"push() ajoute un element:",o:["Au debut","A la fin","Au milieu","Nulle part"],a:1}
+          ]},
+          {id:"p8",name:"Les objets",concepts:["Paires cle-valeur","Acces par point et crochets","Methodes d objet","this keyword","Destructuration","Object.keys values entries"],quiz:[
+            {q:"Un objet stocke des donnees sous forme de:",o:["Index numeriques","Paires cle-valeur","Lignes de code","Fichiers"],a:1},
+            {q:"Pour acceder a obj.name on peut aussi ecrire:",o:["obj[name]","obj(name)","obj->name","obj['name']"],a:3}
+          ]},
+          {id:"p9",name:"Les chaines de caracteres",concepts:["Concatenation","Template literals backticks","Methodes: length toUpperCase toLowerCase","indexOf includes slice","split et join","Expressions regulieres intro"],quiz:[
+            {q:"Les template literals utilisent:",o:["Guillemets simples","Guillemets doubles","Backticks","Parentheses"],a:2}
+          ]},
+          {id:"p10",name:"Gestion des erreurs",concepts:["try catch finally","Types d erreurs","throw pour lancer erreur","Error object","Debug avec console.log","Stack trace lecture"],quiz:[
+            {q:"try...catch permet de:",o:["Creer des boucles","Gerer les erreurs sans crash","Definir des variables","Optimiser le code"],a:1}
+          ]},
+          {id:"p11",name:"Programmation orientee objet bases",concepts:["Classes et instances","Constructeur","Proprietes et methodes","Encapsulation","Heritage extends","Polymorphisme intro"],quiz:[
+            {q:"Une classe est:",o:["Une variable","Un modele pour creer des objets","Une boucle","Un fichier"],a:1},
+            {q:"L heritage permet a une classe de:",o:["Supprimer une autre classe","Recuperer les proprietes d une classe parente","Creer des variables","Gerer les erreurs"],a:1}
+          ]},
+          {id:"p12",name:"Modules et imports",concepts:["export et import","Modules ES6","require CommonJS","Organisation du code","Dependances","npm et packages"],quiz:[
+            {q:"import permet de:",o:["Supprimer du code","Utiliser du code d un autre fichier","Creer un serveur","Compiler le code"],a:1}
+          ]},
+          {id:"p13",name:"Bonnes pratiques de code",concepts:["Nommage clair des variables","Commentaires utiles","DRY Don t Repeat Yourself","KISS Keep It Simple","Code lisible et maintanable","Indentation et formatage"],quiz:[
+            {q:"DRY signifie:",o:["Do Repeat Yourself","Don t Repeat Yourself","Debug Run Yield","Data Rest Yield"],a:1}
+          ]}
+        ]},
+        {id:"algo",name:"Introduction a l algorithme",lessons:[
+          {id:"a1",name:"Qu est-ce qu un algorithme",concepts:["Definition algorithme","Entree traitement sortie","Pseudo-code","Organigramme flowchart","Complexite notion","Exemples quotidiens"],quiz:[
+            {q:"Un algorithme est:",o:["Un langage de prog","Une suite d instructions pour resoudre un probleme","Un type de donnee","Un logiciel"],a:1},
+            {q:"Le pseudo-code est:",o:["Du code executable","Une description en langage naturel d un algorithme","Un langage compile","Un type de boucle"],a:1}
+          ]},
+          {id:"a2",name:"Les structures de controle",concepts:["Sequence","Selection (if/else)","Iteration (boucles)","Conditions combinees","Imbrication de structures"],quiz:[
+            {q:"Les 3 structures de controle fondamentales sont:",o:["Variable fonction classe","Sequence selection iteration","HTML CSS JS","Input process output"],a:1}
+          ]},
+          {id:"a3",name:"Algorithmes de tri",concepts:["Tri a bulles (Bubble sort)","Tri par selection","Tri par insertion","Complexite O(n2) vs O(n log n)","Tri rapide (Quick sort) notion","Comparaison des tris"],quiz:[
+            {q:"Le tri a bulles a une complexite de:",o:["O(1)","O(n)","O(n2)","O(log n)"],a:2},
+            {q:"Quick sort est generalement:",o:["Plus lent que bubble sort","Plus rapide que bubble sort","Identique a bubble sort","Inutilisable"],a:1}
+          ]},
+          {id:"a4",name:"Algorithmes de recherche",concepts:["Recherche lineaire O(n)","Recherche binaire O(log n)","Prerequis recherche binaire: tri","Recherche dans chaines","Recherche dans structures"],quiz:[
+            {q:"La recherche binaire necessite que les donnees soient:",o:["En desordre","Triees","Vides","Dupliquees"],a:1},
+            {q:"La complexite de la recherche lineaire est:",o:["O(1)","O(log n)","O(n)","O(n2)"],a:2}
+          ]},
+          {id:"a5",name:"La recursivite",concepts:["Fonction qui s appelle elle-meme","Cas de base (arret)","Cas recursif","Pile d appels","Factorielle et Fibonacci","Avantages et limites"],quiz:[
+            {q:"En recursivite le cas de base sert a:",o:["Accelerer le code","Arreter les appels recursifs","Creer une boucle","Definir une variable"],a:1}
+          ]},
+          {id:"a6",name:"Structures de donnees lineaires",concepts:["Tableau (Array)","Liste chainee","Pile (Stack) LIFO","File (Queue) FIFO","Deque","Applications concretes"],quiz:[
+            {q:"Une pile (Stack) fonctionne en:",o:["FIFO","LIFO","FILO","Random"],a:1},
+            {q:"Une file (Queue) fonctionne en:",o:["FIFO","LIFO","FILO","Random"],a:0}
+          ]},
+          {id:"a7",name:"Arbres et graphes notions",concepts:["Arbre binaire","Noeud racine feuille","Parcours en profondeur/largeur","Graphe oriente/non oriente","Applications des arbres"],quiz:[
+            {q:"La racine d un arbre est:",o:["Le dernier noeud","Le premier noeud en haut","Une feuille","Un arc"],a:1}
+          ]},
+          {id:"a8",name:"Complexite algorithmique",concepts:["Notation Big O","O(1) O(n) O(n2) O(log n)","Meilleur pire cas moyen","Complexite en espace","Optimisation","Compromis temps/espace"],quiz:[
+            {q:"O(1) signifie:",o:["Temps lineaire","Temps constant","Temps quadratique","Temps logarithmique"],a:1},
+            {q:"O(n2) est pire que O(n log n)?",o:["Vrai","Faux","Pareil","Depends"],a:0}
+          ]}
+        ]}
+      ]
+    },
+    {
+      id:"front",name:"Front-end + IA",modules:[
+        {id:"projets",name:"Projets Web avec HTML CSS JS",lessons:[
+          {id:"pw1",name:"Structure d un projet web",concepts:["Arborescence de fichiers","index.html point d entree","Lier CSS et JS","Dossiers assets img css js","Conventions de nommage"],quiz:[{q:"Le fichier principal d un site web est generalement:",o:["style.css","app.js","index.html","main.py"],a:2}]},
+          {id:"pw2",name:"Maquettage et wireframing",concepts:["Wireframe basse fidelite","Maquette haute fidelite","Outils Figma Sketch","Responsive design planning","User flow"],quiz:[{q:"Un wireframe est:",o:["Le code final","Un schema simplifie de la page","Une base de donnees","Un serveur"],a:1}]},
+          {id:"pw3",name:"Projet web pratique HTML",concepts:["Semantic HTML","Structure header nav main footer","Formulaires","Accessibilite bases","SEO bases"],quiz:[{q:"La balise <nav> est utilisee pour:",o:["Le pied de page","La navigation","Le contenu principal","Les images"],a:1}]},
+          {id:"pw4",name:"Projet web pratique CSS",concepts:["Flexbox layout","Grid layout","Media queries responsive","Animations CSS","Variables CSS custom properties"],quiz:[{q:"Flexbox sert principalement a:",o:["Ajouter des images","Aligner et distribuer l espace","Creer des bases de donnees","Gerer les cookies"],a:1}]},
+          {id:"pw5",name:"Projet web pratique JS",concepts:["DOM manipulation","addEventListener","fetch API","localStorage","Validation formulaire"],quiz:[{q:"document.getElementById() sert a:",o:["Creer un element","Selectionner un element par son id","Supprimer un element","Styliser un element"],a:1}]}
+        ]},
+        {id:"figma",name:"Figma",lessons:[
+          {id:"f1",name:"Decouverte de Figma",concepts:["Interface Figma","Frames et composants","Outils de dessin","Prototypage","Collaboration en equipe","Auto-layout"],quiz:[{q:"Figma est un outil de:",o:["Programmation","Design d interface","Base de donnees","Terminal"],a:1}]},
+          {id:"f2",name:"Composants et styles Figma",concepts:["Composants reutilisables","Variants","Styles couleurs typo","Design tokens","Bibliotheque de composants"],quiz:[{q:"Un composant Figma permet de:",o:["Ecrire du code","Reutiliser des elements de design","Compiler un programme","Gerer un serveur"],a:1}]},
+          {id:"f3",name:"Prototypage Figma",concepts:["Liens entre frames","Animations transitions","Interactions utilisateur","Preview et partage","Tests utilisateurs"],quiz:[{q:"Le prototypage permet de:",o:["Ecrire du CSS","Simuler l experience utilisateur","Creer une BDD","Deployer un site"],a:1}]}
+        ]},
+        {id:"htmlcss",name:"HTML et CSS",lessons:[
+          {id:"h1",name:"Introduction a HTML",concepts:["Balises et attributs","Structure DOCTYPE html head body","Titres h1-h6 paragraphes p","Listes ul ol li","Liens a href et images img src"],quiz:[{q:"HTML signifie:",o:["Hyper Text Markup Language","High Tech Modern Language","Home Tool Multi Language","Hyper Transfer Method Link"],a:0},{q:"La balise pour un lien est:",o:["<link>","<a>","<href>","<url>"],a:1}]},
+          {id:"h2",name:"Formulaires HTML",concepts:["form action method","input types text email password number","select et option","textarea","button submit","Validation HTML5 required pattern"],quiz:[{q:"L attribut required:",o:["Style le champ","Rend le champ obligatoire","Cache le champ","Supprime le champ"],a:1}]},
+          {id:"h3",name:"HTML semantique",concepts:["header footer nav main aside section article","Accessibilite ARIA","Role des balises semantiques","SEO et semantique","figure figcaption"],quiz:[{q:"Le HTML semantique ameliore:",o:["La vitesse","L accessibilite et le SEO","Les couleurs","La taille des fichiers"],a:1}]},
+          {id:"h4",name:"CSS bases selecteurs et proprietes",concepts:["Selecteurs element classe id","Couleurs hex rgb hsl","Tailles px em rem vw vh","Marges margin padding","Bordures border border-radius","Display block inline inline-block none"],quiz:[{q:"Pour cibler une classe en CSS on utilise:",o:["#",".",">","*"],a:1},{q:"1rem est egal a:",o:["10px","La taille de police du root","1% de la largeur","16cm"],a:1}]},
+          {id:"h5",name:"CSS Flexbox",concepts:["display:flex","justify-content align-items","flex-direction row column","flex-wrap","gap","flex-grow flex-shrink flex-basis"],quiz:[{q:"justify-content aligne les elements sur:",o:["L axe principal","L axe secondaire","Les deux axes","Aucun axe"],a:0},{q:"flex-direction:column dispose les elements:",o:["Horizontalement","Verticalement","En diagonale","En cercle"],a:1}]},
+          {id:"h6",name:"CSS Grid",concepts:["display:grid","grid-template-columns rows","grid-gap","grid-area","fr unit","repeat() et minmax()"],quiz:[{q:"L unite fr en Grid represente:",o:["Des pixels","Une fraction de l espace disponible","Des pourcentages","Des centimetres"],a:1}]},
+          {id:"h7",name:"CSS Responsive design",concepts:["Media queries @media","Mobile first approach","Breakpoints standard","Viewport meta tag","Images responsives","Unites relatives"],quiz:[{q:"Mobile first signifie:",o:["Coder d abord pour desktop","Coder d abord pour mobile","Ignorer le mobile","Tester uniquement mobile"],a:1}]},
+          {id:"h8",name:"CSS Animations et transitions",concepts:["transition property duration","@keyframes","animation name duration iteration","transform translate rotate scale","opacity et visibility","Performance des animations"],quiz:[{q:"@keyframes definit:",o:["Une variable","Les etapes d une animation","Un selecteur","Une media query"],a:1}]},
+          {id:"h9",name:"CSS Variables et preprocesseurs",concepts:["--custom-property","var() function","Sass/SCSS bases","Nesting","Mixins","BEM methodologie"],quiz:[{q:"En CSS natif une variable se declare avec:",o:["$variable","@variable","--variable","var_name"],a:2}]}
+        ]},
+        {id:"jsbase",name:"JavaScript debutant",lessons:[
+          {id:"j1",name:"Introduction a JavaScript",concepts:["JS langage du web","Console navigateur","script tag et fichier externe","Variables let const var","Typage dynamique","Premier programme"],quiz:[{q:"JavaScript s execute principalement dans:",o:["Le serveur","Le navigateur","La base de donnees","Le terminal"],a:1},{q:"const declare une variable:",o:["Modifiable","Constante (non reassignable)","Globale","Temporaire"],a:1}]},
+          {id:"j2",name:"Types et operateurs JS",concepts:["string number boolean null undefined","typeof operator","Egalite == vs ===","Operateurs logiques","Template literals","Coercion de type"],quiz:[{q:"=== verifie:",o:["La valeur seulement","La valeur ET le type","Le type seulement","Rien"],a:1}]},
+          {id:"j3",name:"Conditions en JS",concepts:["if else if else","switch case break default","Ternaire condition ? a : b","Nullish coalescing ??","Optional chaining ?.","Truthy et falsy values"],quiz:[{q:"Quelle valeur est falsy en JS?",o:["1","'hello'","0","[]"],a:2}]},
+          {id:"j4",name:"Boucles en JS",concepts:["for classique","while et do while","for...of pour tableaux","for...in pour objets","break et continue","forEach methode"],quiz:[{q:"for...of itere sur:",o:["Les cles d un objet","Les valeurs d un iterable","Les index","Les proprietes"],a:1}]},
+          {id:"j5",name:"Fonctions JS",concepts:["function declaration","function expression","Arrow functions =>","Parametres par defaut","Rest parameters ...args","Callback functions"],quiz:[{q:"Une arrow function s ecrit:",o:["function(){}","()=>{}","def():","func():"],a:1}]},
+          {id:"j6",name:"Tableaux JS",concepts:["Array creation et acces","push pop shift unshift","map filter reduce","find findIndex includes","sort et reverse","Spread operator [...]"],quiz:[{q:"map() retourne:",o:["Un boolean","Un nouveau tableau transforme","Un nombre","Un objet"],a:1},{q:"filter() garde les elements qui:",o:["Sont premiers","Retournent true pour la condition","Sont des strings","Sont undefined"],a:1}]},
+          {id:"j7",name:"Objets JS",concepts:["Creation objet litteral","Methodes d objet","Destructuring {a,b}","Spread operator {...}","Object.keys/values/entries","JSON stringify/parse"],quiz:[{q:"JSON.parse() transforme:",o:["Un objet en string","Une string JSON en objet","Un nombre en string","Un tableau en objet"],a:1}]},
+          {id:"j8",name:"DOM manipulation",concepts:["document.getElementById/querySelector","createElement appendChild","innerHTML vs textContent","classList add remove toggle","style modification","parentNode childNodes"],quiz:[{q:"querySelector selectionne:",o:["Tous les elements","Le premier element correspondant","Le dernier element","Un element aleatoire"],a:1}]},
+          {id:"j9",name:"Evenements JS",concepts:["addEventListener","click submit keydown keyup","event object e.target","preventDefault","Event bubbling/capturing","Event delegation"],quiz:[{q:"preventDefault() empeche:",o:["L execution JS","Le comportement par defaut du navigateur","La creation de variables","L affichage de la page"],a:1}]}
+        ]},
+        {id:"jsavance",name:"JavaScript avance",lessons:[
+          {id:"ja1",name:"Closures et scope",concepts:["Scope global local bloc","Closure definition","Lexical scoping","IIFE pattern","Module pattern","Exemples pratiques"],quiz:[{q:"Une closure est:",o:["Un type de boucle","Une fonction qui garde acces a son scope parent","Un objet special","Une erreur"],a:1}]},
+          {id:"ja2",name:"Programmation asynchrone",concepts:["Callbacks","Promises then catch finally","async/await","Promise.all Promise.race","Event loop","Microtasks et macrotasks"],quiz:[{q:"async/await est du sucre syntaxique pour:",o:["Les boucles","Les Promises","Les classes","Les tableaux"],a:1},{q:"await attend:",o:["Une boucle","La resolution d une Promise","Un click","Un timer"],a:1}]},
+          {id:"ja3",name:"Fetch API et requetes HTTP",concepts:["fetch() syntax","GET POST PUT DELETE","Headers et body","Response JSON","Error handling","CORS basics"],quiz:[{q:"fetch() retourne:",o:["Un tableau","Une Promise","Un string","Un nombre"],a:1}]},
+          {id:"ja4",name:"ES6+ fonctionnalites",concepts:["let const vs var","Destructuring","Spread rest operators","Optional chaining ?.","Nullish coalescing ??","Map Set WeakMap WeakSet"],quiz:[{q:"Le spread operator ... permet de:",o:["Commenter du code","Etendre un iterable","Creer une boucle","Definir un type"],a:1}]},
+          {id:"ja5",name:"Classes et heritage JS",concepts:["class syntax","constructor","extends et super","Methodes statiques","Getters et setters","Polymorphisme"],quiz:[{q:"super() dans une classe fille appelle:",o:["La methode toString","Le constructeur du parent","Une methode statique","Un getter"],a:1}]},
+          {id:"ja6",name:"Modules ES6",concepts:["export default et named","import syntax","Dynamic imports","Tree shaking","Bundlers Webpack Vite","Package.json"],quiz:[{q:"export default permet d exporter:",o:["Plusieurs elements","Un seul element principal","Des variables globales","Des commentaires"],a:1}]}
+        ]},
+        {id:"git_mod",name:"Git",lessons:[
+          {id:"g1",name:"Introduction a Git",concepts:["Gestion de version pourquoi","Git vs GitHub","Repository local/remote","git init et git clone","Historique des commits","Staging area concept"],quiz:[{q:"Git est:",o:["Un hebergeur web","Un systeme de gestion de version","Un langage","Un editeur"],a:1}]},
+          {id:"g2",name:"Commandes Git essentielles",concepts:["git add commit push pull","git status et git log","git diff","git stash","git reset","Fichier .gitignore"],quiz:[{q:"git add sert a:",o:["Supprimer des fichiers","Ajouter des fichiers au staging","Creer une branche","Fusionner des branches"],a:1},{q:".gitignore sert a:",o:["Ignorer des fichiers dans le suivi Git","Supprimer des fichiers","Renommer des fichiers","Creer des dossiers"],a:0}]},
+          {id:"g3",name:"Branches et merge",concepts:["git branch","git checkout/switch","git merge","Conflits de merge","git rebase bases","Feature branch workflow"],quiz:[{q:"Une branche Git permet de:",o:["Supprimer du code","Travailler sur une fonctionnalite separement","Sauvegarder des images","Envoyer des mails"],a:1}]},
+          {id:"g4",name:"GitHub collaboration",concepts:["Pull requests","Code review","Fork et clone","Issues et projects","GitHub Actions bases","README et documentation"],quiz:[{q:"Une Pull Request permet de:",o:["Telecharger du code","Proposer des modifications pour review","Supprimer un repo","Creer un compte"],a:1}]}
+        ]},
+        {id:"ia_front",name:"IA et Front-end",lessons:[
+          {id:"if1",name:"Introduction a l IA pour le front",concepts:["IA generative et dev web","Copilot et assistants code","Prompting pour le code","Automatisation des taches front","Ethique et IA","Limites de l IA"],quiz:[{q:"GitHub Copilot est:",o:["Un navigateur","Un assistant de code par IA","Un framework CSS","Un langage"],a:1}]},
+          {id:"if2",name:"Utiliser l IA pour generer du code front",concepts:["Prompts efficaces","Generation HTML CSS JS","Correction de bugs avec IA","Optimisation du code","Tests generes par IA"],quiz:[{q:"Un bon prompt pour l IA doit etre:",o:["Vague","Precis et contextuel","Le plus court possible","En anglais uniquement"],a:1}]}
+        ]}
+      ]
+    },
+    {
+      id:"back",name:"Back-end + IA",modules:[
+        {id:"php",name:"PHP",lessons:[
+          {id:"ph1",name:"Introduction a PHP",concepts:["PHP langage serveur","Balises <?php ?>","echo et print","Variables $","Types de donnees PHP","Serveur local XAMPP/WAMP"],quiz:[{q:"PHP s execute cote:",o:["Client","Serveur","Navigateur","Terminal uniquement"],a:1},{q:"Une variable PHP commence par:",o:["#","$","@","&"],a:1}]},
+          {id:"ph2",name:"Conditions et boucles PHP",concepts:["if elseif else","switch case","for while do-while","foreach pour tableaux","break continue","match expression PHP 8"],quiz:[{q:"foreach en PHP itere sur:",o:["Des nombres","Des tableaux","Des fichiers","Des classes"],a:1}]},
+          {id:"ph3",name:"Fonctions PHP",concepts:["function declaration","Parametres types","Valeur de retour","Fonctions anonymes","Arrow functions PHP","Fonctions builtin"],quiz:[{q:"En PHP une arrow function s ecrit:",o:["=> {}","fn() =>","() -> {}","lambda:"],a:1}]},
+          {id:"ph4",name:"Tableaux PHP",concepts:["Array indexe","Array associatif","Array multidimensionnel","array_push array_pop","array_map array_filter","sort asort ksort"],quiz:[{q:"Un tableau associatif utilise:",o:["Des index numeriques","Des cles nommees","Des booleans","Des fichiers"],a:1}]},
+          {id:"ph5",name:"Formulaires et PHP",concepts:["$_GET et $_POST","Superglobales","Validation des donnees","htmlspecialchars","filter_var","CSRF protection"],quiz:[{q:"$_POST recupere les donnees envoyees par:",o:["URL","Formulaire methode POST","Cookies","Session"],a:1}]},
+          {id:"ph6",name:"PHP et MySQL",concepts:["PDO connexion","Requetes preparees","CRUD avec PHP","SQL injection prevention","Transactions","fetch et fetchAll"],quiz:[{q:"PDO signifie:",o:["PHP Data Object","Personal Database Online","PHP Direct Output","Program Data Operator"],a:0},{q:"Les requetes preparees protegent contre:",o:["Les virus","Les injections SQL","Les erreurs CSS","Les bugs HTML"],a:1}]},
+          {id:"ph7",name:"Sessions et cookies PHP",concepts:["session_start()","$_SESSION","setcookie()","$_COOKIE","Securite des sessions","Expiration et duree de vie"],quiz:[{q:"$_SESSION stocke les donnees:",o:["Dans le navigateur","Sur le serveur","Dans l URL","Dans un fichier JS"],a:1}]},
+          {id:"ph8",name:"POO en PHP",concepts:["class et new","Constructeur __construct","public private protected","Heritage extends","Interfaces et abstract","Namespaces et autoload"],quiz:[{q:"private en PHP signifie:",o:["Accessible partout","Accessible dans la classe seulement","Accessible aux enfants","Accessible en dehors"],a:1}]}
+        ]},
+        {id:"python",name:"Python",lessons:[
+          {id:"py1",name:"Introduction a Python",concepts:["Python langage polyvalent","Indentation obligatoire","print() et input()","Variables sans type declare","Commentaires # et docstrings","Python 3 vs Python 2"],quiz:[{q:"En Python l indentation est:",o:["Optionnelle","Obligatoire (definit les blocs)","Interdite","Uniquement pour les commentaires"],a:1},{q:"print() sert a:",o:["Lire un fichier","Afficher du texte","Creer une variable","Importer un module"],a:1}]},
+          {id:"py2",name:"Types de donnees Python",concepts:["int float str bool","list tuple dict set","None type","Type conversion","f-strings formatage","type() function"],quiz:[{q:"Un tuple est:",o:["Modifiable","Immutable","Un dictionnaire","Une fonction"],a:1}]},
+          {id:"py3",name:"Conditions et boucles Python",concepts:["if elif else","for in range()","while","break continue pass","List comprehension","enumerate() zip()"],quiz:[{q:"List comprehension permet de:",o:["Creer des fonctions","Creer des listes de maniere concise","Gerer les erreurs","Importer des modules"],a:1}]},
+          {id:"py4",name:"Fonctions Python",concepts:["def keyword","*args **kwargs","return value","Lambda functions","Decorateurs bases","Type hints"],quiz:[{q:"**kwargs recoit:",o:["Des arguments positionnels","Des arguments nommes","Des fichiers","Des modules"],a:1}]},
+          {id:"py5",name:"Fichiers et exceptions Python",concepts:["open() read write","with statement context manager","try except finally","raise exception","Custom exceptions","os et pathlib"],quiz:[{q:"Le with statement garantit:",o:["La vitesse","La fermeture automatique du fichier","La creation du fichier","La suppression du fichier"],a:1}]},
+          {id:"py6",name:"POO Python",concepts:["class et self","__init__ constructeur","Heritage","Methodes speciales __str__ __repr__","Property et decorateurs","Encapsulation conventions"],quiz:[{q:"self en Python represente:",o:["La classe","L instance courante","Une variable globale","Un module"],a:1}]},
+          {id:"py7",name:"Modules et packages Python",concepts:["import et from import","pip install","requirements.txt","venv environnement virtuel","__init__.py","PyPI repository"],quiz:[{q:"pip est:",o:["Un editeur","Le gestionnaire de packages Python","Un framework","Un navigateur"],a:1}]},
+          {id:"py8",name:"Python pour le web Flask/Django intro",concepts:["Flask micro-framework","Routes et vues","Templates Jinja2","Django MTV pattern","ORM bases","API REST avec Python"],quiz:[{q:"Flask est:",o:["Un framework lourd","Un micro-framework Python","Un langage","Un editeur"],a:1}]}
+        ]},
+        {id:"ia_back",name:"IA et Back-end",lessons:[
+          {id:"ib1",name:"IA pour le back-end",concepts:["IA generative et backend","Automatisation des APIs","Generation de requetes SQL","Tests automatiques avec IA","Optimisation de code","Securite assistee par IA"],quiz:[{q:"L IA peut aider en backend pour:",o:["Le design UI","Generer et optimiser du code","Creer des images","Modifier le HTML"],a:1}]},
+          {id:"ib2",name:"Machine Learning bases",concepts:["Apprentissage supervise/non supervise","Datasets d entrainement","Regression et classification","Scikit-learn intro","Evaluation de modele","Overfitting et underfitting"],quiz:[{q:"L apprentissage supervise utilise:",o:["Des donnees sans labels","Des donnees avec labels","Aucune donnee","Des images uniquement"],a:1}]},
+          {id:"ib3",name:"Introduction aux reseaux de neurones",concepts:["Neurone artificiel","Couches input hidden output","Poids et biais","Fonction d activation","Backpropagation","Frameworks TensorFlow PyTorch"],quiz:[{q:"Un reseau de neurones est compose de:",o:["Fichiers","Couches de neurones connectes","Bases de donnees","Serveurs web"],a:1}]}
+        ]}
+      ]
+    }
+  ]
+};
+
+// ====== LEARNING ENGINE ======
+class LearningEngine {
+  constructor() {
+    this.data = JSON.parse(localStorage.getItem('nc3_data')) || {};
+    if (!this.data.lessons) this.data.lessons = {};
+    if (!this.data.quizHistory) this.data.quizHistory = [];
+    if (!this.data.sessionHistory) this.data.sessionHistory = [];
+    if (!this.data.streak) this.data.streak = {current:0,best:0,lastDate:null};
+    if (!this.data.totalStudyTime) this.data.totalStudyTime = 0;
+    if (!this.data.startDate) this.data.startDate = Date.now();
+    this.sessionStart = Date.now();
+    this.save();
+  }
+  save() { localStorage.setItem('nc3_data', JSON.stringify(this.data)); }
+  
+  getLessonData(lessonId) {
+    if (!this.data.lessons[lessonId]) {
+      this.data.lessons[lessonId] = {
+        done: false,
+        quizAttempts: 0,
+        quizCorrect: 0,
+        quizHistory: [],
+        difficulty: 0, // 0-5, higher = harder for student
+        srLevel: 0, // spaced repetition: 0=new,1=learning,2=review,3=mastered
+        srNextReview: null,
+        timeSpent: 0,
+        lastStudied: null,
+        wrongAnswers: [] // track which questions were answered wrong
+      };
+    }
+    return this.data.lessons[lessonId];
+  }
+  
+  markDone(lessonId, done) {
+    const ld = this.getLessonData(lessonId);
+    ld.done = done;
+    if (done) ld.lastStudied = Date.now();
+    this.save();
+  }
+  
+  recordQuiz(lessonId, questionIndex, correct, timeTaken) {
+    const ld = this.getLessonData(lessonId);
+    ld.quizAttempts++;
+    if (correct) ld.quizCorrect++;
+    else ld.wrongAnswers.push(questionIndex);
+    ld.quizHistory.push({q: questionIndex, correct, time: timeTaken, date: Date.now()});
+    
+    // Update difficulty based on recent performance
+    const recent = ld.quizHistory.slice(-5);
+    const recentCorrect = recent.filter(r => r.correct).length;
+    ld.difficulty = Math.max(0, Math.min(5, 5 - recentCorrect));
+    
+    // Update spaced repetition level
+    if (recentCorrect >= 4) ld.srLevel = Math.min(3, ld.srLevel + 1);
+    else if (recentCorrect <= 1) ld.srLevel = Math.max(0, ld.srLevel - 1);
+    
+    // Set next review time based on SR level
+    const intervals = [0, 1*86400000, 3*86400000, 7*86400000]; // 0, 1day, 3days, 7days
+    ld.srNextReview = Date.now() + (intervals[ld.srLevel] || 0);
+    
+    // Global quiz history
+    this.data.quizHistory.push({lessonId, questionIndex, correct, timeTaken, date: Date.now()});
+    
+    this.save();
+  }
+  
+  updateStreak() {
+    const today = new Date().toDateString();
+    if (this.data.streak.lastDate !== today) {
+      const yesterday = new Date(Date.now() - 86400000).toDateString();
+      if (this.data.streak.lastDate === yesterday) {
+        this.data.streak.current++;
+      } else if (this.data.streak.lastDate !== today) {
+        this.data.streak.current = 1;
+      }
+      this.data.streak.lastDate = today;
+      this.data.streak.best = Math.max(this.data.streak.best, this.data.streak.current);
+      this.save();
+    }
+  }
+  
+  getGlobalStats() {
+    let totalLessons = 0, doneLessons = 0, totalQuiz = 0, correctQuiz = 0;
+    let weakTopics = [], strongTopics = [];
+    
+    FORMATION.matieres.forEach(m => m.modules.forEach(mod => mod.lessons.forEach(l => {
+      totalLessons++;
+      const ld = this.getLessonData(l.id);
+      if (ld.done) doneLessons++;
+      totalQuiz += ld.quizAttempts;
+      correctQuiz += ld.quizCorrect;
+      if (ld.quizAttempts >= 3 && ld.difficulty >= 3) weakTopics.push({name: l.name, diff: ld.difficulty, id: l.id});
+      if (ld.quizAttempts >= 3 && ld.difficulty <= 1) strongTopics.push({name: l.name, diff: ld.difficulty, id: l.id});
+    })));
+    
+    return {
+      totalLessons, doneLessons, totalQuiz, correctQuiz,
+      accuracy: totalQuiz > 0 ? Math.round(correctQuiz/totalQuiz*100) : 0,
+      progress: Math.round(doneLessons/totalLessons*100),
+      weakTopics: weakTopics.sort((a,b) => b.diff - a.diff).slice(0,5),
+      strongTopics: strongTopics.slice(0,5),
+      streak: this.data.streak,
+      daysStudying: Math.ceil((Date.now() - this.data.startDate) / 86400000)
+    };
+  }
+  
+  getDueReviews() {
+    const due = [];
+    FORMATION.matieres.forEach(m => m.modules.forEach(mod => mod.lessons.forEach(l => {
+      const ld = this.getLessonData(l.id);
+      if (ld.srNextReview && ld.srNextReview <= Date.now() && ld.srLevel < 3) {
+        due.push({lesson: l, data: ld, module: mod.name, matiere: m.name});
+      }
+    })));
+    return due;
+  }
+  
+  getRecommendedNext() {
+    // Find first undone lesson or lesson needing review
+    const due = this.getDueReviews();
+    if (due.length > 0) return {type: 'review', item: due[0]};
+    
+    for (const m of FORMATION.matieres) {
+      for (const mod of m.modules) {
+        for (const l of mod.lessons) {
+          const ld = this.getLessonData(l.id);
+          if (!ld.done) return {type: 'new', lesson: l, module: mod, matiere: m};
+        }
+      }
+    }
+    return null;
+  }
+  
+  getAnswerSpeed() {
+    const recent = this.data.quizHistory.slice(-20);
+    if (recent.length === 0) return 'N/A';
+    const avgTime = recent.reduce((s,r) => s + (r.timeTaken||5000), 0) / recent.length;
+    if (avgTime < 5000) return {label:'Rapide', class:'speed-fast'};
+    if (avgTime < 10000) return {label:'Normal', class:'speed-normal'};
+    return {label:'Lent', class:'speed-slow'};
+  }
+}
+
+const engine = new LearningEngine();
+engine.updateStreak();
+
+// ====== APP STATE ======
+let state = {
+  tab: 'formation',
+  openMatiere: null,
+  openModule: null,
+  activeLesson: null,
+  quizMode: false,
+  quizLesson: null,
+  quizIndex: 0,
+  quizAnswered: false,
+  quizStartTime: 0,
+  flashMode: false,
+  flashIndex: 0,
+  flashFlipped: false
+};
+
+function setState(updates) {
+  Object.assign(state, updates);
+  render();
+}
+
+// ====== MATRIX BACKGROUND ======
+function initMatrix() {
+  const c = document.getElementById('matrix-bg');
+  const ctx = c.getContext('2d');
+  c.width = window.innerWidth;
+  c.height = window.innerHeight;
+  const cols = Math.floor(c.width / 14);
+  const drops = Array(cols).fill(0);
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789{}[]()<>=;:+-*/&|!?#@$%^~';
+  setInterval(() => {
+    ctx.fillStyle = 'rgba(5,5,12,0.05)';
+    ctx.fillRect(0, 0, c.width, c.height);
+    ctx.fillStyle = '#22d3ee';
+    ctx.font = '12px JetBrains Mono';
+    for (let i = 0; i < cols; i++) {
+      ctx.fillText(chars[Math.floor(Math.random() * chars.length)], i * 14, drops[i] * 14);
+      if (drops[i] * 14 > c.height && Math.random() > 0.975) drops[i] = 0;
+      drops[i]++;
+    }
+  }, 50);
+  window.addEventListener('resize', () => { c.width = window.innerWidth; c.height = window.innerHeight; });
+}
+
+// ====== TICKER ======
+function renderTicker() {
+  const snippets = [
+    'const ai = await trainModel(data);',
+    'function fibonacci(n) { return n <= 1 ? n : fibonacci(n-1) + fibonacci(n-2); }',
+    'app.get("/api/users", (req, res) => res.json(users));',
+    'SELECT * FROM students WHERE grade > 90;',
+    'git commit -m "feat: add neural network module"',
+    'docker build -t nightcode-academy .',
+    'pip install tensorflow scikit-learn',
+    'const [state, setState] = useState(initialValue);',
+    'model.fit(X_train, y_train, epochs=50)',
+    'npm run build && npm run deploy'
+  ];
+  const doubled = [...snippets, ...snippets].map(s => '<span style="color:#22d3ee80">'+s+'</span>').join('<span style="color:#a78bfa40;margin:0 10px">|</span>');
+  return '<div class="ticker"><div class="ticker-inner">'+doubled+'</div></div>';
+}
+
+// ====== PROGRESS RING ======
+function progressRing(percent, size=60, color='#22d3ee') {
+  const r = (size - 8) / 2;
+  const circ = 2 * Math.PI * r;
+  const offset = circ - (percent / 100) * circ;
+  return '<div class="progress-ring" style="width:'+size+'px;height:'+size+'px">' +
+    '<svg width="'+size+'" height="'+size+'"><circle cx="'+(size/2)+'" cy="'+(size/2)+'" r="'+r+'" fill="none" stroke="#1a1a2e" stroke-width="4"/>' +
+    '<circle cx="'+(size/2)+'" cy="'+(size/2)+'" r="'+r+'" fill="none" stroke="'+color+'" stroke-width="4" stroke-linecap="round" stroke-dasharray="'+circ+'" stroke-dashoffset="'+offset+'"/></svg>' +
+    '<div class="label" style="color:'+color+'">'+percent+'%</div></div>';
+}
+
+// ====== SR BADGE ======
+function srBadge(level) {
+  const labels = ['Nouveau','En cours','Revision','Maitrise'];
+  const classes = ['sr-new','sr-learning','sr-review','sr-mastered'];
+  return '<span class="sr-badge '+classes[level]+'">'+labels[level]+'</span>';
+}
+
+// ====== DIFFICULTY BAR ======
+function diffBar(level) {
+  let html = '<div class="difficulty-bar">';
+  for (let i = 0; i < 5; i++) {
+    let cls = i < level ? (level >= 4 ? 'filled hard' : level >= 2 ? 'filled medium' : 'filled') : '';
+    html += '<div class="diff-seg '+cls+'"></div>';
+  }
+  return html + '</div>';
+}
+
+// ====== MAIN RENDER ======
+function render() {
+  const root = document.getElementById('root');
+  const stats = engine.getGlobalStats();
+  const speed = engine.getAnswerSpeed();
+  
+  let html = '';
+  
+  // HEADER
+  html += '<div class="card" style="text-align:center;border-color:#22d3ee30">';
+  html += '<h1 style="font-size:20px">NightCode Academy <span class="violet">v3</span></h1>';
+  html += '<div style="font-size:11px;color:#888;margin-top:4px">Graduate Developpeur IA ▸ Studi ▸ Promo JUIN-JUILLET 2026</div>';
+  html += '<div style="display:flex;justify-content:center;align-items:center;gap:20px;margin-top:10px">';
+  html += progressRing(stats.progress, 50, '#22d3ee');
+  html += '<div style="text-align:left"><div class="cyan" style="font-family:JetBrains Mono;font-size:16px">XP: '+stats.progress+'%</div>';
+  html += '<div style="font-size:11px;color:#888">'+stats.doneLessons+'/'+stats.totalLessons+' lecons</div></div>';
+  if (stats.streak.current > 0) html += '<div style="text-align:center"><span class="streak-fire">&#128293;</span><div class="cyan" style="font-size:14px;font-family:JetBrains Mono">'+stats.streak.current+'j</div><div style="font-size:10px;color:#888">streak</div></div>';
+  if (typeof speed === 'object') html += '<div class="speed-indicator '+speed.class+'">'+speed.label+'</div>';
+  html += '</div></div>';
+  
+  // TICKER
+  html += renderTicker();
+  
+  // TABS
+  html += '<div class="tabs">';
+  const tabs = [
+    {id:'formation',icon:'&#x1F4CB;',label:'Formation'},
+    {id:'learn',icon:'&#x1F4D6;',label:'Apprendre'},
+    {id:'quiz',icon:'&#127942;',label:'Quiz Adaptatif'},
+    {id:'flash',icon:'&#9889;',label:'Flash Cards'},
+    {id:'stats',icon:'&#x1F4CA;',label:'Statistiques'},
+    {id:'review',icon:'&#x1F504;',label:'Revisions'}
+  ];
+  tabs.forEach(t => {
+    html += '<button class="tab-btn '+(state.tab===t.id?'active':'')+'" onclick="setState({tab:\''+t.id+'\',quizMode:false,flashMode:false})">'+t.icon+' '+t.label+'</button>';
+  });
+  html += '</div>';
+  
+  // TAB CONTENT
+  if (state.tab === 'formation') html += renderFormation(stats);
+  else if (state.tab === 'learn') html += renderLearn();
+  else if (state.tab === 'quiz') html += renderQuiz();
+  else if (state.tab === 'flash') html += renderFlash();
+  else if (state.tab === 'stats') html += renderStats(stats);
+  else if (state.tab === 'review') html += renderReview();
+  
+  root.innerHTML = html;
+}
+
+// ====== FORMATION TAB ======
+function renderFormation(stats) {
+  let html = '<div class="card">';
+  html += '<h2>&#x1F4CB; Ma Formation</h2>';
+  html += '<p style="font-size:12px;color:#888;margin-bottom:12px">Clique sur une matiere pour voir les modules et lecons. Coche les lecons terminees.</p>';
+  
+  FORMATION.matieres.forEach((mat, mi) => {
+    let matDone = 0, matTotal = 0;
+    mat.modules.forEach(mod => mod.lessons.forEach(l => {
+      matTotal++;
+      if (engine.getLessonData(l.id).done) matDone++;
+    }));
+    const matPct = matTotal > 0 ? Math.round(matDone/matTotal*100) : 0;
+    const isOpen = state.openMatiere === mi;
+    
+    html += '<div style="margin:6px 0;border:1px solid #1a1a2e;border-radius:10px;overflow:hidden">';
+    html += '<div class="module-header" onclick="setState({openMatiere:'+(isOpen?'null':mi)+',openModule:null})">';
+    html += '<div><span style="color:'+(matPct===100?'#4ade80':'#a78bfa')+';font-family:JetBrains Mono;font-size:13px">'+(isOpen?'&#9660;':'&#9654;')+' '+mat.name+'</span>';
+    html += '<span style="font-size:11px;color:#888;margin-left:8px">'+mat.modules.length+' modules</span></div>';
+    html += '<div style="display:flex;align-items:center;gap:8px">'+progressRing(matPct, 36, matPct===100?'#4ade80':'#a78bfa');
+    html += '<span style="font-size:11px;color:#888">'+matDone+'/'+matTotal+'</span></div>';
+    html += '</div>';
+    
+    if (isOpen) {
+      html += '<div style="padding:0 10px 10px">';
+      mat.modules.forEach((mod, modi) => {
+        let modDone = 0;
+        mod.lessons.forEach(l => { if (engine.getLessonData(l.id).done) modDone++; });
+        const modPct = Math.round(modDone/mod.lessons.length*100);
+        const isModOpen = state.openModule === modi;
+        
+        html += '<div style="margin:4px 0;border:1px solid #ffffff08;border-radius:8px">';
+        html += '<div class="module-header" onclick="setState({openModule:'+(isModOpen?'null':modi)+'})" style="padding:6px 8px">';
+        html += '<div><span class="cyan" style="font-size:12px">'+(isModOpen?'&#9660;':'&#9654;')+' '+mod.name+'</span>';
+        html += '<span style="font-size:10px;color:#666;margin-left:6px">'+mod.lessons.length+' lecons</span></div>';
+        html += '<span style="font-size:11px;color:'+(modPct===100?'#4ade80':'#888')+'">'+modPct+'%</span>';
+        html += '</div>';
+        
+        if (isModOpen) {
+          html += '<div style="padding:4px 8px 8px">';
+          mod.lessons.forEach(l => {
+            const ld = engine.getLessonData(l.id);
+            html += '<div class="lesson-item">';
+            html += '<input type="checkbox" '+(ld.done?'checked':'')+' onchange="engine.markDone(\''+l.id+'\',this.checked);render()">';
+            html += '<span style="flex:1;font-size:12px;color:'+(ld.done?'#4ade80':'#e2e8f0')+'">'+l.name+'</span>';
+            html += srBadge(ld.srLevel);
+            if (ld.quizAttempts > 0) html += diffBar(ld.difficulty);
+            html += '<button class="expand-btn" onclick="event.stopPropagation();setState({tab:\'learn\',activeLesson:{lesson:JSON.parse(JSON.stringify(findLesson(\''+l.id+'\')))}})">&#x1F4D6;</button>';
+            html += '<button class="expand-btn" onclick="event.stopPropagation();startQuizForLesson(\''+l.id+'\')">&#127942;</button>';
+            html += '</div>';
+          });
+          html += '</div>';
+        }
+        html += '</div>';
+      });
+      html += '</div>';
+    }
+    html += '</div>';
+  });
+  
+  html += '</div>';
+  return html;
+}
+
+function findLesson(id) {
+  for (const m of FORMATION.matieres)
+    for (const mod of m.modules)
+      for (const l of mod.lessons)
+        if (l.id === id) return {lesson: l, module: mod, matiere: m};
+  return null;
+}
+
+// ====== LEARN TAB ======
+function renderLearn() {
+  let html = '<div class="card">';
+  
+  if (state.activeLesson) {
+    const info = state.activeLesson.lesson ? state.activeLesson : state.activeLesson;
+    const found = findLesson(info.lesson ? info.lesson.id : info.id);
+    if (!found) { html += '<p>Lecon non trouvee</p></div>'; return html; }
+    const {lesson, module, matiere} = found;
+    const ld = engine.getLessonData(lesson.id);
+    
+    html += '<div class="flex-between">';
+    html += '<div><span style="font-size:10px;color:#888">'+matiere.name+' > '+module.name+'</span>';
+    html += '<h2 style="margin:4px 0">&#x1F4D6; '+lesson.name+'</h2></div>';
+    html += '<button class="tab-btn" onclick="setState({activeLesson:null})">&#x2190; Retour</button>';
+    html += '</div>';
+    
+    // Key concepts
+    html += '<h3>&#x1F3AF; Concepts cles</h3>';
+    html += '<div style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0">';
+    lesson.concepts.forEach(c => {
+      html += '<span class="badge bg-cyan">'+c+'</span>';
+    });
+    html += '</div>';
+    
+    // Detailed explanation for each concept
+    html += '<h3>&#x1F50D; Explication detaillee</h3>';
+    lesson.concepts.forEach((c, i) => {
+      html += '<div class="concept-card">';
+      html += '<h4>&#9654; '+c+'</h4>';
+      html += '<p>'+getConceptExplanation(lesson.id, i)+'</p>';
+      html += '</div>';
+    });
+    
+    // Quick quiz link
+    html += '<div style="margin-top:16px;text-align:center">';
+    html += '<button class="tab-btn active" style="padding:12px 24px;font-size:14px" onclick="startQuizForLesson(\''+lesson.id+'\')">&#127942; Tester mes connaissances</button>';
+    html += '</div>';
+    
+  } else {
+    // Show recommended next
+    const rec = engine.getRecommendedNext();
+    html += '<h2>&#x1F4D6; Apprendre</h2>';
+    html += '<p style="font-size:12px;color:#888;margin-bottom:12px">Selectionne une lecon depuis l onglet Formation, ou suis la recommandation ci-dessous.</p>';
+    
+    if (rec) {
+      if (rec.type === 'review') {
+        html += '<div class="concept-card" style="border-color:#fbbf2440">';
+        html += '<h4 class="yellow">&#x1F504; Revision recommandee</h4>';
+        html += '<p>'+rec.item.lesson.name+' <span style="color:#888">('+rec.item.module+')</span></p>';
+        html += '<button class="tab-btn" style="margin-top:8px" onclick="setState({activeLesson:{lesson:JSON.parse(JSON.stringify(findLesson(\''+rec.item.lesson.id+'\')))}})">Reviser maintenant</button>';
+        html += '</div>';
+      } else {
+        html += '<div class="concept-card" style="border-color:#22d3ee40">';
+        html += '<h4 class="cyan">&#x1F680; Prochaine lecon</h4>';
+        html += '<p>'+rec.lesson.name+' <span style="color:#888">('+rec.module.name+')</span></p>';
+        html += '<button class="tab-btn" style="margin-top:8px" onclick="setState({activeLesson:{lesson:JSON.parse(JSON.stringify(findLesson(\''+rec.lesson.id+'\')))}})">Commencer</button>';
+        html += '</div>';
+      }
+    }
+    
+    // List all modules quick access
+    html += '<h3 style="margin-top:16px">Acces rapide par module</h3>';
+    FORMATION.matieres.forEach(m => {
+      m.modules.forEach(mod => {
+        html += '<div style="margin:4px 0">';
+        html += '<button class="tab-btn" style="width:100%;text-align:left;padding:6px 10px;font-size:11px" onclick="setState({tab:\'formation\',openMatiere:'+FORMATION.matieres.indexOf(m)+',openModule:'+m.modules.indexOf(mod)+'})">';
+        html += '<span class="violet">'+m.name+'</span> &#9654; <span class="cyan">'+mod.name+'</span>';
+        html += ' <span style="color:#888">('+mod.lessons.length+' lecons)</span></button></div>';
+      });
+    });
+  }
+  
+  html += '</div>';
+  return html;
+}
+
+// ====== QUIZ TAB ======
+function startQuizForLesson(lessonId) {
+  const found = findLesson(lessonId);
+  if (!found || !found.lesson.quiz || found.lesson.quiz.length === 0) return;
+  setState({tab:'quiz', quizMode:true, quizLesson:found.lesson, quizIndex:0, quizAnswered:false, quizStartTime:Date.now()});
+}
+
+function renderQuiz() {
+  let html = '<div class="card">';
+  
+  if (state.quizMode && state.quizLesson) {
+    const lesson = state.quizLesson;
+    const q = lesson.quiz[state.quizIndex];
+    const ld = engine.getLessonData(lesson.id);
+    const total = lesson.quiz.length;
+    
+    html += '<div class="flex-between">';
+    html += '<h2>&#127942; Quiz: '+lesson.name+'</h2>';
+    html += '<span class="cyan" style="font-family:JetBrains Mono;font-size:13px">'+( state.quizIndex+1)+'/'+total+'</span>';
+    html += '</div>';
+    
+    // Progress bar
+    html += '<div class="xp-bar" style="margin:10px 0"><div class="xp-fill" style="width:'+((state.quizIndex+1)/total*100)+'%"></div></div>';
+    
+    // Question
+    html += '<div style="padding:16px;background:#0d0d1a;border-radius:10px;margin:12px 0">';
+    html += '<p style="font-size:15px;color:#e2e8f0;line-height:1.6">'+q.q+'</p>';
+    html += '</div>';
+    
+    // Options
+    q.o.forEach((opt, i) => {
+      let cls = 'quiz-option';
+      if (state.quizAnswered) {
+        cls += ' disabled';
+        if (i === q.a) cls += ' correct';
+        else if (i === state.quizSelectedAnswer && i !== q.a) cls += ' wrong';
+      }
+      html += '<button class="'+cls+'" onclick="answerQuiz('+i+')">'+String.fromCharCode(65+i)+'. '+opt+'</button>';
+    });
+    
+    // Feedback
+    if (state.quizAnswered) {
+      const correct = state.quizSelectedAnswer === q.a;
+      html += '<div style="padding:12px;margin-top:10px;border-radius:8px;background:'+(correct?'#4ade8010':'#f8717110')+';border:1px solid '+(correct?'#4ade8040':'#f8717140')+'">';
+      html += '<span style="color:'+(correct?'#4ade80':'#f87171')+';font-weight:700">'+(correct?'&#10003; Correct!':'&#10007; Incorrect')+'</span>';
+      if (!correct) html += '<div style="font-size:12px;color:#888;margin-top:4px">La bonne reponse est: <span class="green">'+q.o[q.a]+'</span></div>';
+      html += '</div>';
+      
+      if (state.quizIndex < total - 1) {
+        html += '<button class="tab-btn active" style="margin-top:10px;padding:10px 20px" onclick="setState({quizIndex:state.quizIndex+1,quizAnswered:false,quizStartTime:Date.now()})">Question suivante &#x279C;</button>';
+      } else {
+        // Quiz complete - show summary
+        html += '<div style="text-align:center;margin-top:16px;padding:16px;background:#0a0a14;border-radius:10px">';
+        html += '<h3 class="cyan">Quiz termine!</h3>';
+        const accuracy = ld.quizAttempts > 0 ? Math.round(ld.quizCorrect/ld.quizAttempts*100) : 0;
+        html += '<div class="stat-val cyan" style="font-size:30px;margin:8px 0">'+accuracy+'%</div>';
+        html += '<div style="color:#888;font-size:12px">Precision globale sur cette lecon</div>';
+        html += '<div style="margin-top:12px">';
+        html += '<button class="tab-btn" style="margin:4px" onclick="startQuizForLesson(\''+lesson.id+'\')">&#x1F504; Recommencer</button>';
+        html += '<button class="tab-btn" style="margin:4px" onclick="setState({tab:\'formation\',quizMode:false})">&#x1F4CB; Formation</button>';
+        html += '</div></div>';
+      }
+    }
+    
+  } else {
+    // Quiz mode selection
+    html += '<h2>&#127942; Quiz Adaptatif</h2>';
+    html += '<p style="font-size:12px;color:#888;margin-bottom:12px">Choisis un mode de quiz ou laisse le systeme choisir.</p>';
+    
+    // Smart quiz - based on weak areas
+    const weakLessons = [];
+    FORMATION.matieres.forEach(m => m.modules.forEach(mod => mod.lessons.forEach(l => {
+      const ld = engine.getLessonData(l.id);
+      if (l.quiz && l.quiz.length > 0) {
+        if (ld.difficulty >= 2 || ld.quizAttempts === 0) weakLessons.push(l);
+      }
+    })));
+    
+    if (weakLessons.length > 0) {
+      html += '<div class="concept-card" style="border-color:#f472b640">';
+      html += '<h4 class="rose">&#x1F3AF; Quiz intelligent (points faibles)</h4>';
+      html += '<p style="font-size:12px;color:#888">Questions ciblees sur tes sujets les plus faibles</p>';
+      const randomWeak = weakLessons[Math.floor(Math.random()*weakLessons.length)];
+      html += '<button class="tab-btn active" style="margin-top:8px" onclick="startQuizForLesson(\''+randomWeak.id+'\')">Lancer le quiz</button>';
+      html += '</div>';
+    }
+    
+    // All quizzes by module
+    html += '<h3 style="margin-top:16px">Par module</h3>';
+    FORMATION.matieres.forEach(m => {
+      m.modules.forEach(mod => {
+        const quizLessons = mod.lessons.filter(l => l.quiz && l.quiz.length > 0);
+        if (quizLessons.length === 0) return;
+        html += '<div style="margin:4px 0">';
+        html += '<div style="font-size:11px;color:#a78bfa;margin-bottom:4px">'+mod.name+'</div>';
+        quizLessons.forEach(l => {
+          const ld = engine.getLessonData(l.id);
+          html += '<button class="tab-btn" style="margin:2px;font-size:10px" onclick="startQuizForLesson(\''+l.id+'\')">'+l.name;
+          if (ld.quizAttempts > 0) html += ' <span style="color:'+(ld.difficulty<=1?'#4ade80':ld.difficulty>=3?'#f87171':'#fbbf24')+'">'+Math.round(ld.quizCorrect/ld.quizAttempts*100)+'%</span>';
+          html += '</button>';
+        });
+        html += '</div>';
+      });
+    });
+  }
+  
+  html += '</div>';
+  return html;
+}
+
+function answerQuiz(idx) {
+  if (state.quizAnswered) return;
+  const timeTaken = Date.now() - state.quizStartTime;
+  const q = state.quizLesson.quiz[state.quizIndex];
+  const correct = idx === q.a;
+  engine.recordQuiz(state.quizLesson.id, state.quizIndex, correct, timeTaken);
+  state.quizAnswered = true;
+  state.quizSelectedAnswer = idx;
+  render();
+}
+
+// ====== FLASH CARDS TAB ======
+function renderFlash() {
+  let html = '<div class="card">';
+  html += '<h2>&#9889; Flash Cards</h2>';
+  html += '<p style="font-size:12px;color:#888;margin-bottom:12px">Clique sur la carte pour reveler la reponse. Revision rapide des concepts cles.</p>';
+  
+  // Collect all concepts as flash cards
+  const cards = [];
+  FORMATION.matieres.forEach(m => m.modules.forEach(mod => mod.lessons.forEach(l => {
+    l.concepts.forEach((c, i) => {
+      cards.push({front: c, back: getConceptExplanation(l.id, i), lesson: l.name, module: mod.name});
+    });
+  })));
+  
+  if (cards.length === 0) { html += '<p>Aucune carte disponible</p></div>'; return html; }
+  
+  const ci = state.flashIndex % cards.length;
+  const card = cards[ci];
+  
+  html += '<div style="text-align:center;margin:8px 0">';
+  html += '<span class="cyan" style="font-family:JetBrains Mono">'+(ci+1)+'/'+cards.length+'</span>';
+  html += '<span style="font-size:11px;color:#888;margin-left:12px">'+card.module+' > '+card.lesson+'</span>';
+  html += '</div>';
+  
+  html += '<div class="flash-card '+(state.flashFlipped?'flipped':'')+'" onclick="setState({flashFlipped:!state.flashFlipped})" style="height:160px">';
+  html += '<div class="flash-inner">';
+  html += '<div class="flash-front"><div><div style="font-size:11px;color:#888;margin-bottom:8px">Concept</div><div style="font-size:16px;font-family:JetBrains Mono">'+card.front+'</div></div></div>';
+  html += '<div class="flash-back"><div><div style="font-size:11px;color:#4ade8080;margin-bottom:8px">Explication</div><div style="font-size:13px">'+card.back+'</div></div></div>';
+  html += '</div></div>';
+  
+  html += '<div style="display:flex;justify-content:center;gap:10px;margin-top:12px">';
+  html += '<button class="tab-btn" onclick="setState({flashIndex:Math.max(0,state.flashIndex-1),flashFlipped:false})">&#x2190; Precedent</button>';
+  html += '<button class="tab-btn" onclick="setState({flashIndex:Math.floor(Math.random()*'+cards.length+'),flashFlipped:false})">&#x1F3B2; Aleatoire</button>';
+  html += '<button class="tab-btn active" onclick="setState({flashIndex:state.flashIndex+1,flashFlipped:false})">Suivant &#x2192;</button>';
+  html += '</div>';
+  
+  html += '</div>';
+  return html;
+}
+
+// ====== STATS TAB ======
+function renderStats(stats) {
+  let html = '<div class="card">';
+  html += '<h2>&#x1F4CA; Tableau de bord</h2>';
+  
+  // Stats grid
+  html += '<div class="stats-grid">';
+  html += '<div class="stat-card"><div class="stat-val cyan">'+stats.progress+'%</div><div class="stat-label">Progression globale</div></div>';
+  html += '<div class="stat-card"><div class="stat-val violet">'+stats.doneLessons+'</div><div class="stat-label">Lecons terminees</div></div>';
+  html += '<div class="stat-card"><div class="stat-val rose">'+stats.totalQuiz+'</div><div class="stat-label">Quiz repondus</div></div>';
+  html += '<div class="stat-card"><div class="stat-val '+(stats.accuracy>=70?'green':stats.accuracy>=40?'yellow':'red')+'">'+stats.accuracy+'%</div><div class="stat-label">Precision quiz</div></div>';
+  html += '<div class="stat-card"><div class="stat-val yellow">'+stats.streak.current+'</div><div class="stat-label">Jours de suite</div></div>';
+  html += '<div class="stat-card"><div class="stat-val cyan">'+stats.streak.best+'</div><div class="stat-label">Meilleur streak</div></div>';
+  html += '<div class="stat-card"><div class="stat-val green">'+stats.daysStudying+'</div><div class="stat-label">Jours depuis debut</div></div>';
+  const speed = engine.getAnswerSpeed();
+  html += '<div class="stat-card"><div class="stat-val '+(typeof speed==='object'?speed.class.replace('speed-',''):'cyan')+'">'+(typeof speed==='object'?speed.label:'N/A')+'</div><div class="stat-label">Vitesse de reponse</div></div>';
+  html += '</div>';
+  
+  // Progress by matiere
+  html += '<h3 style="margin-top:16px">Progression par matiere</h3>';
+  FORMATION.matieres.forEach(m => {
+    let done = 0, total = 0;
+    m.modules.forEach(mod => mod.lessons.forEach(l => {
+      total++;
+      if (engine.getLessonData(l.id).done) done++;
+    }));
+    const pct = total > 0 ? Math.round(done/total*100) : 0;
+    html += '<div style="margin:8px 0">';
+    html += '<div class="flex-between" style="margin-bottom:4px"><span style="font-size:12px">'+m.name+'</span><span class="cyan" style="font-size:11px;font-family:JetBrains Mono">'+pct+'%</span></div>';
+    html += '<div class="xp-bar"><div class="xp-fill" style="width:'+pct+'%;background:linear-gradient(90deg,'+(pct===100?'#4ade80,#22d3ee':'#22d3ee,#a78bfa')+')"></div></div>';
+    html += '</div>';
+  });
+  
+  // Weak topics
+  if (stats.weakTopics.length > 0) {
+    html += '<h3 style="margin-top:16px">&#x26A0; Points faibles (a retravailler)</h3>';
+    stats.weakTopics.forEach(t => {
+      html += '<div class="weak-topic"><span>'+t.name+'</span> '+diffBar(t.diff);
+      html += '<button class="expand-btn" onclick="startQuizForLesson(\''+t.id+'\')">&#127942; Quiz</button></div>';
+    });
+  }
+  
+  // Strong topics
+  if (stats.strongTopics.length > 0) {
+    html += '<h3 style="margin-top:16px">&#x2705; Points forts</h3>';
+    stats.strongTopics.forEach(t => {
+      html += '<div class="strong-topic"><span>'+t.name+'</span> '+diffBar(t.diff)+'</div>';
+    });
+  }
+  
+  // Quiz history chart (last 20)
+  html += '<h3 style="margin-top:16px">Historique des quiz (20 derniers)</h3>';
+  const recent = engine.data.quizHistory.slice(-20);
+  if (recent.length > 0) {
+    html += '<div style="display:flex;align-items:end;gap:3px;height:60px;padding:8px 0">';
+    recent.forEach(r => {
+      html += '<div style="flex:1;height:'+(r.correct?'100':'30')+'%;background:'+(r.correct?'#4ade80':'#f87171')+';border-radius:2px;min-width:8px" title="'+(r.correct?'Correct':'Incorrect')+'"></div>';
+    });
+    html += '</div>';
+    html += '<div style="display:flex;justify-content:space-between;font-size:10px;color:#666"><span>Plus ancien</span><span>Plus recent</span></div>';
+  } else {
+    html += '<p style="font-size:12px;color:#666">Aucun quiz effectue pour le moment.</p>';
+  }
+  
+  html += '</div>';
+  return html;
+}
+
+// ====== REVIEW TAB ======
+function renderReview() {
+  let html = '<div class="card">';
+  html += '<h2>&#x1F504; Revisions (Repetition espacee)</h2>';
+  html += '<p style="font-size:12px;color:#888;margin-bottom:12px">Le systeme identifie automatiquement les lecons a reviser selon ton rythme et tes resultats.</p>';
+  
+  const due = engine.getDueReviews();
+  
+  if (due.length > 0) {
+    html += '<div class="concept-card" style="border-color:#fbbf2440">';
+    html += '<h4 class="yellow">'+due.length+' lecon(s) a reviser maintenant</h4>';
+    html += '</div>';
+    
+    due.forEach(d => {
+      html += '<div class="lesson-item">';
+      html += srBadge(d.data.srLevel);
+      html += '<span style="flex:1;font-size:12px">'+d.lesson.name+'</span>';
+      html += '<span style="font-size:10px;color:#888">'+d.module+'</span>';
+      html += '<button class="tab-btn" style="font-size:10px;padding:4px 8px" onclick="startQuizForLesson(\''+d.lesson.id+'\')">Quiz</button>';
+      html += '<button class="tab-btn" style="font-size:10px;padding:4px 8px" onclick="setState({tab:\'learn\',activeLesson:{lesson:JSON.parse(JSON.stringify(findLesson(\''+d.lesson.id+'\')))}})">Relire</button>';
+      html += '</div>';
+    });
+  } else {
+    html += '<div class="concept-card" style="border-color:#4ade8040">';
+    html += '<h4 class="green">&#x2705; Aucune revision en attente!</h4>';
+    html += '<p style="font-size:12px;color:#888">Continue a apprendre de nouvelles lecons ou fais des quiz pour declencher le systeme de revision.</p>';
+    html += '</div>';
+  }
+  
+  // SR Overview
+  html += '<h3 style="margin-top:16px">Etat de revision par niveau</h3>';
+  let srCounts = [0,0,0,0];
+  FORMATION.matieres.forEach(m => m.modules.forEach(mod => mod.lessons.forEach(l => {
+    const ld = engine.getLessonData(l.id);
+    srCounts[ld.srLevel]++;
+  })));
+  const srLabels = ['Nouveau','En cours','Revision','Maitrise'];
+  const srColors = ['#22d3ee','#fbbf24','#a78bfa','#4ade80'];
+  html += '<div class="stats-grid">';
+  srCounts.forEach((c, i) => {
+    html += '<div class="stat-card"><div class="stat-val" style="color:'+srColors[i]+'">'+c+'</div><div class="stat-label">'+srLabels[i]+'</div></div>';
+  });
+  html += '</div>';
+  
+  html += '</div>';
+  return html;
+}
+
+// ====== CONCEPT EXPLANATIONS ======
+function getConceptExplanation(lessonId, conceptIndex) {
+  const explanations = {
+    'l1': [
+      "L informatique est nee du besoin de calculer plus vite. Des machines mecaniques (Pascaline, Machine de Babbage) aux ordinateurs electroniques (ENIAC 1946), l histoire est riche en innovations.",
+      "ARPANET (1969) est le premier reseau reliant des universites americaines. Il a evolue pour devenir Internet dans les annees 80-90, connectant le monde entier.",
+      "TCP/IP est le protocole fondamental d Internet. TCP decoupe les donnees en paquets, IP gere l adressage et le routage. Chaque appareil a une adresse IP unique.",
+      "En 1989, Tim Berners-Lee invente le World Wide Web au CERN. Il cree HTML, HTTP et le premier navigateur. Le Web rend Internet accessible a tous.",
+      "FTP transfere des fichiers, SMTP envoie des e-mails, TELNET permet la connexion a distance. Ces protocoles existaient avant le Web.",
+      "L interoperabilite permet a des systemes differents de communiquer. Grace aux standards (TCP/IP, HTTP, HTML), un Mac peut parler a un PC, Chrome a Firefox, etc."
+    ],
+    'l2': [
+      "Le modele client-serveur: ton navigateur (client) envoie une requete au serveur qui heberge le site. Le serveur traite et renvoie la reponse (page HTML, donnees JSON, etc.).",
+      "Le DNS (Domain Name System) traduit les noms de domaine (google.com) en adresses IP (142.250.x.x). C est comme l annuaire telephonique d Internet.",
+      "HTTP (HyperText Transfer Protocol) est le protocole de communication du Web. HTTPS ajoute une couche de chiffrement SSL/TLS pour securiser les echanges.",
+      "IPv4 utilise 4 nombres de 0 a 255 (ex: 192.168.1.1). IPv6 utilise 128 bits pour adresser beaucoup plus d appareils dans un monde connecte.",
+      "Les donnees voyagent en paquets a travers des routeurs. Chaque paquet trouve son chemin independamment. TCP reassemble tout dans l ordre a destination.",
+      "Les FAI (Fournisseurs d Acces Internet) connectent les utilisateurs au reseau mondial via des cables, fibres optiques et satellites."
+    ],
+    'l3': [
+      "Le phishing utilise de faux e-mails ou sites pour voler tes identifiants. L ingenierie sociale manipule les gens plutot que les machines. Toujours verifier l expediteur!",
+      "Virus (se replique), Trojan (se deguise), Ransomware (chiffre et demande rancon), Spyware (espionne), Adware (publicites). Chaque type a sa methode d attaque.",
+      "Un bon mot de passe: 12+ caracteres, majuscules, minuscules, chiffres, symboles. Utilise un gestionnaire de mots de passe. Jamais le meme partout!",
+      "Le pare-feu filtre le trafic reseau entrant/sortant. L antivirus detecte et supprime les logiciels malveillants. Les deux sont complementaires.",
+      "Le RGPD (Reglement General sur la Protection des Donnees) protege les citoyens europeens. Droit d acces, de rectification, d effacement de ses donnees personnelles.",
+      "Le chiffrement transforme les donnees en format illisible sans la cle. AES pour les fichiers, SSL/TLS pour le web, E2E pour les messages."
+    ],
+    'l4': [
+      "Front-end: ce que l utilisateur voit (HTML/CSS/JS). Back-end: la logique serveur (PHP/Python/Node). Fullstack: les deux! Chacun a ses outils et specialites.",
+      "Le DevOps combine developpement et operations. CI/CD, Docker, Kubernetes. Le SysAdmin gere les serveurs et l infrastructure.",
+      "Le Data Scientist analyse les donnees. L IA Engineer cree des modeles de machine learning. Python, TensorFlow, PyTorch sont leurs outils principaux.",
+      "Le Chef de projet IT coordonne les equipes, gere le planning et le budget. Il fait le lien entre les clients et les developpeurs.",
+      "L UX Designer optimise l experience utilisateur. L UI Designer cree les interfaces visuelles. Figma, Sketch et Adobe XD sont leurs outils.",
+      "L analyste cybersecurite protege les systemes contre les attaques. Tests de penetration, audit de securite, reponse aux incidents."
+    ],
+    'l5': [
+      "Agile est une philosophie de gestion adaptative. Scrum est un framework Agile avec des roles definis (Product Owner, Scrum Master, Dev Team).",
+      "Un Sprint est une periode de travail (1-4 semaines). Le backlog est la liste priorisee des fonctionnalites a developper.",
+      "Le tableau Kanban visualise le flux de travail: A faire > En cours > Termine. Limite le travail en cours (WIP) pour plus d efficacite.",
+      "Waterfall (cascade): chaque phase est terminee avant la suivante. Rigide mais previsible. Adapte aux projets avec des specs fixes.",
+      "Une User Story decrit une fonctionnalite du point de vue utilisateur: 'En tant que [role], je veux [action] afin de [benefice]'.",
+      "Le Daily Standup est une reunion de 15 min chaque matin. Chacun dit: ce que j ai fait hier, ce que je fais aujourd hui, mes blocages."
+    ],
+    'l6': [
+      "VS Code est l editeur le plus utilise au monde. Gratuit, open-source, extensible. Il supporte presque tous les langages de programmation.",
+      "Extensions essentielles: Prettier (formatage), ESLint (qualite JS), Live Server (preview), GitLens (historique Git), IntelliCode (IA).",
+      "Le terminal integre permet d executer des commandes sans quitter l editeur. Git, npm, python... tout directement dans VS Code.",
+      "IntelliSense complete automatiquement ton code en analysant le contexte. Il suggere des fonctions, variables et parametres.",
+      "Le debugger integre permet de poser des breakpoints, inspecter les variables et avancer pas a pas dans le code.",
+      "Ctrl+P: ouvrir un fichier. Ctrl+Shift+P: palette de commandes. Ctrl+D: selectionner occurrence. Alt+fleche: deplacer une ligne."
+    ],
+    'l7': [
+      "cd: changer de dossier. ls: lister les fichiers. mkdir: creer un dossier. rm: supprimer. cp: copier. mv: deplacer/renommer.",
+      "pwd affiche le chemin complet du dossier actuel. Chemin absolu: /home/user/docs. Chemin relatif: ./docs ou ../parent.",
+      "Le pipe | envoie la sortie d une commande vers une autre. Redirections: > ecrit dans un fichier, >> ajoute a la fin, < lit depuis un fichier.",
+      "Les variables d environnement stockent des config systeme. PATH indique ou trouver les executables. export VAR=value pour definir.",
+      "chmod modifie les permissions: r(read), w(write), x(execute). chmod 755 fichier donne tous les droits au proprietaire, lecture/execution aux autres.",
+      "Un script Bash est un fichier .sh avec des commandes. #!/bin/bash en premiere ligne. Utile pour automatiser des taches repetitives."
+    ],
+    'l8': [
+      "Windows: le plus repandu (bureau). Linux: open-source, domine les serveurs. macOS: ecosystem Apple. Chacun a son kernel et ses specificites.",
+      "Le kernel est le coeur de l OS. Il gere le materiel, la memoire, les processus. Linux a un kernel monolithique, Windows un kernel hybride.",
+      "La RAM (Random Access Memory) est la memoire vive, rapide mais volatile. L OS gere l allocation: chaque programme recoit sa part.",
+      "Le systeme de fichiers organise les donnees sur le disque. NTFS (Windows), ext4 (Linux), APFS (macOS). Dossiers, fichiers, permissions.",
+      "Chaque utilisateur a des droits: admin (tout), standard (limite). Root (Linux) = administrateur supreme. Principe du moindre privilege.",
+      "Les services (Windows) ou daemons (Linux) sont des programmes en arriere-plan. Serveur web, base de donnees, antivirus tournent comme services."
+    ],
+    'l9': [
+      "LAN: reseau local (maison, bureau). WAN: reseau etendu (villes, pays). MAN: reseau metropolitain (ville). Internet est le plus grand WAN.",
+      "Le modele OSI a 7 couches: Physique, Liaison, Reseau, Transport, Session, Presentation, Application. Chaque couche a un role precis.",
+      "Switch: connecte les appareils dans un LAN. Routeur: connecte differents reseaux. Hub: repete les signaux (obsolete, remplace par le switch).",
+      "Adresse IP: identifiant unique sur un reseau. Masque de sous-reseau: definit la partie reseau et la partie hote. Ex: 255.255.255.0.",
+      "Wi-Fi: connexion sans fil (802.11). Ethernet: connexion filaire (plus rapide, plus stable). RJ45 est le connecteur Ethernet standard.",
+      "Le pare-feu filtre le trafic selon des regles. Le proxy intermediaire les requetes. Les deux protegent le reseau interne."
+    ],
+    'l10': [
+      "IaaS: infrastructure (serveurs, stockage). PaaS: plateforme (runtime, BDD). SaaS: logiciel pret a l emploi (Gmail, Office 365).",
+      "AWS (Amazon), Azure (Microsoft), GCP (Google): les 3 plus grands fournisseurs cloud. Ils offrent des centaines de services.",
+      "La virtualisation cree des machines virtuelles sur un seul serveur. Les conteneurs (Docker) sont plus legers et isolent les applications.",
+      "Scalabilite horizontale: ajouter des serveurs. Verticale: augmenter la puissance d un serveur. Le cloud permet les deux a la demande.",
+      "Serverless: pas de serveur a gerer. Le code s execute a la demande (AWS Lambda, Azure Functions). Paiement a l utilisation uniquement.",
+      "S3 (Simple Storage Service): stockage objet d AWS. Bucket pour organiser les fichiers. Tres utilise pour les sauvegardes et les sites statiques."
+    ],
+    'l11': [
+      "Les BDD relationnelles organisent les donnees en tables avec des lignes et colonnes. MySQL, PostgreSQL, SQLite sont les plus connues.",
+      "NoSQL gere des donnees non structurees. MongoDB stocke des documents JSON. Redis stocke en memoire. Adapte aux gros volumes et donnees flexibles.",
+      "Une table = une entite (ex: utilisateurs). Une ligne = un enregistrement. Une colonne = un attribut (nom, email, age).",
+      "Cle primaire: identifiant unique de chaque ligne (id). Cle etrangere: reference vers la cle primaire d une autre table. C est le lien entre tables.",
+      "CRUD: Create (INSERT), Read (SELECT), Update (UPDATE), Delete (DELETE). Les 4 operations de base sur toute donnee.",
+      "Le schema definit la structure de la BDD: tables, colonnes, types, contraintes. Le modele conceptuel precede la creation."
+    ],
+    'l12': [
+      "Une API REST suit des conventions: utilise HTTP, est stateless, retourne du JSON. C est l interface entre le front-end et le back-end.",
+      "JSON (JavaScript Object Notation): format leger d echange de donnees. Paires cle-valeur, tableaux. Lisible par les humains et les machines.",
+      "Un endpoint est une URL specifique de l API. Ex: /api/users pour les utilisateurs. Chaque endpoint correspond a une ressource.",
+      "GET: lire. POST: creer. PUT: modifier entierement. PATCH: modifier partiellement. DELETE: supprimer. Ce sont les methodes HTTP standard.",
+      "API key: cle simple d authentification. JWT (JSON Web Token): token signe contenant des infos utilisateur. OAuth pour la delegation d acces.",
+      "CORS (Cross-Origin Resource Sharing) controle quels domaines peuvent appeler l API. Securite essentielle pour les APIs publiques."
+    ],
+    'l13': [
+      "Dev.to, Medium, Hacker News, Reddit r/programming. Les blogs des entreprises tech (Google, Meta, Netflix) sont aussi tres instructifs.",
+      "GitHub Trending montre les repos les plus populaires du moment. Utile pour decouvrir de nouvelles technologies et projets open-source.",
+      "Stack Overflow est LA reference pour les questions techniques. Avant de poser une question, cherche si elle existe deja!",
+      "JavaScript Weekly, Python Weekly, TLDR newsletter. Recois un resume des actus tech chaque semaine directement dans ta boite mail.",
+      "Conferences: Devoxx, Web Summit, Google I/O, Apple WWDC. Meetups locaux: rencontre d autres devs. Excellent pour le networking.",
+      "Les flux RSS permettent de suivre plusieurs sites depuis un seul lecteur. Feedly et Inoreader sont les agragateurs les plus populaires."
+    ]
+  };
+  
+  // For lessons without specific explanations, generate generic ones
+  if (explanations[lessonId] && explanations[lessonId][conceptIndex]) {
+    return explanations[lessonId][conceptIndex];
+  }
+  
+  // Find the lesson and concept
+  let conceptName = '';
+  for (const m of FORMATION.matieres)
+    for (const mod of m.modules)
+      for (const l of mod.lessons)
+        if (l.id === lessonId && l.concepts[conceptIndex])
+          conceptName = l.concepts[conceptIndex];
+  
+  return 'Concept important a maitriser: ' + conceptName + '. Etudie ce sujet dans le cours Studi correspondant pour une comprehension approfondie.';
+}
+
+// ====== INIT ======
+initMatrix();
+render();
+</script>
+</body>
+</html><!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>NightCode Academy v2 - Graduate Dev IA</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
