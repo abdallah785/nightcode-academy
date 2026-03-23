@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>NightCode Academy - Graduate Dev IA Studi</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#05050c;color:#e2e8f0;font-family:'Segoe UI',sans-serif;min-height:100vh;overflow-x:hidden}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes blink{50%{opacity:0}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#22d3ee20;border-radius:3px}
+button{font-family:inherit;cursor:pointer}
+textarea,input{font-family:'JetBrains Mono',monospace}
+#matrix-bg{position:fixed;inset:0;z-index:0;opacity:.08;pointer-events:none}
+.app{position:relative;z-index:1;max-width:920px;margin:0 auto;padding:16px 14px}
+</style>
+</head>
+<body>
+<canvas id="matrix-bg"></canvas>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<script>
+// Matrix Rain Background
+(function(){
+  const c=document.getElementById('matrix-bg'),ctx=c.getContext('2d');
+  function resize(){c.width=window.innerWidth;c.height=window.innerHeight}
+  resize();window.addEventListener('resize',resize);
+  const cols=Math.floor(c.width/14),drops=Array(cols).fill(0).map(()=>Math.random()*-50);
+  const chars='01{}[];=>const let function async await SELECT FROM def class import'.split('');
+  function draw(){
+    ctx.fillStyle='rgba(5,5,12,0.08)';ctx.fillRect(0,0,c.width,c.height);ctx.font='12px monospace';
+    for(let i=0;i<drops.length;i++){
+      const ch=chars[Math.floor(Math.random()*chars.length)];
+      const b=50+Math.random()*100;
+      ctx.fillStyle='rgba(0,'+(b+130)+','+(b+70)+','+(0.15+Math.random()*0.35)+')';
+      ctx.fillText(ch,i*14,drops[i]*14);
+      if(drops[i]*14>c.height&&Math.random()>0.98)drops[i]=0;
+      drops[i]++;
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+<script type="text/babel" data-type="module">
+const {useState,useEffect,useRef} = React;
+
+// ===== FORMATION DATA (from Studi) =====
+const MATIERES=[
+{id:"reussir",name:"Reussir ma formation Graduate Dev IA",mod:3,done:1,st:"ip",diff:1,hrs:5,
+concepts:["Organisation","Immersion pro","Experience Studi"],
+details:[{n:"Votre experience chez Studi",th:2,st:"done",d:"17/10-24/10"},{n:"Vous organiser dans votre formation",th:3,st:"ip",d:"17/10-01/11"},{n:"S'immerger professionnellement",th:1,st:"todo",d:"17/10-01/11"}]},
+{id:"tp",name:"Reussir mon TP Dev Web et Web Mobile",mod:1,done:0,st:"todo",diff:4,hrs:40,
+concepts:["Dossier professionnel","Presentation orale","Projet complet"],
+details:[{n:"Preparation au TP",th:1,st:"todo",d:"A planifier"}]},
+{id:"cf",name:"Certification Studi bloc Front-end + IA",mod:1,done:1,st:"done",diff:4,hrs:3,
+concepts:["Evaluation certificative","QCM + Projet"],
+details:[{n:"Certification Front-end IA",th:1,st:"done",d:"Termine"}]},
+{id:"ccp",name:"Reussir mon CCP Back-end securise",mod:1,done:0,st:"todo",diff:4,hrs:40,
+concepts:["CCP","Back-end securise","Soutenance"],
+details:[{n:"Preparation CCP",th:1,st:"todo",d:"A planifier"}]},
+{id:"cb",name:"Certification Studi bloc Back-end + IA",mod:1,done:1,st:"done",diff:4,hrs:3,
+concepts:["Evaluation certificative"],
+details:[{n:"Certification Back-end IA",th:1,st:"done",d:"Termine"}]},
+{id:"fond",name:"Les fondamentaux du developpement",mod:3,done:0,st:"todo",diff:2,hrs:30,
+concepts:["Algorithmes","Programmation","Outils dev","Logique","IDE"],
+details:[{n:"Ecosysteme et outils du developpeur",th:13,st:"todo",d:"17/10-25/11"},{n:"Introduction a la programmation",th:13,st:"todo",d:"17/10-25/11"},{n:"Introduction a l'algorithme",th:8,st:"todo",d:"17/10-25/11"}]},
+{id:"front",name:"Developper la partie front-end + modeles IA",mod:13,done:0,st:"todo",diff:3,hrs:180,
+concepts:["Figma","HTML/CSS","WordPress","JavaScript","JS avance","Git/GitHub","Deploiement","Securite web","Docker","IA Front-end","Projet fil rouge"],
+details:[
+{n:"Bienvenue bloc Front-end",th:1,st:"todo",d:"16/10-23/10"},
+{n:"Participer a des projets web",th:5,st:"todo",d:"16/10-08/11",i:true},
+{n:"Realiser une maquette avec Figma",th:12,st:"todo",d:"16/10-08/11",i:true},
+{n:"Creer un site web avec HTML et CSS",th:19,st:"todo",d:"16/10-17/12",i:true},
+{n:"Creer un site web avec WordPress",th:4,st:"todo",d:"16/10-17/12",i:true},
+{n:"Debuter avec JavaScript",th:15,st:"todo",d:"16/10-17/12",i:true},
+{n:"Programmer avec Javascript",th:16,st:"todo",d:"16/10-17/12",i:true},
+{n:"Utiliser Git et Github",th:9,st:"todo",d:"16/10-18/01",i:true},
+{n:"Deployer son application web",th:3,st:"todo",d:"16/10-18/01",i:true},
+{n:"Securiser ses applications web",th:4,st:"todo",d:"16/10-18/01",i:true},
+{n:"Gerer des conteneurs Docker",th:7,st:"todo",d:"16/10-22/03",i:true},
+{n:"Interfaces intelligentes : IA Front-End",th:14,st:"todo",d:"16/10-22/03"},
+{n:"Projet fil rouge Front-end",th:7,st:"todo",d:"16/10-22/03"}]},
+{id:"back",name:"Developper la partie back-end + deploiement IA",mod:11,done:1,st:"ip",diff:4,hrs:200,
+concepts:["BDD","PHP","SQL","Symfony","Securite BDD","Infrastructure","Tests","Python","IA Back-end","Projet fil rouge"],
+details:[
+{n:"Bienvenue bloc Back-end",th:1,st:"done",d:"17/10-24/10"},
+{n:"Introduction aux bases de donnees",th:10,st:"todo",d:"17/10-09/11",i:true},
+{n:"Sites web dynamiques avec PHP",th:20,st:"todo",d:"17/10-09/11",i:true},
+{n:"Base de donnees en SQL",th:12,st:"todo",d:"17/10-18/12",i:true},
+{n:"Application web avec Symfony",th:18,st:"todo",d:"17/10-18/12",i:true},
+{n:"Securiser ses bases de donnees",th:6,st:"todo",d:"17/10-18/01",i:true},
+{n:"Securiser son infrastructure",th:13,st:"todo",d:"17/10-18/01",i:true},
+{n:"Preparer un environnement de test",th:6,st:"todo",d:"17/10-22/03",i:true},
+{n:"Maitriser le langage Python",th:20,st:"todo",d:"Ouvert"},
+{n:"Back-end intelligent : IA cote serveur",th:16,st:"todo",d:"Ouvert",i:true},
+{n:"Projet fil rouge Back-end",th:9,st:"todo",d:"17/10-22/03"}]}
+];
+
+const SPEEDRUN=[
+{w:"S1-S2",l:"Fondamentaux",t:"Algo + Intro prog + Outils dev",c:true},
+{w:"S3-S4",l:"HTML/CSS",t:"19 themes - LA BASE",c:true},
+{w:"S5",l:"Figma",t:"Maquettes (12 themes)",c:false},
+{w:"S6-S8",l:"JS Debutant",t:"Variables, fonctions, boucles",c:true},
+{w:"S9-S11",l:"JS Avance",t:"DOM, async, API, ES6+",c:true},
+{w:"S12",l:"Git/GitHub",t:"Versionning (9 themes)",c:true},
+{w:"S13",l:"WordPress",t:"CMS basique - RAPIDE",c:false},
+{w:"S14-S15",l:"PHP",t:"Sites dynamiques (20 themes)",c:true},
+{w:"S16-S17",l:"SQL",t:"BDD SQL + Intro BDD",c:true},
+{w:"S18-S20",l:"Symfony",t:"Framework PHP (18 themes)",c:true},
+{w:"S21-S22",l:"Securite",t:"Web + BDD + Infra",c:true},
+{w:"S23-S24",l:"Docker+Deploy",t:"Conteneurs + Deploiement",c:true},
+{w:"S25-S27",l:"Python",t:"Le langage de l'IA (20 themes)",c:true},
+{w:"S28-S30",l:"IA Front+Back",t:"IA Front (14) + IA Back (16)",c:true},
+{w:"S31",l:"Tests",t:"Env. de test (6 themes)",c:false},
+{w:"S32-S34",l:"Projets",t:"Fil rouge Front + Back",c:true},
+{w:"S35-S36",l:"Certifs+TP",t:"Certifications + TP final",c:true}
+];
+
+const SNIPPETS=[
+"const api = await fetch('/predict');\nconst data = await api.json();\nconsole.log(data.result);",
+"function fibonacci(n) {\n  if (n <= 1) return n;\n  return fibonacci(n-1) + fibonacci(n-2);\n}",
+"SELECT u.name, COUNT(o.id)\nFROM users u\nJOIN orders o ON u.id = o.user_id\nGROUP BY u.name;",
+"const filtered = users\n  .filter(u => u.active)\n  .map(u => u.name)\n  .sort();",
+"import torch\nmodel = torch.nn.Linear(10, 1)\noptimizer = torch.optim.SGD(model.parameters(), lr=0.01)"
+];
+
+const QUIZ=[
+{q:"Quelle balise HTML cree un lien hypertexte ?",o:["<link>","<a>","<href>","<url>"],c:1,e:"<a> = anchor. <link> lie des CSS.",t:"HTML",d:1},
+{q:"Resultat de typeof null en JS ?",o:['"null"','"undefined"','"object"','"boolean"'],c:2,e:"Bug historique! typeof null donne object.",t:"JS",d:3,p:true},
+{q:"En SQL, quelle commande filtre apres GROUP BY ?",o:["WHERE","HAVING","FILTER","GROUP WHERE"],c:1,e:"WHERE=avant, HAVING=apres GROUP BY.",t:"SQL",d:2},
+{q:"Difference let vs var en JS ?",o:["Aucune","let=bloc var=fonction","var=bloc let=fonction","let pas reassignable"],c:1,e:"let limite au bloc {}. var remonte a la fonction.",t:"JS",d:2},
+{q:"Superglobale PHP pour donnees POST ?",o:["$_GET","$_POST","$_REQUEST","$_FORM"],c:1,e:"$_POST pour POST. $_FORM n'existe pas!",t:"PHP",d:1},
+{q:"Role d'un ORM Doctrine/Symfony ?",o:["Gerer CSS","Mapper PHP vers SQL","Compiler JS","Gerer routes"],c:1,e:"ORM = Object-Relational Mapping.",t:"Symfony",d:3},
+{q:"Git: creer une branche + switch ?",o:["git branch new","git checkout -b new","git new-branch","git create new"],c:1,e:"checkout -b = cree + switch.",t:"Git",d:2},
+{q:"Propriete CSS pour layout flexible ?",o:["display:grid","display:flex","display:block","display:column"],c:1,e:"flex=Flexbox 1D. column n'existe pas.",t:"CSS",d:1},
+{q:"Protection contre injection SQL ?",o:["Antivirus","Requetes preparees","Linter","HTTPS"],c:1,e:"Requetes preparees = LA protection.",t:"Securite",d:2,p:true},
+{q:"En Python, que retourne range(3) ?",o:["[1,2,3]","[0,1,2]","[0,1,2,3]","objet range(0,3)"],c:3,e:"Piege! range(3) retourne un objet, PAS une liste.",t:"Python",d:3,p:true},
+{q:"Role d'un Dockerfile ?",o:["Config Git","Recette pour image Docker","Lancer serveur","Installer Node"],c:1,e:"Dockerfile = recette pour construire une image.",t:"Docker",d:2},
+{q:"Methode HTTP idempotente ?",o:["POST","GET","PATCH","Aucune"],c:1,e:"GET idempotent: 10 appels = meme resultat.",t:"API",d:3,p:true},
+{q:"Que fait Array.reduce() ?",o:["Filtre","Transforme","Accumule en une valeur","Supprime doublons"],c:2,e:"reduce accumule. [1,2,3].reduce((a,v)=>a+v,0) donne 6.",t:"JS",d:3},
+{q:"Composant Figma ?",o:["Image","Element reutilisable + instances","Calque cache","Page"],c:1,e:"Composant maitre avec instances liees.",t:"Figma",d:1},
+{q:"Reseau de neurones pour images ?",o:["RNN","CNN","GAN","Perceptron"],c:1,e:"CNN = Convolutional. Filtres pour motifs visuels.",t:"IA",d:3}
+];
+
+const EXOS=[
+{topic:"HTML/CSS",type:"error",title:"Trouve l'erreur HTML",code:"<html>\n<body>\n  <h1>Bienvenue</h2>\n  <p>Texte</p>\n</body>\n</html>",ans:"<h1> ferme avec </h2>. Doit etre </h1>.",hint:"Balises ouvrantes vs fermantes..."},
+{topic:"HTML/CSS",type:"predict",title:"Largeur totale CSS ?",code:"div {\n  width: 100px;\n  padding: 20px;\n  border: 5px solid;\n  box-sizing: content-box;\n}",ans:"150px. 100 + 20x2 + 5x2 = 150.",hint:"content-box = width = contenu seul."},
+{topic:"JavaScript",type:"error",title:"Erreur JS",code:"const x = [1,2,3];\nconst d = x.map(n => n*2);\nx = [10,20];",ans:"const ne peut pas etre reassigne. Utiliser let.",hint:"const = constante..."},
+{topic:"JavaScript",type:"predict",title:"Predis les resultats",code:"console.log(1 + '2');\nconsole.log('3' - 1);\nconsole.log(true + true);\nconsole.log('hi' - 1);",ans:"'12', 2, 2, NaN. + avec string = concatenation.",hint:"+ avec string = concatenation..."},
+{topic:"SQL",type:"error",title:"Erreur SQL",code:"SELECT name, COUNT(*)\nFROM users\nWHERE COUNT(*) > 5\nGROUP BY name;",ans:"COUNT interdit dans WHERE. Utiliser HAVING.",hint:"WHERE vs HAVING..."},
+{topic:"SQL",type:"predict",title:"Resultat SQL",code:"-- users: Ali(25),Sara(17),Omar(30),Fatima(22)\nSELECT name FROM users\nWHERE age >= 18\nORDER BY age DESC;",ans:"Omar, Ali, Fatima. Sara exclue (17).",hint:"Qui a >= 18 ?"},
+{topic:"PHP",type:"error",title:"Erreur PHP",code:"<?php\n$name = 'Ali';\necho 'Bonjour $name';",ans:"Guillemets simples: $name pas interprete. Utiliser double quotes.",hint:"Simple vs double quotes..."},
+{topic:"Python",type:"predict",title:"Resultat Python",code:"a = [1,2,3]\nb = a\nb.append(4)\nprint(a)",ans:"[1,2,3,4]! b=a = meme reference. Copier: a.copy().",hint:"Listes = reference..."},
+{topic:"Python",type:"error",title:"Erreur Python",code:"def moyenne(notes):\n    return sum(notes)/len(notes)\n\nmoyenne([])",ans:"Division par zero si liste vide!",hint:"len([]) = 0..."},
+{topic:"Git",type:"order",title:"Workflow Git",blocks:["git pull","git add .","git commit -m '...'","git push"],order:[0,1,2,3],ans:"pull puis add puis commit puis push."},
+{topic:"Docker",type:"order",title:"Docker workflow",blocks:["Ecrire Dockerfile","docker build","docker run","docker ps"],order:[0,1,2,3],ans:"Dockerfile puis build puis run puis ps."},
+{topic:"IA/ML",type:"predict",title:"Algo pour chaque probleme",code:"# 1: Prix maison (nombre)\n# 2: Spam ? (oui/non)\n# 3: Grouper clients",ans:"1)Regression 2)Classification 3)Clustering.",hint:"Nombre=Regression, Categorie=Classification."}
+];
+
+const SYS="Tu es l'assistant NightCode Academy pour Abdallah BELAMRI, formation Graduate Developpeur IA Studi (Promo Juin-Juillet 2026). 8 matieres, 36+ modules. Front: Figma,HTML/CSS,WordPress,JS,Git,Docker,Securite,IA Front. Back: BDD,PHP,SQL,Symfony,Securite,Python,IA Back. Fondamentaux: Algo,Prog,Outils. Explique comme a un debutant. Analogies simples. Commente chaque ligne de code. Direct. Francais.";
+
+// ===== TICKER COMPONENT =====
+function Ticker(){
+  const[si,setSi]=useState(0);const[ci,setCi]=useState(0);const[del,setDel]=useState(false);
+  useEffect(()=>{
+    const s=SNIPPETS[si];let t;
+    if(!del&&ci<s.length)t=setTimeout(()=>setCi(c=>c+1),20+Math.random()*25);
+    else if(!del&&ci>=s.length)t=setTimeout(()=>setDel(true),2000);
+    else if(del&&ci>0)t=setTimeout(()=>setCi(c=>c-1),8);
+    else{setDel(false);setSi((si+1)%SNIPPETS.length);}
+    return()=>clearTimeout(t);
+  },[ci,del,si]);
+  return React.createElement("div",{style:{padding:"12px 14px",borderRadius:10,background:"#000",border:"1px solid #1a1a2e",marginBottom:16,position:"relative",minHeight:70,overflow:"hidden"}},
+    React.createElement("div",{style:{position:"absolute",top:8,right:12,fontSize:8,letterSpacing:2,color:"#22d3ee25",fontFamily:"monospace"}},"LIVE CODE"),
+    React.createElement("div",{style:{display:"flex",gap:5,marginBottom:8}},
+      ["#ef4444","#fbbf24","#34d399"].map((c,i)=>React.createElement("div",{key:i,style:{width:7,height:7,borderRadius:"50%",background:c}}))
+    ),
+    React.createElement("pre",{style:{margin:0,fontFamily:"'JetBrains Mono',monospace",fontSize:11,color:"#22d3ee",lineHeight:1.6,whiteSpace:"pre-wrap"}},
+      SNIPPETS[si].replace(/\\n/g,"\n").slice(0,ci),
+      React.createElement("span",{style:{animation:"blink .8s step-end infinite"}},"\u2588")
+    )
+  );
+}
+
+// ===== FORMATION TAB =====
+function FormationTab(){
+  const[exp,setExp]=useState(null);const[road,setRoad]=useState(false);
+  const totMod=MATIERES.reduce((a,m)=>a+m.mod,0);
+  const doneMod=MATIERES.reduce((a,m)=>a+m.done,0);
+  const totH=MATIERES.reduce((a,m)=>a+m.hrs,0);
+  const xp=Math.round((doneMod/totMod)*100);
+  const stC=s=>s==="done"?"#34d399":s==="ip"?"#fbbf24":"#475569";
+  const stI=s=>s==="done"?"\u2713":s==="ip"?"\u25b8":"\u25c7";
+
+  return React.createElement("div",null,
+    // Header card
+    React.createElement("div",{style:{padding:18,borderRadius:14,background:"#0a0a14",border:"1px solid #1a1a2e",marginBottom:14}},
+      React.createElement("div",{style:{fontSize:16,fontWeight:700,color:"#22d3ee",fontFamily:"'JetBrains Mono',monospace"}},"Graduate Developpeur IA"),
+      React.createElement("div",{style:{fontSize:11,color:"#64748b",marginTop:4}},"Abdallah BELAMRI - Promo JUIN-JUILLET 2026"),
+      // XP Bar
+      React.createElement("div",{style:{marginTop:14,padding:"10px 14px",borderRadius:10,background:"#000",border:"1px solid #1a1a2e"}},
+        React.createElement("div",{style:{display:"flex",justifyContent:"space-between",marginBottom:6}},
+          React.createElement("span",{style:{fontSize:10,color:"#475569",letterSpacing:1.5}},"PROGRESSION XP"),
+          React.createElement("span",{style:{fontSize:12,fontWeight:700,color:"#22d3ee"}},xp+"%")
+        ),
+        React.createElement("div",{style:{height:6,borderRadius:3,background:"#1e293b",overflow:"hidden"}},
+          React.createElement("div",{style:{height:"100%",width:Math.max(xp,2)+"%",borderRadius:3,background:"linear-gradient(90deg,#22d3ee,#a78bfa)",transition:"width 1s"}})
+        )
+      ),
+      // Stats
+      React.createElement("div",{style:{display:"flex",gap:8,marginTop:12,padding:"10px 14px",borderRadius:10,background:"#000",border:"1px solid #1a1a2e"}},
+        [{v:totMod,l:"MODULES",c:"#22d3ee"},{v:doneMod,l:"VALIDES",c:"#34d399"},{v:totH+"h",l:"HEURES",c:"#fbbf24"},{v:"2/8",l:"MATIERES",c:"#a78bfa"}].map((s,i)=>
+          React.createElement("div",{key:i,style:{textAlign:"center",flex:1}},
+            React.createElement("div",{style:{fontSize:18,fontWeight:700,color:s.c,fontFamily:"'JetBrains Mono',monospace"}},s.v),
+            React.createElement("div",{style:{fontSize:8,color:"#475569",letterSpacing:1}},s.l)
+          )
+        )
+      )
+    ),
+    // Roadmap button
+    React.createElement("button",{onClick:()=>setRoad(!road),style:{width:"100%",padding:"12px 16px",borderRadius:12,border:"1px solid #a78bfa30",background:"#a78bfa08",marginBottom:14,display:"flex",justifyContent:"space-between",alignItems:"center"}},
+      React.createElement("span",{style:{fontSize:13,fontWeight:700,color:"#a78bfa"}},"\u26a1 ROADMAP SPEEDRUN"),
+      React.createElement("span",{style:{color:"#a78bfa"}},road?"\u25b4":"\u25be")
+    ),
+    road && React.createElement("div",{style:{padding:16,borderRadius:14,background:"#0a0a14",border:"1px solid #1a1a2e",marginBottom:14}},
+      SPEEDRUN.map((s,i)=>React.createElement("div",{key:i,style:{display:"flex",gap:10,marginBottom:8}},
+        React.createElement("div",{style:{minWidth:56,padding:"4px 8px",borderRadius:6,background:s.c?"#22d3ee15":"#0f0f1a",border:"1px solid "+(s.c?"#22d3ee30":"#1a1a2e"),fontSize:10,color:s.c?"#22d3ee":"#475569",fontWeight:700,textAlign:"center"}},s.w),
+        React.createElement("div",null,
+          React.createElement("div",{style:{fontSize:12,fontWeight:600,color:"#e2e8f0"}},s.l,s.c&&React.createElement("span",{style:{fontSize:9,color:"#ef4444",marginLeft:6}},"CRITIQUE")),
+          React.createElement("div",{style:{fontSize:11,color:"#475569",marginTop:2}},s.t)
+        )
+      ))
+    ),
+    // Matieres
+    React.createElement("div",{style:{fontSize:11,fontWeight:700,color:"#64748b",marginBottom:8,letterSpacing:1}},"8 MATIERES PRINCIPALES"),
+    MATIERES.map((m,i)=>React.createElement("div",{key:m.id,style:{marginBottom:8}},
+      React.createElement("div",{onClick:()=>setExp(exp===i?null:i),style:{padding:"12px 16px",borderRadius:12,cursor:"pointer",background:"#0a0a14",border:"1px solid "+(exp===i?"#22d3ee40":"#1a1a2e"),transition:"all .2s"}},
+        React.createElement("div",{style:{display:"flex",alignItems:"center",gap:12}},
+          React.createElement("div",{style:{width:30,height:30,borderRadius:8,display:"flex",alignItems:"center",justifyContent:"center",background:stC(m.st)+"15",border:"1px solid "+stC(m.st)+"30",fontSize:13,color:stC(m.st)}},stI(m.st)),
+          React.createElement("div",{style:{flex:1}},
+            React.createElement("div",{style:{fontSize:12,fontWeight:600,color:"#e2e8f0"}},m.name),
+            React.createElement("div",{style:{fontSize:10,color:"#475569",marginTop:2}},m.concepts.join(" . "))
+          ),
+          React.createElement("div",{style:{textAlign:"right"}},
+            React.createElement("div",{style:{fontSize:11,fontWeight:700,color:"#22d3ee"}},m.done+"/"+m.mod),
+            React.createElement("div",{style:{display:"flex",gap:2,marginTop:3,justifyContent:"flex-end"}},
+              Array(5).fill(0).map((_,j)=>React.createElement("div",{key:j,style:{width:5,height:5,borderRadius:1,background:j<m.diff?"#22d3ee":"#1e293b"}}))
+            ),
+            React.createElement("div",{style:{fontSize:9,color:"#334155",marginTop:2}},m.hrs+"h")
+          )
+        )
+      ),
+      exp===i&&React.createElement("div",{style:{padding:"10px 16px",marginTop:4,borderRadius:10,background:"#000",border:"1px solid #1a1a2e"}},
+        m.details.map((d,j)=>React.createElement("div",{key:j,style:{display:"flex",gap:10,padding:"6px 0",borderBottom:j<m.details.length-1?"1px solid #1a1a2e":"none",alignItems:"center"}},
+          React.createElement("div",{style:{width:20,height:20,borderRadius:5,display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,background:stC(d.st)+"10",color:stC(d.st),border:"1px solid "+stC(d.st)+"25"}},stI(d.st)),
+          React.createElement("div",{style:{flex:1}},
+            React.createElement("div",{style:{fontSize:11,color:"#e2e8f0"}},d.n,d.i&&React.createElement("span",{style:{fontSize:8,color:"#fbbf24",marginLeft:6,padding:"1px 5px",borderRadius:4,background:"#fbbf2410"}},"INDISPENSABLE")),
+            React.createElement("div",{style:{fontSize:10,color:"#334155"}},d.th+" themes . "+d.d)
+          )
+        ))
+      )
+    ))
+  );
+}
+
+// ===== DECODE TAB =====
+function DecodeTab(){
+  const[code,setCode]=useState("");const[result,setResult]=useState(null);const[loading,setLoading]=useState(false);
+  const[revealed,setRevealed]=useState({});const[showAll,setShowAll]=useState(false);const[quizAns,setQuizAns]=useState(null);
+  const analyze=()=>{
+    if(!code.trim()||loading)return;setLoading(true);setResult(null);setRevealed({});setShowAll(false);setQuizAns(null);
+    fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1500,
+        messages:[{role:"user",content:"Analyse ce code ligne par ligne. JSON UNIQUEMENT sans markdown. Format: {lines:[{code:\"ligne\",explain:\"explication debutant\",color:\"hex\"}],quiz:{question:\"...\",options:[\"a\",\"b\",\"c\",\"d\"],correct:0,explanation:\"...\"}} Couleurs: #22d3ee=logique,#f472b6=structure,#34d399=action,#fbbf24=important. Code:\n"+code}]})
+    }).then(r=>r.json()).then(d=>{
+      const t=d.content?d.content.map(i=>i.text||"").join(""):"{}";
+      try{setResult(JSON.parse(t.replace(/```json|```/g,"").trim()))}catch(e){setResult({lines:[{code:"Erreur de parsing",explain:e.message,color:"#ef4444"}]})}
+    }).catch(e=>setResult({lines:[{code:"Erreur",explain:e.message,color:"#ef4444"}]})).finally(()=>setLoading(false));
+  };
+  const toggle=i=>{const n={...revealed};n[i]=!n[i];setRevealed(n)};
+  return React.createElement("div",null,
+    React.createElement("div",{style:{padding:18,borderRadius:14,background:"#0a0a14",border:"1px solid #1a1a2e",marginBottom:14}},
+      React.createElement("div",{style:{fontSize:14,fontWeight:600,color:"#f472b6",marginBottom:8}},"\ud83d\udd0d DECODEUR DE CODE"),
+      React.createElement("div",{style:{fontSize:11,color:"#475569",marginBottom:10}},"Colle n'importe quel code - explication ligne par ligne + quiz"),
+      React.createElement("textarea",{value:code,onChange:e=>setCode(e.target.value),placeholder:"Colle un code ici...",style:{width:"100%",minHeight:120,padding:14,borderRadius:10,background:"#000",border:"1px solid #1a1a2e",color:"#22d3ee",fontSize:12,resize:"vertical",outline:"none",lineHeight:1.7,boxSizing:"border-box"}}),
+      React.createElement("button",{onClick:analyze,disabled:loading||!code.trim(),style:{marginTop:10,padding:"11px 24px",borderRadius:10,border:"none",background:loading?"#1e293b":"linear-gradient(135deg,#f472b6,#a78bfa)",color:"#fff",fontSize:13,fontWeight:700}},
+        loading?"Decodage...":"\ud83d\udd0d DECODER")
+    ),
+    result&&result.lines&&React.createElement("div",{style:{padding:18,borderRadius:14,background:"#0a0a14",border:"1px solid #1a1a2e",marginBottom:14}},
+      React.createElement("div",{style:{display:"flex",justifyContent:"space-between",marginBottom:14}},
+        React.createElement("div",{style:{fontSize:13,fontWeight:600,color:"#22d3ee"}},"LIGNE PAR LIGNE"),
+        React.createElement("button",{onClick:()=>setShowAll(!showAll),style:{padding:"5px 12px",borderRadius:8,border:"1px solid #22d3ee20",background:"transparent",color:"#22d3ee",fontSize:11}},showAll?"Masquer":"Tout reveler")
+      ),
+      result.lines.map((line,i)=>React.createElement("div",{key:i,onClick:()=>toggle(i),style:{display:"flex",gap:12,padding:"8px 12px",marginBottom:2,borderRadius:8,background:(revealed[i]||showAll)?line.color+"08":"transparent",border:"1px solid "+((revealed[i]||showAll)?line.color+"30":"transparent"),cursor:"pointer",transition:"all .3s"}},
+        React.createElement("div",{style:{minWidth:24,color:"#444",fontSize:11,paddingTop:2}},i+1),
+        React.createElement("div",{style:{flex:1}},
+          React.createElement("pre",{style:{margin:0,fontFamily:"'JetBrains Mono',monospace",fontSize:12,color:line.color,whiteSpace:"pre-wrap"}},line.code||" "),
+          (revealed[i]||showAll)&&React.createElement("div",{style:{marginTop:6,padding:"6px 10px",borderRadius:6,background:"rgba(0,0,0,.5)",borderLeft:"3px solid "+line.color,fontSize:11,color:"#94a3b8",lineHeight:1.6}},line.explain)
+        )
+      ))
+    ),
+    result&&result.quiz&&React.createElement(QuizOne,{quiz:result.quiz})
+  );
+}
+
+// ===== QUIZ COMPONENT =====
+function QuizOne({quiz}){
+  const[sel,setSel]=useState(null);const[done,setDone]=useState(false);
+  return React.createElement("div",{style:{padding:16,borderRadius:14,background:"#0a0a14",border:"1px solid #1a1a2e"}},
+    React.createElement("div",{style:{fontSize:12,fontWeight:700,color:"#fbbf24",marginBottom:10}},"\ud83c\udfaf QUIZ RAPIDE"),
+    React.createElement("div",{style:{fontSize:13,color:"#e2e8f0",marginBottom:12,lineHeight:1.5}},quiz.question),
+    quiz.options.map((opt,i)=>React.createElement("button",{key:i,onClick:()=>{if(!done){setSel(i);setDone(true)}},
+      style:{display:"block",width:"100%",padding:"10px 14px",borderRadius:10,textAlign:"left",marginBottom:4,
+        background:done?(i===quiz.correct?"#34d39910":i===sel?"#ef444410":"#050508"):"#050508",
+        border:"1px solid "+(done?(i===quiz.correct?"#34d39940":i===sel?"#ef444440":"#111"):"#111"),
+        color:"#e2e8f0",fontSize:12,transition:"all .2s"}},
+      String.fromCharCode(65+i)+". "+opt+(done&&i===quiz.correct?" \u2713":"")+(done&&i===sel&&i!==quiz.correct?" \u2717":"")
+    )),
+    done&&React.createElement("div",{style:{marginTop:10,padding:10,borderRadius:8,background:sel===quiz.correct?"#34d39908":"#ef444408",border:"1px solid "+(sel===quiz.correct?"#34d39920":"#ef444420"),fontSize:12,color:"#94a3b8",lineHeight:1.5}},quiz.explanation)
+  );
+}
+
+// ===== CHAT TAB =====
+function ChatTab(){
+  const[msgs,setMsgs]=useState([{role:"assistant",content:"Salam! Je suis ton assistant NightCode pour la formation Graduate Dev IA.\n\nPose-moi n'importe quelle question sur tes cours!\n\nExemples:\n- C'est quoi une API REST ?\n- Explique-moi fetch()\n- Prepare-moi pour l'eval sur les fonctions"}]);
+  const[input,setInput]=useState("");const[loading,setLoading]=useState(false);const btm=useRef(null);
+  useEffect(()=>{btm.current&&btm.current.scrollIntoView({behavior:"smooth"})},[msgs]);
+  const send=()=>{
+    if(!input.trim()||loading)return;
+    const um=input.trim();setInput("");
+    const nm=[...msgs,{role:"user",content:um}];setMsgs(nm);setLoading(true);
+    const apiMsgs=nm.filter((_,i)=>i>0).map(m=>({role:m.role,content:m.content}));
+    fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,system:SYS,messages:apiMsgs})
+    }).then(r=>r.json()).then(d=>{
+      const t=d.content?d.content.map(i=>i.text||"").join(""):"Erreur de connexion.";
+      setMsgs(p=>[...p,{role:"assistant",content:t}]);
+    }).catch(e=>setMsgs(p=>[...p,{role:"assistant",content:"Erreur: "+e.message}])).finally(()=>setLoading(false));
+  };
+  const quick=["C'est quoi une variable ?","Explique les fonctions","C'est quoi une API ?","Prepare mon eval"];
+  return React.createElement("div",{style:{display:"flex",flexDirection:"column",height:520,borderRadius:14,background:"#0a0a14",border:"1px solid #1a1a2e",overflow:"hidden"}},
+    React.createElement("div",{style:{padding:"10px 16px",borderBottom:"1px solid #1a1a2e",display:"flex",alignItems:"center",gap:10}},
+      React.createElement("div",{style:{width:8,height:8,borderRadius:"50%",background:loading?"#fbbf24":"#34d399",animation:loading?"blink 1s infinite":"none"}}),
+      React.createElement("span",{style:{fontSize:12,color:"#64748b"}},loading?"Reflexion...":"ASSISTANT NIGHTCODE")
+    ),
+    React.createElement("div",{style:{flex:1,overflow:"auto",padding:14,display:"flex",flexDirection:"column",gap:10}},
+      msgs.map((m,i)=>React.createElement("div",{key:i,style:{alignSelf:m.role==="user"?"flex-end":"flex-start",maxWidth:"85%",padding:"10px 14px",borderRadius:m.role==="user"?"14px 14px 4px 14px":"14px 14px 14px 4px",background:m.role==="user"?"#22d3ee15":"#0f0f1a",border:"1px solid "+(m.role==="user"?"#22d3ee25":"#1a1a2e"),fontSize:13,color:"#e2e8f0",lineHeight:1.7,whiteSpace:"pre-wrap",wordBreak:"break-word"}},m.content)),
+      loading&&React.createElement("div",{style:{alignSelf:"flex-start",padding:"10px 14px",borderRadius:"14px 14px 14px 4px",background:"#0f0f1a",border:"1px solid #1a1a2e",color:"#22d3ee",animation:"blink 1s infinite"}},"..."),
+      React.createElement("div",{ref:btm})
+    ),
+    React.createElement("div",{style:{padding:"6px 14px",display:"flex",gap:6,overflowX:"auto",borderTop:"1px solid #0f0f1a"}},
+      quick.map(q=>React.createElement("button",{key:q,onClick:()=>setInput(q),style:{padding:"5px 10px",borderRadius:20,border:"1px solid #1a1a2e",background:"#050508",color:"#475569",fontSize:10,whiteSpace:"nowrap"}},q))
+    ),
+    React.createElement("div",{style:{padding:"10px 14px",borderTop:"1px solid #1a1a2e",display:"flex",gap:8}},
+      React.createElement("input",{value:input,onChange:e=>setInput(e.target.value),onKeyDown:e=>e.key==="Enter"&&send(),placeholder:"Pose ta question...",style:{flex:1,padding:"10px 14px",borderRadius:10,background:"#000",border:"1px solid #1a1a2e",color:"#e2e8f0",fontSize:13,outline:"none"}}),
+      React.createElement("button",{onClick:send,disabled:loading||!input.trim(),style:{padding:"10px 18px",borderRadius:10,border:"none",background:loading||!input.trim()?"#1e293b":"linear-gradient(135deg,#22d3ee,#a78bfa)",color:"#fff",fontWeight:700,fontSize:13}},">")
+    )
+  );
+}
+
+// ===== EVALUATION TAB =====
+function EvalTab(){
+  const[answers,setAnswers]=useState({});const[submitted,setSubmitted]=useState(false);
+  const score=QUIZ.reduce((a,q,i)=>a+(answers[i]===q.c?1:0),0);
+  return React.createElement("div",null,
+    React.createElement("div",{style:{padding:18,borderRadius:14,background:"#0a0a14",border:"1px solid #1a1a2e",marginBottom:14}},
+      React.createElement("div",{style:{fontSize:14,fontWeight:600,color:"#fbbf24",marginBottom:4}},"\ud83c\udfc6 EVALUATION TYPE EXAMEN STUDI"),
+      React.createElement("div",{style:{fontSize:11,color:"#475569",marginBottom:14}},QUIZ.length+" questions - QCM avec pieges"),
+      submitted&&React.createElement("div",{style:{padding:14,borderRadius:10,background:score>=QUIZ.length*0.7?"#34d39910":"#ef444410",border:"1px solid "+(score>=QUIZ.length*0.7?"#34d39930":"#ef444430"),marginBottom:14,textAlign:"center"}},
+        React.createElement("div",{style:{fontSize:28,fontWeight:700,color:score>=QUIZ.length*0.7?"#34d399":"#ef4444"}},score+"/"+QUIZ.length),
+        React.createElement("div",{style:{fontSize:12,color:"#94a3b8",marginTop:4}},score>=QUIZ.length*0.7?"Bon travail!":"Continue a reviser!")
+      )
+    ),
+    QUIZ.map((q,i)=>React.createElement("div",{key:i,style:{padding:16,borderRadius:14,background:"#0a0a14",border:"1px solid "+(submitted?(answers[i]===q.c?"#34d39930":"#ef444430"):"#1a1a2e"),marginBottom:8}},
+      React.createElement("div",{style:{display:"flex",justifyContent:"space-between",marginBottom:8}},
+        React.createElement("span",{style:{fontSize:10,color:"#22d3ee",padding:"2px 8px",borderRadius:4,background:"#22d3ee10"}},q.t),
+        q.p&&React.createElement("span",{style:{fontSize:9,color:"#ef4444",padding:"2px 6px",borderRadius:4,background:"#ef444410"}},"PIEGE")
+      ),
+      React.createElement("div",{style:{fontSize:13,color:"#e2e8f0",marginBottom:10,lineHeight:1.5}},(i+1)+". "+q.q),
+      q.o.map((opt,j)=>React.createElement("button",{key:j,onClick:()=>{if(!submitted){const n={...answers};n[i]=j;setAnswers(n)}},
+        style:{display:"block",width:"100%",padding:"8px 12px",borderRadius:8,textAlign:"left",marginBottom:3,
+          background:submitted?(j===q.c?"#34d39910":j===answers[i]?"#ef444410":"#050508"):answers[i]===j?"#22d3ee10":"#050508",
+          border:"1px solid "+(submitted?(j===q.c?"#34d39940":j===answers[i]&&j!==q.c?"#ef444440":"#111"):answers[i]===j?"#22d3ee30":"#111"),
+          color:"#e2e8f0",fontSize:12}},
+        String.fromCharCode(65+j)+". "+opt+(submitted&&j===q.c?" \u2713":"")
+      )),
+      submitted&&React.createElement("div",{style:{marginTop:8,padding:8,borderRadius:6,background:"#0f0f1a",fontSize:11,color:"#94a3b8",lineHeight:1.5,borderLeft:"3px solid "+(answers[i]===q.c?"#34d399":"#ef4444")}},q.e)
+    )),
+    React.createElement("button",{onClick:()=>setSubmitted(true),disabled:submitted||Object.keys(answers).length<QUIZ.length,
+      style:{width:"100%",padding:"14px",borderRadius:12,border:"none",background:submitted?"#1e293b":"linear-gradient(135deg,#fbbf24,#ef4444)",color:"#fff",fontSize:14,fontWeight:700,marginTop:8}},
+      submitted?"Resultat: "+score+"/"+QUIZ.length:"CORRIGER ("+Object.keys(answers).length+"/"+QUIZ.length+" repondu)")
+  );
+}
+
+// ===== EXERCISES TAB =====
+function ExosTab(){
+  const[revealed,setRevealed]=useState({});const[hinted,setHinted]=useState({});
+  const[filter,setFilter]=useState("all");
+  const topics=[...new Set(EXOS.map(e=>e.topic))];
+  const filtered=filter==="all"?EXOS:EXOS.filter(e=>e.topic===filter);
+  const typeLabel=t=>t==="error"?"\ud83d\udd0d Trouve l'erreur":t==="predict"?"\ud83c\udfaf Predis le resultat":"\ud83d\udd27 Remets dans l'ordre";
+  const typeColor=t=>t==="error"?"#ef4444":t==="predict"?"#22d3ee":"#a78bfa";
+  return React.createElement("div",null,
+    React.createElement("div",{style:{padding:18,borderRadius:14,background:"#0a0a14",border:"1px solid #1a1a2e",marginBottom:14}},
+      React.createElement("div",{style:{fontSize:14,fontWeight:600,color:"#a78bfa",marginBottom:8}},"\ud83d\udd27 EXERCICES SANS CODER"),
+      React.createElement("div",{style:{fontSize:11,color:"#475569",marginBottom:12}},"Trouve l'erreur, predis le resultat, remets dans l'ordre"),
+      React.createElement("div",{style:{display:"flex",gap:6,flexWrap:"wrap"}},
+        React.createElement("button",{onClick:()=>setFilter("all"),style:{padding:"5px 12px",borderRadius:20,border:"1px solid "+(filter==="all"?"#22d3ee30":"#1a1a2e"),background:filter==="all"?"#22d3ee10":"transparent",color:filter==="all"?"#22d3ee":"#475569",fontSize:11}},"Tous"),
+        topics.map(t=>React.createElement("button",{key:t,onClick:()=>setFilter(t),style:{padding:"5px 12px",borderRadius:20,border:"1px solid "+(filter===t?"#22d3ee30":"#1a1a2e"),background:filter===t?"#22d3ee10":"transparent",color:filter===t?"#22d3ee":"#475569",fontSize:11}},t))
+      )
+    ),
+    filtered.map((ex,i)=>React.createElement("div",{key:i,style:{padding:16,borderRadius:14,background:"#0a0a14",border:"1px solid #1a1a2e",marginBottom:8}},
+      React.createElement("div",{style:{display:"flex",justifyContent:"space-between",marginBottom:8}},
+        React.createElement("span",{style:{fontSize:10,color:typeColor(ex.type),padding:"2px 8px",borderRadius:4,background:typeColor(ex.type)+"10"}},typeLabel(ex.type)),
+        React.createElement("span",{style:{fontSize:10,color:"#475569"}},ex.topic)
+      ),
+      React.createElement("div",{style:{fontSize:13,fontWeight:600,color:"#e2e8f0",marginBottom:10}},ex.title),
+      ex.code&&React.createElement("pre",{style:{padding:12,borderRadius:8,background:"#000",border:"1px solid #1a1a2e",fontSize:12,color:"#22d3ee",lineHeight:1.6,whiteSpace:"pre-wrap",marginBottom:10,fontFamily:"'JetBrains Mono',monospace"}},ex.code.replace(/\\n/g,"\n")),
+      ex.blocks&&React.createElement("div",{style:{marginBottom:10}},
+        ex.blocks.map((b,j)=>React.createElement("div",{key:j,style:{padding:"8px 12px",borderRadius:8,background:"#050508",border:"1px solid #1a1a2e",marginBottom:4,fontSize:12,color:"#e2e8f0",fontFamily:"'JetBrains Mono',monospace"}},j+1+". "+b))
+      ),
+      React.createElement("div",{style:{display:"flex",gap:8}},
+        ex.hint&&!hinted[i]&&React.createElement("button",{onClick:()=>{const n={...hinted};n[i]=true;setHinted(n)},style:{padding:"8px 16px",borderRadius:8,border:"1px solid #fbbf2430",background:"#fbbf2408",color:"#fbbf24",fontSize:11}},"Indice"),
+        React.createElement("button",{onClick:()=>{const n={...revealed};n[i]=!n[i];setRevealed(n)},style:{padding:"8px 16px",borderRadius:8,border:"1px solid "+(revealed[i]?"#34d39930":"#22d3ee30"),background:revealed[i]?"#34d39908":"#22d3ee08",color:revealed[i]?"#34d399":"#22d3ee",fontSize:11}},revealed[i]?"Masquer":"Voir la reponse")
+      ),
+      hinted[i]&&React.createElement("div",{style:{marginTop:8,padding:8,borderRadius:6,background:"#fbbf2408",borderLeft:"3px solid #fbbf24",fontSize:11,color:"#fbbf24"}},ex.hint),
+      revealed[i]&&React.createElement("div",{style:{marginTop:8,padding:10,borderRadius:8,background:"#34d39908",border:"1px solid #34d39920",fontSize:12,color:"#34d399",lineHeight:1.6}},ex.ans)
+    ))
+  );
+}
+
+// ===== MAIN APP =====
+const TABS=[{id:"formation",l:"Formation"},{id:"decode",l:"Decoder"},{id:"chat",l:"Assistant"},{id:"eval",l:"Evaluation"},{id:"exos",l:"Exercices"}];
+
+function App(){
+  const[tab,setTab]=useState("formation");
+  const[splash,setSplash]=useState(true);
+  useEffect(()=>{if(splash){const t=setTimeout(()=>setSplash(false),2500);return()=>clearTimeout(t)}},[splash]);
+
+  if(splash){
+    return React.createElement("div",{className:"app",style:{height:"100vh",display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column"}},
+      React.createElement("div",{style:{fontSize:48,fontWeight:900,letterSpacing:10,color:"#22d3ee",textShadow:"0 0 30px #22d3ee80,0 0 80px #22d3ee40",animation:"pulse 2s ease infinite",fontFamily:"'Courier New',monospace"}},"NIGHTCODE"),
+      React.createElement("div",{style:{fontSize:13,letterSpacing:14,color:"#0e7490",marginTop:6,fontFamily:"'Courier New',monospace"}},"ACADEMY"),
+      React.createElement("div",{style:{marginTop:20,fontSize:10,letterSpacing:3,color:"#334155",padding:"6px 16px",borderRadius:20,border:"1px solid #1e293b"}},"GRADUATE DEVELOPPEUR IA - STUDI"),
+      React.createElement("div",{style:{marginTop:20,fontSize:11,color:"#1e293b",animation:"blink 1s step-end infinite",fontFamily:"monospace"}},"> Chargement_")
+    );
+  }
+
+  return React.createElement("div",{className:"app"},
+    // Header
+    React.createElement("div",{style:{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:6}},
+      React.createElement("div",null,
+        React.createElement("span",{style:{fontFamily:"'JetBrains Mono',monospace",fontSize:20,fontWeight:700,letterSpacing:4,color:"#22d3ee",textShadow:"0 0 8px #22d3ee60"}},"NIGHTCODE"),
+        React.createElement("span",{style:{color:"#1e293b",fontSize:13,marginLeft:8}},"ACADEMY")
+      ),
+      React.createElement("div",{style:{padding:"4px 10px",borderRadius:6,background:"#0e749010",border:"1px solid #0e749025",fontSize:9,letterSpacing:1.5,color:"#0e7490"}},"GRADUATE DEV IA 2026")
+    ),
+    // Ticker
+    React.createElement(Ticker),
+    // Tabs
+    React.createElement("div",{style:{display:"flex",gap:4,marginBottom:16,overflowX:"auto"}},
+      TABS.map(t=>React.createElement("button",{key:t.id,onClick:()=>setTab(t.id),style:{flex:1,padding:"10px 8px",borderRadius:10,border:"1px solid "+(tab===t.id?"#22d3ee30":"#111"),background:tab===t.id?"#22d3ee06":"#0a0a14",fontSize:12,fontWeight:tab===t.id?600:400,color:tab===t.id?"#22d3ee":"#475569",whiteSpace:"nowrap",transition:"all .2s"}},t.l))
+    ),
+    // Content
+    tab==="formation"&&React.createElement(FormationTab),
+    tab==="decode"&&React.createElement(DecodeTab),
+    tab==="chat"&&React.createElement(ChatTab),
+    tab==="eval"&&React.createElement(EvalTab),
+    tab==="exos"&&React.createElement(ExosTab),
+    // Footer
+    React.createElement("div",{style:{textAlign:"center",marginTop:16,fontSize:9,color:"#111",letterSpacing:2}},"NIGHTCODE ACADEMY - GRADUATE DEV IA - ZERO LIGNE TAPEE")
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(App));
+</script>
+</body>
+</html>
