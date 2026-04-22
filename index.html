@@ -1,354 +1,1240 @@
-
-{id:"intro_prog",name:"Introduction a la programmation",lessons:[
-{id:"p1",name:"Qu est-ce que la programmation",concepts:["Definition programmation","Langages haut/bas niveau","Compilation vs interpretation","Code source executable","Algorithme vers programme"],quiz:[
-{q:"Un langage haut niveau est:",o:["Plus proche du materiel","Plus proche du langage humain","Plus rapide","Plus ancien"],a:1}]},
-{id:"p2",name:"Variables et types de donnees",concepts:["Declaration variable","Types int float string bool","Typage statique vs dynamique","Constantes","Conversion types casting"],quiz:[
-{q:"Une variable boolean peut valoir:",o:["Un nombre","true ou false","Une chaine","Un tableau"],a:1},
-{q:"let x = 42 est de type:",o:["String","Boolean","Number","Array"],a:2}]},
-{id:"p3",name:"Les operateurs",concepts:["Arithmetiques + - * / %","Comparaison == != > <","Logiques && || !","Affectation = += -=","Operateur ternaire","Priorite operateurs"],quiz:[
-{q:"L operateur % retourne:",o:["La division","Le reste","La multiplication","La puissance"],a:1}]},
-{id:"p4",name:"Les conditions if else",concepts:["if simple","if else","if else if else","Switch case","Conditions imbriquees","Ternaire cond ? a : b"],quiz:[
-{q:"switch compare a:",o:["Des fonctions","Des cas case","Des boucles","Des fichiers"],a:1}]},
-{id:"p5",name:"Les boucles for while",concepts:["Boucle for","Boucle while","do while","break continue","Boucles imbriquees","for of for in"],quiz:[
-{q:"while s execute:",o:["Un nombre fixe","Tant que condition vraie","Une seule fois","Jamais"],a:1},
-{q:"do while execute le bloc:",o:["0 fois min","1 fois minimum","2 fois min","Indefiniment"],a:1}]},
-{id:"p6",name:"Les fonctions",concepts:["Declaration fonction","Parametres arguments","Valeur retour return","Portee scope","Fonctions anonymes","Arrow functions =>"],quiz:[
-{q:"return dans une fonction:",o:["Affiche message","Renvoie valeur et arrete","Cree variable","Appelle autre fonction"],a:1}]},
-{id:"p7",name:"Les tableaux arrays",concepts:["Declaration initialisation","Index commence a 0","push pop shift unshift","length acces index","forEach parcours","slice splice concat"],quiz:[
-{q:"Premier element a l index:",o:["1","0","-1","null"],a:1}]},
-{id:"p8",name:"Les objets",concepts:["Paires cle-valeur","Acces point crochets","Methodes objet","this keyword","Destructuration","Object.keys values entries"],quiz:[
-{q:"Un objet stocke:",o:["Index numeriques","Paires cle-valeur","Lignes de code","Fichiers"],a:1}]},
-{id:"p9",name:"Chaines de caracteres",concepts:["Concatenation","Template literals","Methodes length toUpperCase","indexOf includes slice","split join","Regex intro"],quiz:[
-{q:"Template literals utilisent:",o:["Guillemets simples","Guillemets doubles","Backticks","Parentheses"],a:2}]},
-{id:"p10",name:"Gestion des erreurs",concepts:["try catch finally","Types erreurs","throw","Error object","console.log debug","Stack trace"],quiz:[
-{q:"try catch permet de:",o:["Creer boucles","Gerer erreurs sans crash","Definir variables","Optimiser"],a:1}]},
-{id:"p11",name:"POO bases",concepts:["Classes instances","Constructeur","Proprietes methodes","Encapsulation","Heritage extends","Polymorphisme"],quiz:[
-{q:"Une classe est:",o:["Une variable","Un modele pour creer objets","Une boucle","Un fichier"],a:1}]},
-{id:"p12",name:"Modules et imports",concepts:["export import","Modules ES6","require CommonJS","Organisation code","Dependances","npm packages"],quiz:[
-{q:"import permet de:",o:["Supprimer","Utiliser code d un autre fichier","Creer serveur","Compiler"],a:1}]},
-{id:"p13",name:"Bonnes pratiques code",concepts:["Nommage clair","Commentaires utiles","DRY","KISS","Code lisible","Indentation formatage"],quiz:[
-{q:"DRY signifie:",o:["Do Repeat Yourself","Don t Repeat Yourself","Debug Run Yield","Data Rest Yield"],a:1}]}
-]},
-{id:"algo",name:"Introduction a l algorithme",lessons:[
-{id:"a1",name:"Qu est-ce qu un algorithme",concepts:["Definition algorithme","Entree traitement sortie","Pseudo-code","Organigramme","Complexite notion","Exemples quotidiens"],quiz:[
-{q:"Un algorithme est:",o:["Un langage","Suite d instructions pour resoudre probleme","Un type de donnee","Un logiciel"],a:1}]},
-{id:"a2",name:"Structures de controle",concepts:["Sequence","Selection if/else","Iteration boucles","Conditions combinees","Imbrication"],quiz:[
-{q:"3 structures fondamentales:",o:["Variable fonction classe","Sequence selection iteration","HTML CSS JS","Input process output"],a:1}]},
-{id:"a3",name:"Algorithmes de tri",concepts:["Tri a bulles","Tri par selection","Tri par insertion","Complexite O(n2) vs O(n log n)","Quick sort","Comparaison tris"],quiz:[
-{q:"Tri a bulles complexite:",o:["O(1)","O(n)","O(n2)","O(log n)"],a:2}]},
-{id:"a4",name:"Algorithmes de recherche",concepts:["Recherche lineaire O(n)","Recherche binaire O(log n)","Prerequis tri","Recherche chaines","Recherche structures"],quiz:[
-{q:"Recherche binaire necessite donnees:",o:["En desordre","Triees","Vides","Dupliquees"],a:1}]},
-{id:"a5",name:"La recursivite",concepts:["Fonction s appelle elle-meme","Cas de base arret","Cas recursif","Pile appels","Factorielle Fibonacci","Avantages limites"],quiz:[
-{q:"Le cas de base sert a:",o:["Accelerer","Arreter appels recursifs","Creer boucle","Definir variable"],a:1}]},
-{id:"a6",name:"Structures donnees lineaires",concepts:["Tableau Array","Liste chainee","Pile Stack LIFO","File Queue FIFO","Deque","Applications"],quiz:[
-{q:"Pile Stack fonctionne en:",o:["FIFO","LIFO","FILO","Random"],a:1}]},
-{id:"a7",name:"Arbres et graphes",concepts:["Arbre binaire","Noeud racine feuille","Parcours DFS BFS","Graphe oriente non oriente","Applications arbres"],quiz:[
-{q:"La racine est:",o:["Le dernier noeud","Le premier noeud en haut","Une feuille","Un arc"],a:1}]},
-{id:"a8",name:"Complexite algorithmique",concepts:["Notation Big O","O(1) O(n) O(n2) O(log n)","Meilleur pire cas","Complexite espace","Optimisation","Compromis temps espace"],quiz:[
-{q:"O(1) signifie:",o:["Temps lineaire","Temps constant","Temps quadratique","Temps logarithmique"],a:1}]}
-]}]},<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>NightCode Academy v3 - Graduate Dev IA</title>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box;margin:0;padding:0}body{background:#05050c;color:#e2e8f0;font-family:'Segoe UI',sans-serif;min-height:100vh;overflow-x:hidden}@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#22d3ee40;border-radius:10px}button{font-family:inherit;cursor:pointer}#matrix-bg{position:fixed;inset:0;z-index:0;opacity:.06;pointer-events:none}.app{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:16px 14px}.card{padding:16px;border-radius:14px;background:#0a0a14;border:1px solid #1a1a2e;margin-bottom:10px}.badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;font-family:'JetBrains Mono',monospace}.cyan{color:#22d3ee}.violet{color:#a78bfa}.rose{color:#f472b6}.green{color:#4ade80}.yellow{color:#fbbf24}.red{color:#f87171}.bg-cyan{background:#22d3ee20;border:1px solid #22d3ee40}.tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:12px}.tab-btn{padding:8px 14px;border:1px solid #1a1a2e;background:#0a0a14;color:#888;border-radius:8px;font-size:12px;transition:all .3s}.tab-btn:hover{color:#ccc;border-color:#333}.tab-btn.active{color:#22d3ee;border-color:#22d3ee;background:#22d3ee10}.ticker{overflow:hidden;background:#0a0a14;border:1px solid #1a1a2e;border-radius:8px;padding:8px 0;margin-bottom:12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#22d3ee80}.ticker-inner{display:flex;gap:40px;animation:scroll 30s linear infinite;white-space:nowrap}@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}.xp-bar{height:6px;background:#1a1a2e;border-radius:3px;overflow:hidden;margin-top:6px}.xp-fill{height:100%;background:linear-gradient(90deg,#22d3ee,#a78bfa);border-radius:3px;transition:width .5s}.lesson-item{display:flex;align-items:center;gap:8px;padding:8px;border-radius:8px;cursor:pointer;transition:background .2s;border-bottom:1px solid #ffffff08}.lesson-item:hover{background:#ffffff08}.lesson-item input[type=checkbox]{accent-color:#22d3ee;width:16px;height:16px;cursor:pointer}h1{font-family:'JetBrains Mono',monospace;font-size:22px;color:#22d3ee}h2{font-family:'JetBrains Mono',monospace;font-size:16px;color:#a78bfa;margin:16px 0 8px}h3{font-family:'JetBrains Mono',monospace;font-size:14px;color:#f472b6;margin:12px 0 6px}.concept-card{background:#0f0f1e;border:1px solid #22d3ee20;border-radius:10px;padding:14px;margin:8px 0}.concept-card h4{color:#22d3ee;font-family:'JetBrains Mono',monospace;font-size:13px;margin-bottom:6px}.concept-card p{font-size:13px;line-height:1.6;color:#b0b0c0}.quiz-option{display:block;width:100%;text-align:left;padding:10px 14px;margin:6px 0;border:1px solid #1a1a2e;background:#0a0a14;color:#e2e8f0;border-radius:8px;font-size:13px;transition:all .2s}.quiz-option:hover{border-color:#22d3ee;background:#22d3ee08}.quiz-option.correct{border-color:#4ade80;background:#4ade8020;color:#4ade80}.quiz-option.wrong{border-color:#f87171;background:#f8717120;color:#f87171}.quiz-option.disabled{pointer-events:none;opacity:.7}.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:12px 0}.stat-card{text-align:center;padding:14px;border-radius:10px;background:#0a0a14;border:1px solid #1a1a2e}.stat-val{font-size:24px;font-weight:700;font-family:'JetBrains Mono',monospace}.stat-label{font-size:11px;color:#888;margin-top:4px}.sr-badge{font-size:10px;padding:2px 6px;border-radius:4px;margin-left:6px}.sr-new{background:#22d3ee20;color:#22d3ee}.sr-learning{background:#fbbf2420;color:#fbbf24}.sr-review{background:#4ade8020;color:#4ade80}.sr-mastered{background:#a78bfa20;color:#a78bfa}.module-header{display:flex;justify-content:space-between;align-items:center;cursor:pointer;padding:10px;border-radius:8px;transition:background .2s}.module-header:hover{background:#ffffff06}.flex-between{display:flex;justify-content:space-between;align-items:center}.flash-card{perspective:800px;cursor:pointer;margin:8px 0}.flash-inner{position:relative;width:100%;min-height:120px;transition:transform .6s;transform-style:preserve-3d}.flash-card.flipped .flash-inner{transform:rotateY(180deg)}.flash-front,.flash-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:16px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14px}.flash-front{background:#0f0f1e;border:1px solid #22d3ee30;color:#e2e8f0}.flash-back{background:#0f0f1e;border:1px solid #4ade8030;color:#4ade80;transform:rotateY(180deg)}.speed-indicator{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-family:'JetBrains Mono',monospace}.speed-fast{background:#4ade8020;color:#4ade80}.speed-normal{background:#fbbf2420;color:#fbbf24}.speed-slow{background:#f8717120;color:#f87171}.weak-topic{padding:8px 12px;margin:4px 0;border-radius:8px;border-left:3px solid #f87171;background:#f8717108;font-size:13px}.strong-topic{padding:8px 12px;margin:4px 0;border-radius:8px;border-left:3px solid #4ade80;background:#4ade8008;font-size:13px}.difficulty-bar{display:flex;gap:2px;margin-top:4px}.diff-seg{height:4px;flex:1;border-radius:2px;background:#1a1a2e}.diff-seg.filled{background:#22d3ee}.diff-seg.medium{background:#fbbf24}.diff-seg.hard{background:#f87171}.progress-ring{position:relative;display:inline-block}.progress-ring svg{transform:rotate(-90deg)}.progress-ring .label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:14px}
-</style></head><body><canvas id="matrix-bg"></canvas><div class="app" id="root"></div>
-<script>
-{id:"front",name:"Front-end + IA",modules:[
-{id:"htmlcss",name:"HTML et CSS",lessons:[
-{id:"h1",name:"Introduction a HTML",concepts:["Balises attributs","Structure DOCTYPE html head body","Titres h1-h6 paragraphes","Listes ul ol li","Liens a images img"],quiz:[{q:"HTML signifie:",o:["Hyper Text Markup Language","High Tech Modern Language","Home Tool Multi Language","Hyper Transfer Method"],a:0}]},
-{id:"h2",name:"Formulaires HTML",concepts:["form action method","input types","select option","textarea","button submit","Validation required pattern"],quiz:[{q:"required rend un champ:",o:["Style","Obligatoire","Cache","Supprime"],a:1}]},
-{id:"h3",name:"HTML semantique",concepts:["header footer nav main aside","Accessibilite ARIA","Role balises semantiques","SEO et semantique","figure figcaption"],quiz:[{q:"HTML semantique ameliore:",o:["Vitesse","Accessibilite et SEO","Couleurs","Taille fichiers"],a:1}]},
-{id:"h4",name:"CSS bases selecteurs proprietes",concepts:["Selecteurs element classe id","Couleurs hex rgb hsl","Tailles px em rem vw vh","Marges margin padding","Bordures border-radius","Display block inline none"],quiz:[{q:"Pour cibler une classe:",o:["#",".",">","*"],a:1}]},
-{id:"h5",name:"CSS Flexbox",concepts:["display flex","justify-content align-items","flex-direction","flex-wrap","gap","flex-grow shrink basis"],quiz:[{q:"justify-content aligne sur:",o:["Axe principal","Axe secondaire","Les deux","Aucun"],a:0}]},
-{id:"h6",name:"CSS Grid",concepts:["display grid","grid-template-columns rows","grid-gap","grid-area","fr unit","repeat minmax"],quiz:[{q:"fr represente:",o:["Pixels","Fraction espace disponible","Pourcentages","Centimetres"],a:1}]},
-{id:"h7",name:"CSS Responsive design",concepts:["Media queries @media","Mobile first","Breakpoints standard","Viewport meta","Images responsives","Unites relatives"],quiz:[{q:"Mobile first signifie:",o:["Coder d abord desktop","Coder d abord mobile","Ignorer mobile","Tester mobile uniquement"],a:1}]},
-{id:"h8",name:"CSS Animations transitions",concepts:["transition","@keyframes","animation proprietes","transform translate rotate scale","opacity visibility","Performance animations"],quiz:[{q:"@keyframes definit:",o:["Variable","Etapes animation","Selecteur","Media query"],a:1}]},
-{id:"h9",name:"CSS Variables preprocesseurs",concepts:["--custom-property","var() function","Sass SCSS bases","Nesting","Mixins","BEM methodologie"],quiz:[{q:"Variable CSS native se declare avec:",o:["$variable","@variable","--variable","var_name"],a:2}]}
-]},
-{id:"jsbase",name:"JavaScript debutant",lessons:[
-{id:"j1",name:"Introduction a JavaScript",concepts:["JS langage du web","Console navigateur","script tag fichier externe","Variables let const var","Typage dynamique","Premier programme"],quiz:[{q:"JS s execute dans:",o:["Serveur","Navigateur","BDD","Terminal uniquement"],a:1},{q:"const declare variable:",o:["Modifiable","Constante non reassignable","Globale","Temporaire"],a:1}]},
-{id:"j2",name:"Types et operateurs JS",concepts:["string number boolean null undefined","typeof operator","== vs ===","Operateurs logiques","Template literals","Coercion type"],quiz:[{q:"=== verifie:",o:["Valeur seulement","Valeur ET type","Type seulement","Rien"],a:1}]},
-{id:"j3",name:"Conditions en JS",concepts:["if else if else","switch case","Ternaire","Nullish coalescing ??","Optional chaining ?.","Truthy falsy"],quiz:[{q:"Valeur falsy en JS:",o:["1","hello","0","[]"],a:2}]},
-{id:"j4",name:"Boucles en JS",concepts:["for classique","while do while","for of tableaux","for in objets","break continue","forEach methode"],quiz:[{q:"for of itere sur:",o:["Cles objet","Valeurs iterable","Index","Proprietes"],a:1}]},
-{id:"j5",name:"Fonctions JS",concepts:["function declaration","function expression","Arrow functions =>","Parametres defaut","Rest parameters","Callback functions"],quiz:[{q:"Arrow function s ecrit:",o:["function(){}","()=>{}","def():","func():"],a:1}]},
-{id:"j6",name:"Tableaux JS",concepts:["Array creation acces","push pop shift unshift","map filter reduce","find findIndex includes","sort reverse","Spread [...]"],quiz:[{q:"map retourne:",o:["Boolean","Nouveau tableau transforme","Nombre","Objet"],a:1}]},
-{id:"j7",name:"Objets JS",concepts:["Objet litteral","Methodes objet","Destructuring","Spread {...}","Object.keys values entries","JSON stringify parse"],quiz:[{q:"JSON.parse transforme:",o:["Objet en string","String JSON en objet","Nombre en string","Tableau en objet"],a:1}]},
-{id:"j8",name:"DOM manipulation",concepts:["getElementById querySelector","createElement appendChild","innerHTML textContent","classList add remove toggle","style modification","parentNode childNodes"],quiz:[{q:"querySelector selectionne:",o:["Tous elements","Premier correspondant","Dernier","Aleatoire"],a:1}]},
-{id:"j9",name:"Evenements JS",concepts:["addEventListener","click submit keydown","event object e.target","preventDefault","Bubbling capturing","Event delegation"],quiz:[{q:"preventDefault empeche:",o:["Execution JS","Comportement par defaut navigateur","Creation variables","Affichage page"],a:1}]}
-]},
-{id:"jsavance",name:"JavaScript avance",lessons:[
-{id:"ja1",name:"Closures et scope",concepts:["Scope global local bloc","Closure definition","Lexical scoping","IIFE pattern","Module pattern","Exemples pratiques"],quiz:[{q:"Une closure est:",o:["Type boucle","Fonction garde acces scope parent","Objet special","Erreur"],a:1}]},
-{id:"ja2",name:"Programmation asynchrone",concepts:["Callbacks","Promises then catch","async await","Promise.all race","Event loop","Microtasks macrotasks"],quiz:[{q:"async await est sucre syntaxique pour:",o:["Boucles","Promises","Classes","Tableaux"],a:1}]},
-{id:"ja3",name:"Fetch API requetes HTTP",concepts:["fetch syntax","GET POST PUT DELETE","Headers body","Response JSON","Error handling","CORS basics"],quiz:[{q:"fetch retourne:",o:["Tableau","Promise","String","Nombre"],a:1}]},
-{id:"ja4",name:"ES6+ fonctionnalites",concepts:["let const vs var","Destructuring","Spread rest operators","Optional chaining","Nullish coalescing","Map Set"],quiz:[{q:"Spread operator permet de:",o:["Commenter","Etendre iterable","Creer boucle","Definir type"],a:1}]},
-{id:"ja5",name:"Classes heritage JS",concepts:["class syntax","constructor","extends super","Methodes statiques","Getters setters","Polymorphisme"],quiz:[{q:"super dans classe fille appelle:",o:["toString","Constructeur parent","Methode statique","Getter"],a:1}]},
-{id:"ja6",name:"Modules ES6",concepts:["export default named","import syntax","Dynamic imports","Tree shaking","Bundlers Webpack Vite","Package.json"],quiz:[{q:"export default exporte:",o:["Plusieurs elements","Un seul element principal","Variables globales","Commentaires"],a:1}]}
-]},
-{id:"git_mod",name:"Git",lessons:[
-{id:"g1",name:"Introduction a Git",concepts:["Gestion version pourquoi","Git vs GitHub","Repository local remote","git init clone","Historique commits","Staging area"],quiz:[{q:"Git est:",o:["Hebergeur","Systeme gestion version","Langage","Editeur"],a:1}]},
-{id:"g2",name:"Commandes Git essentielles",concepts:["git add commit push pull","git status log","git diff","git stash","git reset",".gitignore"],quiz:[{q:"git add sert a:",o:["Supprimer","Ajouter au staging","Creer branche","Fusionner"],a:1}]},
-{id:"g3",name:"Branches et merge",concepts:["git branch","git checkout switch","git merge","Conflits merge","git rebase","Feature branch workflow"],quiz:[{q:"Une branche permet de:",o:["Supprimer code","Travailler sur feature separement","Sauvegarder images","Envoyer mails"],a:1}]},
-{id:"g4",name:"GitHub collaboration",concepts:["Pull requests","Code review","Fork clone","Issues projects","GitHub Actions","README documentation"],quiz:[{q:"Pull Request permet de:",o:["Telecharger","Proposer modifications pour review","Supprimer repo","Creer compte"],a:1}]}
-]},
-{id:"ia_front",name:"IA et Front-end",lessons:[
-{id:"if1",name:"IA pour le front",concepts:["IA generative dev web","Copilot assistants","Prompting code","Automatisation front","Ethique IA","Limites IA"],quiz:[{q:"GitHub Copilot est:",o:["Navigateur","Assistant code par IA","Framework CSS","Langage"],a:1}]},
-{id:"if2",name:"Utiliser IA generer code front",concepts:["Prompts efficaces","Generation HTML CSS JS","Correction bugs IA","Optimisation code","Tests generes IA"],quiz:[{q:"Bon prompt doit etre:",o:["Vague","Precis et contextuel","Court","Anglais uniquement"],a:1}]}
-]}]},
-{id:"back",name:"Back-end + IA",modules:[
-{id:"php",name:"PHP",lessons:[
-{id:"ph1",name:"Introduction a PHP",concepts:["PHP langage serveur","Balises <?php ?>","echo print","Variables $","Types PHP","Serveur local XAMPP"],quiz:[{q:"PHP s execute cote:",o:["Client","Serveur","Navigateur","Terminal"],a:1},{q:"Variable PHP commence par:",o:["#","$","@","&"],a:1}]},
-{id:"ph2",name:"Conditions boucles PHP",concepts:["if elseif else","switch case","for while do-while","foreach tableaux","break continue","match PHP 8"],quiz:[{q:"foreach itere sur:",o:["Nombres","Tableaux","Fichiers","Classes"],a:1}]},
-{id:"ph3",name:"Fonctions PHP",concepts:["function declaration","Parametres types","Valeur retour","Fonctions anonymes","Arrow functions PHP","Fonctions builtin"],quiz:[{q:"Arrow function PHP:",o:["=> {}","fn() =>","() -> {}","lambda:"],a:1}]},
-{id:"ph4",name:"Tableaux PHP",concepts:["Array indexe","Array associatif","Array multidim","array_push pop","array_map filter","sort asort ksort"],quiz:[{q:"Tableau associatif utilise:",o:["Index numeriques","Cles nommees","Booleans","Fichiers"],a:1}]},
-{id:"ph5",name:"Formulaires et PHP",concepts:["$_GET $_POST","Superglobales","Validation donnees","htmlspecialchars","filter_var","CSRF protection"],quiz:[{q:"$_POST recupere donnees envoyees par:",o:["URL","Formulaire POST","Cookies","Session"],a:1}]},
-{id:"ph6",name:"PHP et MySQL",concepts:["PDO connexion","Requetes preparees","CRUD PHP","SQL injection prevention","Transactions","fetch fetchAll"],quiz:[{q:"Requetes preparees protegent contre:",o:["Virus","Injections SQL","Erreurs CSS","Bugs HTML"],a:1}]},
-{id:"ph7",name:"Sessions cookies PHP",concepts:["session_start","$_SESSION","setcookie","$_COOKIE","Securite sessions","Expiration"],quiz:[{q:"$_SESSION stocke sur:",o:["Navigateur","Serveur","URL","Fichier JS"],a:1}]},
-{id:"ph8",name:"POO en PHP",concepts:["class new","Constructeur __construct","public private protected","Heritage extends","Interfaces abstract","Namespaces autoload"],quiz:[{q:"private signifie:",o:["Accessible partout","Accessible classe seulement","Accessible enfants","Accessible dehors"],a:1}]}
-]},
-{id:"python",name:"Python",lessons:[
-{id:"py1",name:"Introduction a Python",concepts:["Python polyvalent","Indentation obligatoire","print input","Variables sans type","Commentaires docstrings","Python 3 vs 2"],quiz:[{q:"En Python indentation est:",o:["Optionnelle","Obligatoire","Interdite","Pour commentaires"],a:1}]},
-{id:"py2",name:"Types donnees Python",concepts:["int float str bool","list tuple dict set","None type","Type conversion","f-strings","type() function"],quiz:[{q:"Un tuple est:",o:["Modifiable","Immutable","Dictionnaire","Fonction"],a:1}]},
-{id:"py3",name:"Conditions boucles Python",concepts:["if elif else","for in range","while","break continue pass","List comprehension","enumerate zip"],quiz:[{q:"List comprehension permet:",o:["Creer fonctions","Creer listes concisement","Gerer erreurs","Importer modules"],a:1}]},
-{id:"py4",name:"Fonctions Python",concepts:["def keyword","*args **kwargs","return value","Lambda functions","Decorateurs","Type hints"],quiz:[{q:"**kwargs recoit:",o:["Args positionnels","Args nommes","Fichiers","Modules"],a:1}]},
-{id:"py5",name:"Fichiers exceptions Python",concepts:["open read write","with statement","try except finally","raise exception","Custom exceptions","os pathlib"],quiz:[{q:"with statement garantit:",o:["Vitesse","Fermeture auto fichier","Creation fichier","Suppression"],a:1}]},
-{id:"py6",name:"POO Python",concepts:["class self","__init__ constructeur","Heritage","Methodes speciales dunder","Property decorateurs","Encapsulation conventions"],quiz:[{q:"self represente:",o:["La classe","L instance courante","Variable globale","Module"],a:1}]},
-{id:"py7",name:"Modules packages Python",concepts:["import from import","pip install","requirements.txt","venv environnement virtuel","__init__.py","PyPI repository"],quiz:[{q:"pip est:",o:["Editeur","Gestionnaire packages Python","Framework","Navigateur"],a:1}]},
-{id:"py8",name:"Python web Flask Django",concepts:["Flask micro-framework","Routes vues","Templates Jinja2","Django MTV","ORM bases","API REST Python"],quiz:[{q:"Flask est:",o:["Framework lourd","Micro-framework Python","Langage","Editeur"],a:1}]}
-]},
-{id:"ia_back",name:"IA et Back-end",lessons:[
-{id:"ib1",name:"IA pour le back-end",concepts:["IA generative backend","Automatisation APIs","Generation SQL","Tests auto IA","Optimisation code","Securite assistee IA"],quiz:[{q:"IA aide backend pour:",o:["Design UI","Generer optimiser code","Creer images","Modifier HTML"],a:1}]},
-{id:"ib2",name:"Machine Learning bases",concepts:["Supervise non supervise","Datasets entrainement","Regression classification","Scikit-learn","Evaluation modele","Overfitting underfitting"],quiz:[{q:"Apprentissage supervise utilise:",o:["Donnees sans labels","Donnees avec labels","Aucune donnee","Images uniquement"],a:1}]},
-{id:"ib3",name:"Reseaux de neurones intro",concepts:["Neurone artificiel","Couches input hidden output","Poids biais","Fonction activation","Backpropagation","TensorFlow PyTorch"],quiz:[{q:"Reseau de neurones compose de:",o:["Fichiers","Couches neurones connectes","BDD","Serveurs web"],a:1}]}
-]}]}]};
-class LearningEngine{constructor(){this.data=JSON.parse(localStorage.getItem('nc3_data'))||{};if(!this.data.lessons)this.data.lessons={};if(!this.data.quizHistory)this.data.quizHistory=[];if(!this.data.streak)this.data.streak={current:0,best:0,lastDate:null};if(!this.data.startDate)this.data.startDate=Date.now();this.save()}
-save(){localStorage.setItem('nc3_data',JSON.stringify(this.data))}
-getLessonData(id){if(!this.data.lessons[id])this.data.lessons[id]={done:false,quizAttempts:0,quizCorrect:0,quizHistory:[],difficulty:0,srLevel:0,srNextReview:null,wrongAnswers:[]};return this.data.lessons[id]}
-markDone(id,done){const ld=this.getLessonData(id);ld.done=done;if(done)ld.lastStudied=Date.now();this.save()}
-recordQuiz(lessonId,qi,correct,time){const ld=this.getLessonData(lessonId);ld.quizAttempts++;if(correct)ld.quizCorrect++;else ld.wrongAnswers.push(qi);ld.quizHistory.push({q:qi,correct,time,date:Date.now()});const recent=ld.quizHistory.slice(-5);const rc=recent.filter(r=>r.correct).length;ld.difficulty=Math.max(0,Math.min(5,5-rc));if(rc>=4)ld.srLevel=Math.min(3,ld.srLevel+1);else if(rc<=1)ld.srLevel=Math.max(0,ld.srLevel-1);const intervals=[0,86400000,259200000,604800000];ld.srNextReview=Date.now()+(intervals[ld.srLevel]||0);this.data.quizHistory.push({lessonId,qi,correct,time,date:Date.now()});this.save()}
-updateStreak(){const today=new Date().toDateString();if(this.data.streak.lastDate!==today){const yesterday=new Date(Date.now()-86400000).toDateString();if(this.data.streak.lastDate===yesterday)this.data.streak.current++;else this.data.streak.current=1;this.data.streak.lastDate=today;this.data.streak.best=Math.max(this.data.streak.best,this.data.streak.current);this.save()}}
-getGlobalStats(){let tL=0,dL=0,tQ=0,cQ=0,weak=[],strong=[];FORMATION.matieres.forEach(m=>m.modules.forEach(mod=>mod.lessons.forEach(l=>{tL++;const ld=this.getLessonData(l.id);if(ld.done)dL++;tQ+=ld.quizAttempts;cQ+=ld.quizCorrect;if(ld.quizAttempts>=3&&ld.difficulty>=3)weak.push({name:l.name,diff:ld.difficulty,id:l.id});if(ld.quizAttempts>=3&&ld.difficulty<=1)strong.push({name:l.name,diff:ld.difficulty,id:l.id})})));return{totalLessons:tL,doneLessons:dL,totalQuiz:tQ,correctQuiz:cQ,accuracy:tQ>0?Math.round(cQ/tQ*100):0,progress:Math.round(dL/tL*100),weakTopics:weak.sort((a,b)=>b.diff-a.diff).slice(0,5),strongTopics:strong.slice(0,5),streak:this.data.streak,daysStudying:Math.ceil((Date.now()-this.data.startDate)/86400000)}}
-getDueReviews(){const due=[];FORMATION.matieres.forEach(m=>m.modules.forEach(mod=>mod.lessons.forEach(l=>{const ld=this.getLessonData(l.id);if(ld.srNextReview&&ld.srNextReview<=Date.now()&&ld.srLevel<3)due.push({lesson:l,data:ld,module:mod.name,matiere:m.name})})));return due}
-getRecommendedNext(){const due=this.getDueReviews();if(due.length>0)return{type:'review',item:due[0]};for(const m of FORMATION.matieres)for(const mod of m.modules)for(const l of mod.lessons){const ld=this.getLessonData(l.id);if(!ld.done)return{type:'new',lesson:l,module:mod,matiere:m}};return null}
-getAnswerSpeed(){const r=this.data.quizHistory.slice(-20);if(r.length===0)return'N/A';const avg=r.reduce((s,x)=>s+(x.time||5000),0)/r.length;if(avg<5000)return{label:'Rapide',cls:'speed-fast'};if(avg<10000)return{label:'Normal',cls:'speed-normal'};return{label:'Lent',cls:'speed-slow'}}}
-const engine=new LearningEngine();engine.updateStreak();
-let state={tab:'formation',openMatiere:null,openModule:null,activeLesson:null,quizMode:false,quizLesson:null,quizIndex:0,quizAnswered:false,quizStartTime:0,quizSelectedAnswer:-1,flashIndex:0,flashFlipped:false};
-function setState(u){Object.assign(state,u);render()}
-function initMatrix(){const c=document.getElementById('matrix-bg');const ctx=c.getContext('2d');c.width=window.innerWidth;c.height=window.innerHeight;const cols=Math.floor(c.width/14);const drops=Array(cols).fill(0);const chars='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789{}[]()<>=;:+-*/&|!?#@';setInterval(()=>{ctx.fillStyle='rgba(5,5,12,0.05)';ctx.fillRect(0,0,c.width,c.height);ctx.fillStyle='#22d3ee';ctx.font='12px JetBrains Mono';for(let i=0;i<cols;i++){ctx.fillText(chars[Math.floor(Math.random()*chars.length)],i*14,drops[i]*14);if(drops[i]*14>c.height&&Math.random()>.975)drops[i]=0;drops[i]++}},50);window.addEventListener('resize',()=>{c.width=window.innerWidth;c.height=window.innerHeight})}
-function progressRing(p,s=60,col='#22d3ee'){const r=(s-8)/2;const ci=2*Math.PI*r;const off=ci-(p/100)*ci;return '<div class="progress-ring" style="width:'+s+'px;height:'+s+'px"><svg width="'+s+'" height="'+s+'"><circle cx="'+(s/2)+'" cy="'+(s/2)+'" r="'+r+'" fill="none" stroke="#1a1a2e" stroke-width="4"/><circle cx="'+(s/2)+'" cy="'+(s/2)+'" r="'+r+'" fill="none" stroke="'+col+'" stroke-width="4" stroke-linecap="round" stroke-dasharray="'+ci+'" stroke-dashoffset="'+off+'"/></svg><div class="label" style="color:'+col+'">'+p+'%</div></div>'}
-function srBadge(lv){const l=['Nouveau','En cours','Revision','Maitrise'];const c=['sr-new','sr-learning','sr-review','sr-mastered'];return '<span class="sr-badge '+c[lv]+'">'+l[lv]+'</span>'}
-function diffBar(lv){let h='<div class="difficulty-bar">';for(let i=0;i<5;i++){let c=i<lv?(lv>=4?'filled hard':lv>=2?'filled medium':'filled'):'';h+='<div class="diff-seg '+c+'"></div>'}return h+'</div>'}
-function findLesson(id){for(const m of FORMATION.matieres)for(const mod of m.modules)for(const l of mod.lessons)if(l.id===id)return{lesson:l,module:mod,matiere:m};return null}
-function startQuizForLesson(id){const f=findLesson(id);if(!f||!f.lesson.quiz||f.lesson.quiz.length===0)return;setState({tab:'quiz',quizMode:true,quizLesson:f.lesson,quizIndex:0,quizAnswered:false,quizStartTime:Date.now(),quizSelectedAnswer:-1})}
-function answerQuiz(idx){if(state.quizAnswered)return;const time=Date.now()-state.quizStartTime;const q=state.quizLesson.quiz[state.quizIndex];const correct=idx===q.a;engine.recordQuiz(state.quizLesson.id,state.quizIndex,correct,time);state.quizAnswered=true;state.quizSelectedAnswer=idx;render()}
-function render(){const root=document.getElementById('root');const stats=engine.getGlobalStats();const speed=engine.getAnswerSpeed();let html='';
-html+='<div class="card" style="text-align:center;border-color:#22d3ee30"><h1 style="font-size:20px">NightCode Academy <span class="violet">v3</span></h1><div style="font-size:11px;color:#888;margin-top:4px">Graduate Developpeur IA &#9654; Studi &#9654; Promo JUIN-JUILLET 2026</div><div style="display:flex;justify-content:center;align-items:center;gap:20px;margin-top:10px">'+progressRing(stats.progress,50,'#22d3ee')+'<div style="text-align:left"><div class="cyan" style="font-family:JetBrains Mono;font-size:16px">XP: '+stats.progress+'%</div><div style="font-size:11px;color:#888">'+stats.doneLessons+'/'+stats.totalLessons+' lecons</div></div>';
-if(stats.streak.current>0)html+='<div style="text-align:center"><span style="font-size:20px">&#128293;</span><div class="cyan" style="font-size:14px;font-family:JetBrains Mono">'+stats.streak.current+'j</div><div style="font-size:10px;color:#888">streak</div></div>';
-if(typeof speed==='object')html+='<div class="speed-indicator '+speed.cls+'">'+speed.label+'</div>';
-html+='</div></div>';
-const snippets=['const ai=await trainModel(data);','function fib(n){return n<=1?n:fib(n-1)+fib(n-2);}','app.get("/api/users",(req,res)=>res.json(users));','SELECT * FROM students WHERE grade>90;','git commit -m "feat: add neural net"','pip install tensorflow scikit-learn','const [state,setState]=useState(init);','model.fit(X_train,y_train,epochs=50)'];
-const doubled=[...snippets,...snippets].map(s=>'<span style="color:#22d3ee80">'+s+'</span>').join('<span style="color:#a78bfa40;margin:0 10px">|</span>');
-html+='<div class="ticker"><div class="ticker-inner">'+doubled+'</div></div>';
-html+='<div class="tabs">';
-[{id:'formation',l:'&#x1F4CB; Formation'},{id:'learn',l:'&#x1F4D6; Apprendre'},{id:'quiz',l:'&#127942; Quiz Adaptatif'},{id:'flash',l:'&#9889; Flash Cards'},{id:'stats',l:'&#x1F4CA; Stats'},{id:'review',l:'&#x1F504; Revisions'}].forEach(t=>{html+='<button class="tab-btn '+(state.tab===t.id?'active':'')+'" onclick="setState({tab:\''+t.id+'\',quizMode:false})">'+t.l+'</button>'});
-html+='</div>';
-if(state.tab==='formation')html+=renderFormation(stats);
-else if(state.tab==='learn')html+=renderLearn();
-else if(state.tab==='quiz')html+=renderQuiz();
-else if(state.tab==='flash')html+=renderFlash();
-else if(state.tab==='stats')html+=renderStats(stats);
-else if(state.tab==='review')html+=renderReview();
-root.innerHTML=html}
-function renderFormation(stats){let html='<div class="card"><h2>&#x1F4CB; Ma Formation</h2><p style="font-size:12px;color:#888;margin-bottom:12px">Clique sur une matiere pour voir les modules et lecons.</p>';
-FORMATION.matieres.forEach((mat,mi)=>{let matDone=0,matTotal=0;mat.modules.forEach(mod=>mod.lessons.forEach(l=>{matTotal++;if(engine.getLessonData(l.id).done)matDone++}));const matPct=matTotal>0?Math.round(matDone/matTotal*100):0;const isOpen=state.openMatiere===mi;
-html+='<div style="margin:6px 0;border:1px solid #1a1a2e;border-radius:10px;overflow:hidden"><div class="module-header" onclick="setState({openMatiere:'+(isOpen?'null':mi)+',openModule:null})"><div><span style="color:'+(matPct===100?'#4ade80':'#a78bfa')+';font-family:JetBrains Mono;font-size:13px">'+(isOpen?'&#9660;':'&#9654;')+' '+mat.name+'</span><span style="font-size:11px;color:#888;margin-left:8px">'+mat.modules.length+' modules</span></div><div style="display:flex;align-items:center;gap:8px">'+progressRing(matPct,36,matPct===100?'#4ade80':'#a78bfa')+'<span style="font-size:11px;color:#888">'+matDone+'/'+matTotal+'</span></div></div>';
-if(isOpen){html+='<div style="padding:0 10px 10px">';mat.modules.forEach((mod,modi)=>{let modDone=0;mod.lessons.forEach(l=>{if(engine.getLessonData(l.id).done)modDone++});const modPct=Math.round(modDone/mod.lessons.length*100);const isModOpen=state.openModule===modi;
-html+='<div style="margin:4px 0;border:1px solid #ffffff08;border-radius:8px"><div class="module-header" onclick="setState({openModule:'+(isModOpen?'null':modi)+'})" style="padding:6px 8px"><div><span class="cyan" style="font-size:12px">'+(isModOpen?'&#9660;':'&#9654;')+' '+mod.name+'</span><span style="font-size:10px;color:#666;margin-left:6px">'+mod.lessons.length+' lecons</span></div><span style="font-size:11px;color:'+(modPct===100?'#4ade80':'#888')+'">'+modPct+'%</span></div>';
-if(isModOpen){html+='<div style="padding:4px 8px 8px">';mod.lessons.forEach(l=>{const ld=engine.getLessonData(l.id);html+='<div class="lesson-item"><input type="checkbox" '+(ld.done?'checked':'')+' onchange="engine.markDone(\''+l.id+'\',this.checked);render()"><span style="flex:1;font-size:12px;color:'+(ld.done?'#4ade80':'#e2e8f0')+'">'+l.name+'</span>'+srBadge(ld.srLevel)+(ld.quizAttempts>0?diffBar(ld.difficulty):'')+'<button class="expand-btn" onclick="event.stopPropagation();setState({tab:\'learn\',activeLesson:\''+l.id+'\'})">&#x1F4D6;</button><button class="expand-btn" onclick="event.stopPropagation();startQuizForLesson(\''+l.id+'\')">&#127942;</button></div>'});html+='</div>'}html+='</div>'});html+='</div>'}html+='</div>'});
-html+='</div>';return html}
-function renderLearn(){let html='<div class="card">';
-if(state.activeLesson){const found=typeof state.activeLesson==='string'?findLesson(state.activeLesson):null;
-if(!found){html+='<p>Lecon non trouvee</p></div>';return html}
-const{lesson,module:mod,matiere}=found;const ld=engine.getLessonData(lesson.id);
-html+='<div class="flex-between"><div><span style="font-size:10px;color:#888">'+matiere.name+' > '+mod.name+'</span><h2 style="margin:4px 0">&#x1F4D6; '+lesson.name+'</h2></div><button class="tab-btn" onclick="setState({activeLesson:null})">&#x2190; Retour</button></div>';
-html+='<h3>&#x1F3AF; Concepts cles</h3><div style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0">';lesson.concepts.forEach(c=>{html+='<span class="badge bg-cyan">'+c+'</span>'});html+='</div>';
-html+='<h3>&#x1F50D; Explication detaillee</h3>';lesson.concepts.forEach((c,i)=>{html+='<div class="concept-card"><h4>&#9654; '+c+'</h4><p>'+getConceptExplanation(lesson.id,i)+'</p></div>'});
-html+='<div style="margin-top:16px;text-align:center"><button class="tab-btn active" style="padding:12px 24px;font-size:14px" onclick="startQuizForLesson(\''+lesson.id+'\')">&#127942; Tester mes connaissances</button></div>';
-}else{const rec=engine.getRecommendedNext();html+='<h2>&#x1F4D6; Apprendre</h2><p style="font-size:12px;color:#888;margin-bottom:12px">Selectionne une lecon depuis Formation ou suis la recommandation.</p>';
-if(rec){if(rec.type==='review')html+='<div class="concept-card" style="border-color:#fbbf2440"><h4 class="yellow">&#x1F504; Revision recommandee</h4><p>'+rec.item.lesson.name+'</p><button class="tab-btn" style="margin-top:8px" onclick="setState({activeLesson:\''+rec.item.lesson.id+'\'})">Reviser</button></div>';
-else html+='<div class="concept-card" style="border-color:#22d3ee40"><h4 class="cyan">&#x1F680; Prochaine lecon</h4><p>'+rec.lesson.name+' <span style="color:#888">('+rec.module.name+')</span></p><button class="tab-btn" style="margin-top:8px" onclick="setState({activeLesson:\''+rec.lesson.id+'\'})">Commencer</button></div>'}
-html+='<h3 style="margin-top:16px">Acces rapide</h3>';FORMATION.matieres.forEach(m=>{m.modules.forEach(mod=>{html+='<button class="tab-btn" style="width:100%;text-align:left;padding:6px 10px;font-size:11px;margin:2px 0" onclick="setState({tab:\'formation\',openMatiere:'+FORMATION.matieres.indexOf(m)+',openModule:'+m.modules.indexOf(mod)+'})""><span class="violet">'+m.name+'</span> &#9654; <span class="cyan">'+mod.name+'</span> <span style="color:#888">('+mod.lessons.length+')</span></button>'})})}
-html+='</div>';return html}
-const F={name:"Graduate Developpeur IA",promo:"JUIN-JUILLET 2026",matieres:[{id:"fond",name:"Les fondamentaux du developpement",modules:[{id:"eco",name:"Ecosysteme et outils du developpeur",lessons:[{id:"l1",name:"Histoire informatique et Internet",concepts:["Genese informatique","ARPANET vers Internet","TCP/IP protocoles","Web Tim Berners-Lee 1989","FTP SMTP TELNET","Interoperabilite"],quiz:[{q:"Createur du World Wide Web?",o:["Tim Berners-Lee","Steve Jobs","Bill Gates","Linus Torvalds"],a:0},{q:"Annee creation du Web?",o:["1969","1989","1995","2000"],a:1},{q:"Protocole transfert fichiers?",o:["SMTP","HTTP","FTP","DNS"],a:2},{q:"ARPANET est ancetre de:",o:["Windows","Internet","Linux","Python"],a:1},{q:"TCP/IP est:",o:["Un langage","Un protocole communication","Un navigateur","Un OS"],a:1}]},{id:"l2",name:"Fonctionnement d Internet",concepts:["Modele client-serveur","DNS resolution","HTTP/HTTPS","Adresses IP v4 v6","Routage paquets","FAI infrastructure"],quiz:[{q:"Serveur DNS fait quoi?",o:["Heberge sites","Traduit noms en IP","Protege reseau","Envoie mails"],a:1},{q:"HTTPS ajoute:",o:["Vitesse","Chiffrement SSL/TLS","Couleurs","Cookies"],a:1}]},{id:"l3",name:"Cybersecurite",concepts:["Phishing","Malware types","Mots de passe","Pare-feu antivirus","RGPD","Chiffrement"],quiz:[{q:"Phishing vise a:",o:["Accelerer","Voler identifiants","Reparer","Installer"],a:1},{q:"RGPD protege:",o:["Serveurs","Donnees personnelles","Logiciels","Cables"],a:1}]},{id:"l4",name:"Metiers informatique",concepts:["Dev Front Back Fullstack","DevOps SysAdmin","Data Scientist IA","Chef projet IT","UX/UI Designer","Cybersecurite"],quiz:[{q:"Dev Fullstack maitrise:",o:["Front seul","Back seul","Front et back","BDD seul"],a:2}]},{id:"l5",name:"Gestion de projets",concepts:["Agile Scrum","Sprint backlog","Kanban board","Waterfall","User stories","Daily standup"],quiz:[{q:"Sprint Scrum dure:",o:["1 jour","1-4 semaines","6 mois","1 an"],a:1}]},{id:"l6",name:"IDE outil essentiel",concepts:["VS Code","Extensions","Terminal integre","IntelliSense","Debug","Raccourcis"],quiz:[{q:"VS Code est:",o:["Navigateur","Editeur de code","OS","Langage"],a:1}]},{id:"l7",name:"Terminal et commandes",concepts:["cd ls mkdir rm cp mv","pwd chemins","Pipes redirections","Variables env","chmod permissions","Bash scripting"],quiz:[{q:"ls sert a:",o:["Supprimer","Lister contenu","Creer fichier","Deplacer"],a:1}]},{id:"l8",name:"Systeme exploitation",concepts:["Windows Linux macOS","Kernel processus","Memoire RAM","Systeme fichiers","Utilisateurs droits","Services daemons"],quiz:[{q:"Kernel est:",o:["Logiciel","Coeur de l OS","Navigateur","Langage"],a:1}]},{id:"l9",name:"Reseaux informatiques",concepts:["LAN WAN MAN","Modele OSI 7 couches","Switch routeur","Adressage IP","Wi-Fi Ethernet","Pare-feu proxy"],quiz:[{q:"OSI a combien couches:",o:["4","5","7","10"],a:2}]},{id:"l10",name:"Cloud computing",concepts:["IaaS PaaS SaaS","AWS Azure GCP","Virtualisation conteneurs","Scalabilite","Serverless","Stockage S3"],quiz:[{q:"SaaS signifie:",o:["Software as a Service","System as Server","Security Service","Storage"],a:0}]},{id:"l11",name:"Bases de donnees",concepts:["SQL relationnel","NoSQL MongoDB","Tables colonnes","Cles primaires etrangeres","CRUD","Schemas"],quiz:[{q:"CRUD signifie:",o:["Create Read Update Delete","Copy Run Upload Download","Cache Render Update Deploy","Compile Run Use Debug"],a:0}]},{id:"l12",name:"API et services web",concepts:["REST API","JSON format","Endpoints HTTP","GET POST PUT DELETE","Auth JWT","CORS"],quiz:[{q:"JSON est format de:",o:["Images","Donnees structurees","Videos","Audio"],a:1}]},{id:"l13",name:"Veille technologique",concepts:["Sources dev","GitHub Trending","Stack Overflow","Newsletters","Conferences","RSS"],quiz:[{q:"GitHub Trending montre:",o:["Bugs","Projets populaires","Emplois","Cours"],a:1}]}]},{id:"prog",name:"Introduction programmation",lessons:[{id:"p1",name:"Qu est-ce que la programmation",concepts:["Definition","Langages haut/bas niveau","Compilation interpretation","Code source executable","Algorithme programme"],quiz:[{q:"Langage haut niveau est:",o:["Proche materiel","Proche langage humain","Plus rapide","Plus ancien"],a:1}]},{id:"p2",name:"Variables et types",concepts:["Declaration variable","Types int float string bool","Typage statique dynamique","Constantes","Casting"],quiz:[{q:"boolean vaut:",o:["Nombre","true ou false","Chaine","Tableau"],a:1}]},{id:"p3",name:"Operateurs",concepts:["Arithmetiques + - * / %","Comparaison == != > <","Logiques && || !","Affectation = +=","Ternaire","Priorite"],quiz:[{q:"% retourne:",o:["Division","Reste division","Multiplication","Puissance"],a:1}]},{id:"p4",name:"Conditions if else",concepts:["if simple","if else","if else if","Switch case","Imbrication","Ternaire"],quiz:[{q:"switch compare a:",o:["Fonctions","Cas case","Boucles","Fichiers"],a:1}]},{id:"p5",name:"Boucles for while",concepts:["for","while","do while","break continue","Imbrication","for of in"],quiz:[{q:"while execute:",o:["Fixe","Tant que vrai","Une fois","Jamais"],a:1}]},{id:"p6",name:"Fonctions",concepts:["Declaration","Parametres retour","Scope portee","Anonymes","Arrow =>","Callbacks"],quiz:[{q:"return fait:",o:["Affiche","Renvoie valeur","Variable","Appelle"],a:1}]},{id:"p7",name:"Tableaux",concepts:["Declaration index 0","push pop","forEach map filter","length acces","slice splice","Spread"],quiz:[{q:"Premier index:",o:["1","0","-1","null"],a:1}]},{id:"p8",name:"Objets",concepts:["Paires cle-valeur","Acces point crochets","Methodes","this","Destructuration","Object.keys"],quiz:[{q:"Objet stocke:",o:["Index","Paires cle-valeur","Code","Fichiers"],a:1}]},{id:"p9",name:"Chaines caracteres",concepts:["Concatenation","Template literals","Methodes string","indexOf includes","split join","Regex intro"],quiz:[{q:"Template literals:",o:["Simples","Doubles","Backticks","Parentheses"],a:2}]},{id:"p10",name:"Gestion erreurs",concepts:["try catch finally","Types erreurs","throw","Error object","console.log","Stack trace"],quiz:[{q:"try catch:",o:["Boucles","Gerer erreurs","Variables","Optimiser"],a:1}]},{id:"p11",name:"POO bases",concepts:["Classes instances","Constructeur","Proprietes methodes","Encapsulation","Heritage extends","Polymorphisme"],quiz:[{q:"Classe est:",o:["Variable","Modele objets","Boucle","Fichier"],a:1}]},{id:"p12",name:"Modules imports",concepts:["export import","ES6 modules","require CommonJS","Organisation","Dependances","npm"],quiz:[{q:"import permet:",o:["Supprimer","Code autre fichier","Serveur","Compiler"],a:1}]},{id:"p13",name:"Bonnes pratiques",concepts:["Nommage clair","Commentaires","DRY","KISS","Code lisible","Indentation"],quiz:[{q:"DRY signifie:",o:["Do Repeat","Don t Repeat Yourself","Debug Run","Data Rest"],a:1}]}]},{id:"algo",name:"Introduction algorithme",lessons:[{id:"a1",name:"Algorithme definition",concepts:["Definition","Entree traitement sortie","Pseudo-code","Organigramme","Complexite","Exemples"],quiz:[{q:"Algorithme est:",o:["Langage","Suite instructions","Type","Logiciel"],a:1}]},{id:"a2",name:"Structures controle",concepts:["Sequence","Selection if","Iteration boucle","Conditions combinees","Imbrication"],quiz:[{q:"3 structures fondamentales:",o:["Variable fonction classe","Sequence selection iteration","HTML CSS JS","Input process output"],a:1}]},{id:"a3",name:"Algorithmes tri",concepts:["Tri bulles","Selection","Insertion","O(n2) vs O(n log n)","Quick sort","Comparaison"],quiz:[{q:"Tri bulles complexite:",o:["O(1)","O(n)","O(n2)","O(log n)"],a:2}]},{id:"a4",name:"Algorithmes recherche",concepts:["Lineaire O(n)","Binaire O(log n)","Prerequis tri","Recherche chaines"],quiz:[{q:"Recherche binaire necessite:",o:["Desordre","Donnees triees","Vide","Dupliquees"],a:1}]},{id:"a5",name:"Recursivite",concepts:["Auto-appel","Cas base","Cas recursif","Pile appels","Factorielle Fibonacci"],quiz:[{q:"Cas base sert a:",o:["Accelerer","Arreter recursion","Boucle","Variable"],a:1}]},{id:"a6",name:"Structures donnees",concepts:["Array","Liste chainee","Pile LIFO","File FIFO","Deque","Applications"],quiz:[{q:"Pile fonctionne:",o:["FIFO","LIFO","FILO","Random"],a:1}]},{id:"a7",name:"Arbres graphes",concepts:["Arbre binaire","Noeud racine feuille","Parcours","Graphe oriente","Applications"],quiz:[{q:"Racine arbre:",o:["Dernier","Premier en haut","Feuille","Arc"],a:1}]},{id:"a8",name:"Complexite Big O",concepts:["Notation Big O","O(1) O(n) O(n2)","Meilleur pire cas","Espace","Optimisation"],quiz:[{q:"O(1) signifie:",o:["Lineaire","Constant","Quadratique","Log"],a:1}]}]}]},
-function renderQuiz(){let html='<div class="card">';
-if(state.quizMode&&state.quizLesson){const lesson=state.quizLesson;const q=lesson.quiz[state.quizIndex];const ld=engine.getLessonData(lesson.id);const total=lesson.quiz.length;
-html+='<div class="flex-between"><h2>&#127942; Quiz: '+lesson.name+'</h2><span class="cyan" style="font-family:JetBrains Mono;font-size:13px">'+(state.quizIndex+1)+'/'+total+'</span></div>';
-html+='<div class="xp-bar" style="margin:10px 0"><div class="xp-fill" style="width:'+((state.quizIndex+1)/total*100)+'%"></div></div>';
-html+='<div style="padding:16px;background:#0d0d1a;border-radius:10px;margin:12px 0"><p style="font-size:15px;line-height:1.6">'+q.q+'</p></div>';
-q.o.forEach((opt,i)=>{let cls='quiz-option';if(state.quizAnswered){cls+=' disabled';if(i===q.a)cls+=' correct';else if(i===state.quizSelectedAnswer&&i!==q.a)cls+=' wrong'}html+='<button class="'+cls+'" onclick="answerQuiz('+i+')">'+String.fromCharCode(65+i)+'. '+opt+'</button>'});
-if(state.quizAnswered){const correct=state.quizSelectedAnswer===q.a;html+='<div style="padding:12px;margin-top:10px;border-radius:8px;background:'+(correct?'#4ade8010':'#f8717110')+';border:1px solid '+(correct?'#4ade8040':'#f8717140')+'"><span style="color:'+(correct?'#4ade80':'#f87171')+';font-weight:700">'+(correct?'&#10003; Correct!':'&#10007; Incorrect')+'</span>';
-if(!correct)html+='<div style="font-size:12px;color:#888;margin-top:4px">Bonne reponse: <span class="green">'+q.o[q.a]+'</span></div>';html+='</div>';
-if(state.quizIndex<total-1)html+='<button class="tab-btn active" style="margin-top:10px;padding:10px 20px" onclick="setState({quizIndex:state.quizIndex+1,quizAnswered:false,quizStartTime:Date.now()})">Suivante &#x279C;</button>';
-else{const acc=ld.quizAttempts>0?Math.round(ld.quizCorrect/ld.quizAttempts*100):0;html+='<div style="text-align:center;margin-top:16px;padding:16px;background:#0a0a14;border-radius:10px"><h3 class="cyan">Quiz termine!</h3><div class="stat-val cyan" style="font-size:30px;margin:8px 0">'+acc+'%</div><div style="color:#888;font-size:12px">Precision globale</div><div style="margin-top:12px"><button class="tab-btn" style="margin:4px" onclick="startQuizForLesson(\''+lesson.id+'\')">&#x1F504; Recommencer</button><button class="tab-btn" style="margin:4px" onclick="setState({tab:\'formation\',quizMode:false})">&#x1F4CB; Formation</button></div></div>'}}
-}else{html+='<h2>&#127942; Quiz Adaptatif</h2><p style="font-size:12px;color:#888;margin-bottom:12px">Choisis un quiz ou laisse le systeme choisir.</p>';
-const weak=[];FORMATION.matieres.forEach(m=>m.modules.forEach(mod=>mod.lessons.forEach(l=>{const ld=engine.getLessonData(l.id);if(l.quiz&&l.quiz.length>0&&(ld.difficulty>=2||ld.quizAttempts===0))weak.push(l)})));
-if(weak.length>0){const rw=weak[Math.floor(Math.random()*weak.length)];html+='<div class="concept-card" style="border-color:#f472b640"><h4 class="rose">&#x1F3AF; Quiz intelligent</h4><p style="font-size:12px;color:#888">Questions ciblees sur tes sujets faibles</p><button class="tab-btn active" style="margin-top:8px" onclick="startQuizForLesson(\''+rw.id+'\')">Lancer</button></div>'}
-html+='<h3 style="margin-top:16px">Par module</h3>';FORMATION.matieres.forEach(m=>{m.modules.forEach(mod=>{const ql=mod.lessons.filter(l=>l.quiz&&l.quiz.length>0);if(ql.length===0)return;html+='<div style="margin:4px 0"><div style="font-size:11px;color:#a78bfa;margin-bottom:4px">'+mod.name+'</div>';ql.forEach(l=>{const ld=engine.getLessonData(l.id);html+='<button class="tab-btn" style="margin:2px;font-size:10px" onclick="startQuizForLesson(\''+l.id+'\')">'+l.name;if(ld.quizAttempts>0)html+=' <span style="color:'+(ld.difficulty<=1?'#4ade80':ld.difficulty>=3?'#f87171':'#fbbf24')+'">'+Math.round(ld.quizCorrect/ld.quizAttempts*100)+'%</span>';html+='</button>'});html+='</div>'})})}
-html+='</div>';return html}
-function renderFlash(){let html='<div class="card"><h2>&#9889; Flash Cards</h2><p style="font-size:12px;color:#888;margin-bottom:12px">Clique pour reveler. Revision rapide des concepts.</p>';
-const cards=[];FORMATION.matieres.forEach(m=>m.modules.forEach(mod=>mod.lessons.forEach(l=>{l.concepts.forEach((c,i)=>{cards.push({front:c,back:getConceptExplanation(l.id,i),lesson:l.name,module:mod.name})})})));
-if(cards.length===0){html+='<p>Aucune carte</p></div>';return html}
-const ci=state.flashIndex%cards.length;const card=cards[ci];
-html+='<div style="text-align:center;margin:8px 0"><span class="cyan" style="font-family:JetBrains Mono">'+(ci+1)+'/'+cards.length+'</span><span style="font-size:11px;color:#888;margin-left:12px">'+card.module+' > '+card.lesson+'</span></div>';
-html+='<div class="flash-card '+(state.flashFlipped?'flipped':'')+'" onclick="setState({flashFlipped:!state.flashFlipped})" style="height:160px"><div class="flash-inner"><div class="flash-front"><div><div style="font-size:11px;color:#888;margin-bottom:8px">Concept</div><div style="font-size:16px;font-family:JetBrains Mono">'+card.front+'</div></div></div><div class="flash-back"><div><div style="font-size:11px;color:#4ade8080;margin-bottom:8px">Explication</div><div style="font-size:13px">'+card.back+'</div></div></div></div></div>';
-html+='<div style="display:flex;justify-content:center;gap:10px;margin-top:12px"><button class="tab-btn" onclick="setState({flashIndex:Math.max(0,state.flashIndex-1),flashFlipped:false})">&#x2190; Prec</button><button class="tab-btn" onclick="setState({flashIndex:Math.floor(Math.random()*'+cards.length+'),flashFlipped:false})">&#x1F3B2; Aleatoire</button><button class="tab-btn active" onclick="setState({flashIndex:state.flashIndex+1,flashFlipped:false})">Suiv &#x2192;</button></div>';
-html+='</div>';return html}
-function renderStats(stats){let html='<div class="card"><h2>&#x1F4CA; Tableau de bord</h2>';
-html+='<div class="stats-grid">';
-html+='<div class="stat-card"><div class="stat-val cyan">'+stats.progress+'%</div><div class="stat-label">Progression</div></div>';
-html+='<div class="stat-card"><div class="stat-val violet">'+stats.doneLessons+'</div><div class="stat-label">Lecons terminees</div></div>';
-html+='<div class="stat-card"><div class="stat-val rose">'+stats.totalQuiz+'</div><div class="stat-label">Quiz repondus</div></div>';
-html+='<div class="stat-card"><div class="stat-val '+(stats.accuracy>=70?'green':stats.accuracy>=40?'yellow':'red')+'">'+stats.accuracy+'%</div><div class="stat-label">Precision</div></div>';
-html+='<div class="stat-card"><div class="stat-val yellow">'+stats.streak.current+'</div><div class="stat-label">Jours suite</div></div>';
-html+='<div class="stat-card"><div class="stat-val cyan">'+stats.streak.best+'</div><div class="stat-label">Best streak</div></div>';
-html+='</div>';
-html+='<h3 style="margin-top:16px">Par matiere</h3>';FORMATION.matieres.forEach(m=>{let done=0,total=0;m.modules.forEach(mod=>mod.lessons.forEach(l=>{total++;if(engine.getLessonData(l.id).done)done++}));const pct=total>0?Math.round(done/total*100):0;html+='<div style="margin:8px 0"><div class="flex-between" style="margin-bottom:4px"><span style="font-size:12px">'+m.name+'</span><span class="cyan" style="font-size:11px;font-family:JetBrains Mono">'+pct+'%</span></div><div class="xp-bar"><div class="xp-fill" style="width:'+pct+'%"></div></div></div>'});
-if(stats.weakTopics.length>0){html+='<h3 style="margin-top:16px">&#x26A0; Points faibles</h3>';stats.weakTopics.forEach(t=>{html+='<div class="weak-topic">'+t.name+' '+diffBar(t.diff)+'<button class="expand-btn" onclick="startQuizForLesson(\''+t.id+'\')">&#127942;</button></div>'})}
-if(stats.strongTopics.length>0){html+='<h3 style="margin-top:16px">&#x2705; Points forts</h3>';stats.strongTopics.forEach(t=>{html+='<div class="strong-topic">'+t.name+' '+diffBar(t.diff)+'</div>'})}
-const recent=engine.data.quizHistory.slice(-20);if(recent.length>0){html+='<h3 style="margin-top:16px">Historique quiz</h3><div style="display:flex;align-items:end;gap:3px;height:60px;padding:8px 0">';recent.forEach(r=>{html+='<div style="flex:1;height:'+(r.correct?'100':'30')+'%;background:'+(r.correct?'#4ade80':'#f87171')+';border-radius:2px;min-width:8px"></div>'});html+='</div>'}
-html+='</div>';return html}
-function renderReview(){let html='<div class="card"><h2>&#x1F504; Revisions espacees</h2><p style="font-size:12px;color:#888;margin-bottom:12px">Lecons a reviser selon ton rythme et resultats.</p>';
-const due=engine.getDueReviews();
-if(due.length>0){html+='<div class="concept-card" style="border-color:#fbbf2440"><h4 class="yellow">'+due.length+' lecon(s) a reviser</h4></div>';due.forEach(d=>{html+='<div class="lesson-item">'+srBadge(d.data.srLevel)+'<span style="flex:1;font-size:12px">'+d.lesson.name+'</span><span style="font-size:10px;color:#888">'+d.module+'</span><button class="tab-btn" style="font-size:10px;padding:4px 8px" onclick="startQuizForLesson(\''+d.lesson.id+'\')">Quiz</button><button class="tab-btn" style="font-size:10px;padding:4px 8px" onclick="setState({tab:\'learn\',activeLesson:\''+d.lesson.id+'\'})">Relire</button></div>'})}
-else html+='<div class="concept-card" style="border-color:#4ade8040"><h4 class="green">&#x2705; Aucune revision en attente!</h4><p style="font-size:12px;color:#888">Continue a apprendre ou fais des quiz.</p></div>';
-let sr=[0,0,0,0];FORMATION.matieres.forEach(m=>m.modules.forEach(mod=>mod.lessons.forEach(l=>{sr[engine.getLessonData(l.id).srLevel]++})));
-html+='<h3 style="margin-top:16px">Niveaux</h3><div class="stats-grid">';
-['Nouveau','En cours','Revision','Maitrise'].forEach((l,i)=>{html+='<div class="stat-card"><div class="stat-val" style="color:'+['#22d3ee','#fbbf24','#a78bfa','#4ade80'][i]+'">'+sr[i]+'</div><div class="stat-label">'+l+'</div></div>'});
-html+='</div></div>';return html}{id:"front",name:"Front-end + IA",modules:[{id:"html",name:"HTML et CSS",lessons:[{id:"h1",name:"Introduction HTML",concepts:["Balises attributs","Structure HTML","Titres paragraphes","Liens images","Formulaires"],quiz:[{q:"HTML signifie:",o:["Hyper Text Markup Language","High Tech Modern","Home Tool Multi","Hyper Transfer"],a:0}]},{id:"h2",name:"Formulaires HTML",concepts:["form action","input types","select option","textarea","Validation"],quiz:[{q:"required rend champ:",o:["Style","Obligatoire","Cache","Supprime"],a:1}]},{id:"h3",name:"HTML semantique",concepts:["header footer nav","Accessibilite","SEO semantique","figure figcaption"],quiz:[{q:"Semantique ameliore:",o:["Vitesse","Accessibilite SEO","Couleurs","Taille"],a:1}]},{id:"h4",name:"CSS bases",concepts:["Selecteurs","Couleurs hex rgb","Tailles px em rem","Margin padding","Border radius","Display"],quiz:[{q:"Cibler classe:",o:["#",".",">","*"],a:1}]},{id:"h5",name:"CSS Flexbox",concepts:["display flex","justify align","flex-direction","flex-wrap","gap","flex-grow"],quiz:[{q:"justify-content aligne:",o:["Axe principal","Axe secondaire","Deux","Aucun"],a:0}]},{id:"h6",name:"CSS Grid",concepts:["display grid","template columns","grid-gap","fr unit","repeat minmax"],quiz:[{q:"fr represente:",o:["Pixels","Fraction espace","Pourcentages","cm"],a:1}]},{id:"h7",name:"Responsive design",concepts:["Media queries","Mobile first","Breakpoints","Viewport","Images responsives"],quiz:[{q:"Mobile first:",o:["Desktop d abord","Mobile d abord","Ignorer mobile","Tester mobile"],a:1}]},{id:"h8",name:"Animations CSS",concepts:["transition","@keyframes","animation","transform","opacity"],quiz:[{q:"@keyframes definit:",o:["Variable","Etapes animation","Selecteur","Media query"],a:1}]}]},{id:"js",name:"JavaScript",lessons:[{id:"j1",name:"Intro JavaScript",concepts:["JS langage web","Console","script tag","let const var","Typage dynamique"],quiz:[{q:"JS s execute dans:",o:["Serveur","Navigateur","BDD","Terminal"],a:1},{q:"const declare:",o:["Modifiable","Constante","Globale","Temporaire"],a:1}]},{id:"j2",name:"Types operateurs JS",concepts:["string number boolean","typeof","== vs ===","Logiques","Template literals"],quiz:[{q:"=== verifie:",o:["Valeur","Valeur ET type","Type","Rien"],a:1}]},{id:"j3",name:"Conditions JS",concepts:["if else","switch case","Ternaire","Nullish ??","Truthy falsy"],quiz:[{q:"Valeur falsy:",o:["1","hello","0","[]"],a:2}]},{id:"j4",name:"Boucles JS",concepts:["for","while","for of","for in","forEach"],quiz:[{q:"for of itere:",o:["Cles","Valeurs iterable","Index","Proprietes"],a:1}]},{id:"j5",name:"Fonctions JS",concepts:["Declaration","Expression","Arrow =>","Parametres defaut","Callbacks"],quiz:[{q:"Arrow function:",o:["function(){}","()=>{}","def():","func():"],a:1}]},{id:"j6",name:"Tableaux JS",concepts:["push pop","map filter reduce","find includes","sort","Spread"],quiz:[{q:"map retourne:",o:["Boolean","Nouveau tableau","Nombre","Objet"],a:1}]},{id:"j7",name:"Objets JS",concepts:["Litteral","Methodes","Destructuring","Spread","JSON"],quiz:[{q:"JSON.parse:",o:["Objet>string","String>objet","Nombre>string","Tab>objet"],a:1}]},{id:"j8",name:"DOM",concepts:["querySelector","createElement","innerHTML","classList","style"],quiz:[{q:"querySelector:",o:["Tous","Premier element","Dernier","Aleatoire"],a:1}]},{id:"j9",name:"Evenements",concepts:["addEventListener","click submit","e.target","preventDefault","Delegation"],quiz:[{q:"preventDefault:",o:["JS","Defaut navigateur","Variables","Affichage"],a:1}]}]},{id:"jsa",name:"JS avance",lessons:[{id:"ja1",name:"Closures scope",concepts:["Scope","Closure","Lexical","IIFE","Module pattern"],quiz:[{q:"Closure:",o:["Boucle","Fn garde scope parent","Objet","Erreur"],a:1}]},{id:"ja2",name:"Asynchrone",concepts:["Callbacks","Promises","async await","Promise.all","Event loop"],quiz:[{q:"async await pour:",o:["Boucles","Promises","Classes","Tableaux"],a:1}]},{id:"ja3",name:"Fetch API",concepts:["fetch","GET POST","Headers body","Response JSON","CORS"],quiz:[{q:"fetch retourne:",o:["Tableau","Promise","String","Nombre"],a:1}]}]},{id:"git",name:"Git",lessons:[{id:"g1",name:"Intro Git",concepts:["Gestion version","Git vs GitHub","Repo local remote","init clone","Commits","Staging"],quiz:[{q:"Git est:",o:["Hebergeur","Gestion version","Langage","Editeur"],a:1}]},{id:"g2",name:"Commandes Git",concepts:["add commit push pull","status log","diff stash","reset",".gitignore"],quiz:[{q:"git add:",o:["Supprimer","Ajouter staging","Branche","Fusionner"],a:1}]},{id:"g3",name:"Branches merge",concepts:["branch","checkout","merge","Conflits","Feature branch"],quiz:[{q:"Branche permet:",o:["Supprimer","Travailler separement","Images","Mails"],a:1}]}]},{id:"iaf",name:"IA Front-end",lessons:[{id:"if1",name:"IA et dev web",concepts:["IA generative","Copilot","Prompting","Automatisation","Ethique","Limites"],quiz:[{q:"Copilot est:",o:["Navigateur","Assistant code IA","Framework","Langage"],a:1}]}]},{id:"fig",name:"Figma",lessons:[{id:"f1",name:"Figma decouverte",concepts:["Interface","Frames","Outils dessin","Prototypage","Collaboration"],quiz:[{q:"Figma outil de:",o:["Programmation","Design interface","BDD","Terminal"],a:1}]}]}]},{id:"back",name:"Back-end + IA",modules:[{id:"php",name:"PHP",lessons:[{id:"ph1",name:"Intro PHP",concepts:["PHP serveur","Balises php","echo $","Types","XAMPP"],quiz:[{q:"PHP cote:",o:["Client","Serveur","Navigateur","Terminal"],a:1},{q:"Variable PHP:",o:["#","$","@","&"],a:1}]},{id:"ph2",name:"Conditions boucles PHP",concepts:["if elseif","switch","for while","foreach","match"],quiz:[{q:"foreach itere:",o:["Nombres","Tableaux","Fichiers","Classes"],a:1}]},{id:"ph3",name:"Fonctions PHP",concepts:["function","Parametres","Retour","Anonymes","Arrow fn"],quiz:[{q:"Arrow fn PHP:",o:["=>{}","fn()=>","()->{}","lambda"],a:1}]},{id:"ph4",name:"PHP MySQL",concepts:["PDO","Requetes preparees","CRUD","SQL injection","Transactions"],quiz:[{q:"Preparees protegent:",o:["Virus","Injections SQL","CSS","HTML"],a:1}]},{id:"ph5",name:"Sessions cookies",concepts:["session_start","$_SESSION","setcookie","$_COOKIE","Securite"],quiz:[{q:"$_SESSION sur:",o:["Navigateur","Serveur","URL","JS"],a:1}]},{id:"ph6",name:"POO PHP",concepts:["class new","__construct","public private","Heritage","Interfaces"],quiz:[{q:"private:",o:["Partout","Classe seule","Enfants","Dehors"],a:1}]}]},{id:"py",name:"Python",lessons:[{id:"py1",name:"Intro Python",concepts:["Python polyvalent","Indentation","print input","Variables","Commentaires"],quiz:[{q:"Indentation Python:",o:["Optionnelle","Obligatoire","Interdite","Commentaires"],a:1}]},{id:"py2",name:"Types Python",concepts:["int float str bool","list tuple dict set","None","Conversion","f-strings"],quiz:[{q:"tuple est:",o:["Modifiable","Immutable","Dict","Fonction"],a:1}]},{id:"py3",name:"Boucles Python",concepts:["if elif else","for range","while","List comprehension","enumerate"],quiz:[{q:"List comprehension:",o:["Fonctions","Listes concisement","Erreurs","Importer"],a:1}]},{id:"py4",name:"Fonctions Python",concepts:["def","*args **kwargs","return","Lambda","Decorateurs"],quiz:[{q:"**kwargs:",o:["Positionnels","Arguments nommes","Fichiers","Modules"],a:1}]},{id:"py5",name:"Fichiers Python",concepts:["open read write","with statement","try except","raise","os pathlib"],quiz:[{q:"with garantit:",o:["Vitesse","Fermeture auto","Creation","Suppression"],a:1}]},{id:"py6",name:"POO Python",concepts:["class self","__init__","Heritage","Methodes speciales","Property"],quiz:[{q:"self:",o:["Classe","Instance courante","Global","Module"],a:1}]},{id:"py7",name:"Modules Python",concepts:["import","pip install","requirements.txt","venv","PyPI"],quiz:[{q:"pip est:",o:["Editeur","Gestionnaire packages","Framework","Navigateur"],a:1}]}]},{id:"iab",name:"IA Back-end",lessons:[{id:"ib1",name:"IA backend",concepts:["IA generative","APIs auto","SQL generation","Tests IA","Optimisation"],quiz:[{q:"IA aide backend:",o:["Design","Generer code","Images","HTML"],a:1}]},{id:"ib2",name:"Machine Learning",concepts:["Supervise non supervise","Datasets","Regression classification","Scikit-learn","Overfitting"],quiz:[{q:"Supervise utilise:",o:["Sans labels","Avec labels","Aucune","Images seul"],a:1}]},{id:"ib3",name:"Reseaux neurones",concepts:["Neurone artificiel","Couches","Poids biais","Activation","Backpropagation"],quiz:[{q:"Reseau neurones:",o:["Fichiers","Couches neurones","BDD","Serveurs"],a:1}]}]}]}]};
-class E{constructor(){this.d=JSON.parse(localStorage.getItem('nc3'))||{};if(!this.d.l)this.d.l={};if(!this.d.qh)this.d.qh=[];if(!this.d.s)this.d.s={c:0,b:0,ld:null};if(!this.d.sd)this.d.sd=Date.now();this.save()}save(){localStorage.setItem('nc3',JSON.stringify(this.d))}gl(id){if(!this.d.l[id])this.d.l[id]={d:false,qa:0,qc:0,qh:[],df:0,sr:0,wa:[]};return this.d.l[id]}md(id,v){const l=this.gl(id);l.d=v;this.save()}rq(lid,qi,ok,t){const l=this.gl(lid);l.qa++;if(ok)l.qc++;else l.wa.push(qi);l.qh.push({q:qi,ok,t,dt:Date.now()});const r=l.qh.slice(-5);const rc=r.filter(x=>x.ok).length;l.df=Math.max(0,Math.min(5,5-rc));if(rc>=4)l.sr=Math.min(3,l.sr+1);else if(rc<=1)l.sr=Math.max(0,l.sr-1);this.d.qh.push({lid,qi,ok,t,dt:Date.now()});this.save()}us(){const t=new Date().toDateString();if(this.d.s.ld!==t){const y=new Date(Date.now()-86400000).toDateString();if(this.d.s.ld===y)this.d.s.c++;else this.d.s.c=1;this.d.s.ld=t;this.d.s.b=Math.max(this.d.s.b,this.d.s.c);this.save()}}gs(){let tL=0,dL=0,tQ=0,cQ=0,wk=[],st=[];F.matieres.forEach(m=>m.modules.forEach(mod=>mod.lessons.forEach(l=>{tL++;const d=this.gl(l.id);if(d.d)dL++;tQ+=d.qa;cQ+=d.qc;if(d.qa>=3&&d.df>=3)wk.push({n:l.name,df:d.df,id:l.id});if(d.qa>=3&&d.df<=1)st.push({n:l.name,id:l.id})})));return{tL,dL,tQ,cQ,acc:tQ>0?Math.round(cQ/tQ*100):0,prog:Math.round(dL/tL*100),wk:wk.sort((a,b)=>b.df-a.df).slice(0,5),st:st.slice(0,5),sk:this.d.s,days:Math.ceil((Date.now()-this.d.sd)/86400000)}}gdr(){const due=[];F.matieres.forEach(m=>m.modules.forEach(mod=>mod.lessons.forEach(l=>{const d=this.gl(l.id);if(d.sr>0&&d.sr<3&&d.qh.length>0){const last=d.qh[d.qh.length-1].dt;const iv=[0,86400000,259200000,604800000];if(Date.now()-last>iv[d.sr])due.push({l,d,mod:mod.name})}})));return due}grn(){const due=this.gdr();if(due.length)return{t:'rev',i:due[0]};for(const m of F.matieres)for(const mod of m.modules)for(const l of mod.lessons){if(!this.gl(l.id).d)return{t:'new',l,mod,m}};return null}gas(){const r=this.d.qh.slice(-20);if(!r.length)return null;const avg=r.reduce((s,x)=>s+(x.t||5000),0)/r.length;if(avg<5000)return{l:'Rapide',c:'speed-fast'};if(avg<10000)return{l:'Normal',c:'speed-normal'};return{l:'Lent',c:'speed-slow'}}}
-const en=new E();en.us();
-let S={tab:'formation',om:null,omod:null,al:null,qm:false,ql:null,qi:0,qa:false,qt:0,qs:-1,fi:0,ff:false};
-function ss(u){Object.assign(S,u);render()}
-function ol(id){ss({tab:'learn',al:id})}
-function fl(id){for(const m of F.matieres)for(const mod of m.modules)for(const l of mod.lessons)if(l.id===id)return{l,mod,m};return null}
-function sq(id){const f=fl(id);if(!f||!f.l.quiz||!f.l.quiz.length)return;ss({tab:'quiz',qm:true,ql:f.l,qi:0,qa:false,qt:Date.now(),qs:-1})}
-function aq(i){if(S.qa)return;const t=Date.now()-S.qt;const q=S.ql.quiz[S.qi];en.rq(S.ql.id,S.qi,i===q.a,t);S.qa=true;S.qs=i;render()}
-function getConceptExplanation(lid,ci){const E={
-'l1':["L informatique est nee dans les annees 1940 avec les premiers calculateurs. Alan Turing a pose les bases theoriques en 1936.","ARPANET (1969) est le premier reseau reliant des ordinateurs distants. Finance par l armee americaine, il a evolue pour devenir Internet.","TCP decoupe les donnees en paquets et garantit leur livraison. IP s occupe de l adressage et du routage entre machines.","En 1989, Tim Berners-Lee invente le World Wide Web au CERN: HTML, HTTP, et les URL.","FTP transfere des fichiers. SMTP envoie des emails. TELNET se connecte a distance sur un ordinateur.","L interoperabilite est la capacite de systemes differents a communiquer grace a des standards ouverts."],
-'l2':["Le navigateur (client) envoie une requete au serveur qui traite la demande et renvoie la reponse.","Le DNS traduit les noms de domaine lisibles en adresses IP numeriques.","HTTP definit les messages web. HTTPS ajoute le chiffrement SSL/TLS pour securiser les echanges.","IPv4 utilise 4 octets (192.168.1.1). IPv6 utilise 128 bits pour pallier la penurie d adresses.","Les donnees circulent en paquets. Les routeurs les orientent vers la bonne destination.","Les FAI fournissent la connexion physique a Internet et gerent l infrastructure."],
-'l3':["Le phishing se fait passer pour un organisme de confiance pour voler tes identifiants.","Types de malware: virus, trojan, ransomware, spyware, worm. Chacun a un mode d action different.","Bon mot de passe: 12+ caracteres, majuscules, minuscules, chiffres, symboles. Active la 2FA.","Le pare-feu filtre le trafic reseau. L antivirus detecte les malwares par signatures et comportements.","Le RGPD protege les donnees personnelles des europeens. Consentement obligatoire, droit a la suppression.","Le chiffrement transforme les donnees lisibles en texte illisible sans la cle de dechiffrement."],
-'l4':["Front-end: interface utilisateur (HTML, CSS, JS). Back-end: logique serveur, BDD, API. Fullstack: les deux.","DevOps automatise le deploiement. SysAdmin gere les serveurs et la securite.","Data Scientist analyse les donnees massives. IA Engineer developpe des modeles de machine learning.","Chef de projet coordonne les equipes, gere planning et budget.","UX Designer optimise l experience. UI Designer cree l interface visuelle.","Analyste cybersecurite protege les systemes: tests d intrusion, surveillance des menaces."],
-'l5':["Agile est iteratif. Scrum a des roles definis et des ceremonies (sprint planning, review).","Sprint: 1-4 semaines pour livrer un increment. Backlog: liste priorisee des fonctionnalites.","Kanban: tableau visuel A faire, En cours, Termine. Flux continu sans sprints.","Waterfall: sequentiel Analyse > Conception > Dev > Test > Deploiement. Moins flexible.","User story: En tant que [role], je veux [action] afin de [benefice].","Daily standup: 15 min, chacun dit ce qu il a fait, fera, et ses blocages."],
-'l6':["VS Code est l editeur le plus populaire. Gratuit, open-source, supporte des centaines de langages.","Extensions essentielles: Prettier, ESLint, Live Server, GitLens.","Terminal integre: Ctrl+backtick pour executer des commandes sans quitter l editeur.","IntelliSense propose l autocompletion intelligente en analysant ton code.","Le debugger permet de poser des breakpoints et inspecter les variables en temps reel.","Raccourcis: Ctrl+S sauver, Ctrl+P ouvrir fichier, Ctrl+Shift+P palette commandes."],
-'l7':["cd naviguer, ls lister, mkdir creer dossier, rm supprimer, cp copier, mv deplacer.","pwd affiche le chemin complet du dossier actuel. Chemin absolu commence par /.","Le pipe | envoie la sortie d une commande vers l entree d une autre.","Variables environnement: PATH, HOME, etc. Definies avec export NOM=valeur.","chmod modifie les permissions: lecture (r=4), ecriture (w=2), execution (x=1).","Script Bash: fichier .sh avec #!/bin/bash, contenant variables, conditions et boucles."],
-'l8':["Windows: desktop. Linux: serveurs et cloud. macOS: base Unix, populaire chez les devs.","Le kernel gere memoire, processus, peripheriques et securite.","La RAM est la memoire vive temporaire. L OS gere l allocation aux programmes.","Le systeme de fichiers organise les donnees sur le disque: NTFS, ext4, APFS.","Administrateur (root) a tous les droits. Utilisateurs standards ont des droits limites.","Les services/daemons tournent en arriere-plan: serveur web, BDD, antivirus."],
-'l9':["LAN: reseau local. WAN: reseau etendu (Internet). MAN: echelle d une ville.","OSI 7 couches: Physique, Liaison, Reseau, Transport, Session, Presentation, Application.","Switch: connecte un reseau local. Routeur: connecte des reseaux differents.","L adresse IP identifie une machine. Le masque definit la partie reseau et machine.","Wi-Fi: ondes radio sans fil. Ethernet: cables RJ45, plus stable et rapide.","Pare-feu filtre par regles. Proxy intermediaire qui peut filtrer et anonymiser."],
-'l10':["IaaS: serveurs virtuels (EC2). PaaS: deployer sans gerer l infra (Heroku). SaaS: app en ligne (Gmail).","AWS domine le cloud. Azure fort en entreprise. GCP excelle en IA et data.","Virtualisation: machines virtuelles. Conteneurs Docker: plus legers, partagent le noyau OS.","Scalabilite verticale: plus de RAM/CPU. Horizontale: plus de serveurs. Horizontale preferee.","Serverless: code sans serveur, paiement a l execution. AWS Lambda, Cloud Functions.","S3 stocke des fichiers dans le cloud. Economique, hautement disponible, scalable."],
-'l11':["BDD relationnelles (MySQL, PostgreSQL): tables liees, SQL, integrite ACID.","NoSQL (MongoDB, Redis): documents JSON flexibles ou cle-valeur ultra-rapide.","Table = tableur: colonnes = champs, lignes = enregistrements.","Cle primaire: identifie chaque ligne. Cle etrangere: reference a une autre table.","CRUD: Create INSERT, Read SELECT, Update UPDATE, Delete DELETE.","Le schema definit la structure: tables, champs, types, relations."],
-'l12':["REST utilise HTTP, URLs structurees, echange en JSON. C est le standard des API web.","JSON: format cle-valeur {nom:valeur}. Lisible par humains et machines.","Endpoint: URL d une ressource (/api/users). Chaque methode HTTP a un role different.","GET lit, POST cree, PUT met a jour, PATCH partiellement, DELETE supprime.","API key: token simple. JWT: token chiffre avec donnees utilisateur et expiration.","CORS controle quels domaines peuvent acceder a ton API."],
-'l13':["Sources fiables: MDN, dev.to, documentation officielle, newsletters curees.","GitHub Trending montre les projets open source qui gagnent le plus d etoiles.","Stack Overflow: questions/reponses pour devs. Chercher avant de poser.","Newsletters: TLDR, JavaScript Weekly. 5 min/jour suffisent.","Conferences: Devoxx, PyCon. Beaucoup en replay sur YouTube.","RSS via Feedly centralise les articles de multiples sources."],
-function initMatrix(){const c=document.getElementById('matrix-bg');const ctx=c.getContext('2d');c.width=innerWidth;c.height=innerHeight;const cols=Math.floor(c.width/14);const dr=Array(cols).fill(0);const ch='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789{}[]()=;+-*/';setInterval(()=>{ctx.fillStyle='rgba(5,5,12,0.05)';ctx.fillRect(0,0,c.width,c.height);ctx.fillStyle='#22d3ee';ctx.font='12px JetBrains Mono';for(let i=0;i<cols;i++){ctx.fillText(ch[Math.floor(Math.random()*ch.length)],i*14,dr[i]*14);if(dr[i]*14>c.height&&Math.random()>.975)dr[i]=0;dr[i]++}},50);addEventListener('resize',()=>{c.width=innerWidth;c.height=innerHeight})}
-function pr(p,s=60,col='#22d3ee'){const r=(s-8)/2;const ci=2*Math.PI*r;const o=ci-(p/100)*ci;return'<div class="progress-ring" style="width:'+s+'px;height:'+s+'px"><svg width="'+s+'" height="'+s+'"><circle cx="'+(s/2)+'" cy="'+(s/2)+'" r="'+r+'" fill="none" stroke="#1a1a2e" stroke-width="4"/><circle cx="'+(s/2)+'" cy="'+(s/2)+'" r="'+r+'" fill="none" stroke="'+col+'" stroke-width="4" stroke-linecap="round" stroke-dasharray="'+ci+'" stroke-dashoffset="'+o+'"/></svg><div class="label" style="color:'+col+'">'+p+'%</div></div>'}
-function sb(lv){const lb=['Nouveau','En cours','Revision','Maitrise'];const cl=['sr-new','sr-learning','sr-review','sr-mastered'];return'<span class="sr-badge '+cl[lv]+'">'+lb[lv]+'</span>'}
-function db(lv){let h='<div class="difficulty-bar">';for(let i=0;i<5;i++){h+='<div class="diff-seg '+(i<lv?(lv>=4?'filled hard':lv>=2?'filled medium':'filled'):'')+'"></div>'}return h+'</div>'}
-function render(){const root=document.getElementById('root');const st=en.gs();const sp=en.gas();let h='';
-h+='<div class="card" style="text-align:center;border-color:#22d3ee30"><h1 style="font-size:20px">NightCode Academy <span class="violet">v3</span></h1><div style="font-size:11px;color:#888;margin-top:4px">Graduate Developpeur IA &#9654; Studi &#9654; Promo JUIN-JUILLET 2026</div><div style="display:flex;justify-content:center;align-items:center;gap:20px;margin-top:10px">'+pr(st.prog,50)+'<div style="text-align:left"><div class="cyan" style="font-family:JetBrains Mono;font-size:16px">XP: '+st.prog+'%</div><div style="font-size:11px;color:#888">'+st.dL+'/'+st.tL+' lecons</div></div>';
-if(st.sk.c>0)h+='<div style="text-align:center"><span style="font-size:20px;animation:pulse 1s infinite">&#128293;</span><div class="cyan" style="font-size:14px;font-family:JetBrains Mono">'+st.sk.c+'j</div><div style="font-size:10px;color:#888">streak</div></div>';
-if(sp)h+='<div class="speed-indicator '+sp.c+'">'+sp.l+'</div>';
-h+='</div></div>';
-const sn=['const ai = await trainModel(data);','function fib(n){return n<=1?n:fib(n-1)+fib(n-2);}','app.get("/api/users",(req,res)=>res.json(users));','git commit -m "feat: add neural network"','pip install tensorflow'];
-h+='<div class="ticker"><div class="ticker-inner">'+[...sn,...sn].map(s=>'<span style="color:#22d3ee80">'+s+'</span>').join('<span style="color:#a78bfa40;margin:0 10px">|</span>')+'</div></div>';
-const tabs=[{id:'formation',i:'&#x1F4CB;',l:'Formation'},{id:'learn',i:'&#x1F4D6;',l:'Apprendre'},{id:'quiz',i:'&#127942;',l:'Quiz Adaptatif'},{id:'flash',i:'&#9889;',l:'Flash Cards'},{id:'stats',i:'&#x1F4CA;',l:'Statistiques'},{id:'review',i:'&#x1F504;',l:'Revisions'}];
-h+='<div class="tabs">';tabs.forEach(t=>{h+='<button class="tab-btn '+(S.tab===t.id?'active':'')+'" onclick="ss({tab:\''+t.id+'\',qm:false})">'+t.i+' '+t.l+'</button>'});h+='</div>';
-if(S.tab==='formation')h+=rF();else if(S.tab==='learn')h+=rL();else if(S.tab==='quiz')h+=rQ();else if(S.tab==='flash')h+=rFl();else if(S.tab==='stats')h+=rS(st);else if(S.tab==='review')h+=rR();
-root.innerHTML=h}
-'p1':["Ecrire des instructions pour qu un ordinateur execute une tache via un langage de programmation.","Haut niveau (Python, JS): proche du humain. Bas niveau (Assembleur): proche du materiel.","Compilation traduit TOUT d un coup. Interpretation execute ligne par ligne.","Code source = texte ecrit. Executable = programme final pour l ordinateur.","Algorithme = recette logique. Programme = traduction dans un langage."],
-'p2':["Declarer une variable = creer un espace memoire nomme. En JS: let age = 25.","int: entiers, float: decimaux, string: texte, bool: true/false.","Statique: type fixe (Java). Dynamique: type determine auto (JS, Python).","Constante: valeur qui ne change pas. En JS: const PI = 3.14159.","Casting convertit un type: Number('42') donne 42, String(42) donne '42'."],
-'p3':["+ - * / % sont les operations mathematiques de base sur les nombres.","== != > < >= <= comparent des valeurs. === verifie aussi le type en JS.","&& ET: les deux vraies. || OU: au moins une vraie. ! inverse le boolean.","= affecte. += ajoute et affecte. -= soustrait. *= multiplie.","Ternaire: condition ? siVrai : siFaux. Compact pour les assignations.","Priorite: () > ** > * / > + - > comparaison > logique."],
-'p4':["if (condition) { code } execute si la condition est vraie.","else s execute quand le if est faux. C est le plan B.","else if ajoute des conditions supplementaires enchainables.","switch compare une variable a plusieurs case possibles.","Imbriquer: un if dans un if. Attention a la lisibilite.","Ternaire remplace un if/else simple en une ligne."],
-'p5':["for (let i=0; i<10; i++) repete 10 fois avec un compteur.","while (condition) repete tant que c est vrai. Attention aux boucles infinies.","do while execute AU MOINS une fois puis verifie la condition.","break sort de la boucle. continue saute a l iteration suivante.","Boucles imbriquees: une boucle dans une boucle. Complexite O(n2).","for..of parcourt les valeurs. for..in parcourt les cles d un objet."],
-'p6':["function: bloc de code reutilisable. Definis une fois, appelle autant que tu veux.","Parametres: variables dans la definition. Arguments: valeurs a l appel.","return renvoie une valeur et arrete la fonction immediatement.","Scope: ou une variable est accessible. Local vs global.","Anonymes: pas de nom, assignees a des variables ou passees en callback.","Arrow functions: const add = (a,b) => a+b. Syntaxe courte, pas de this propre."],
-'p7':["const arr = [1,2,3]. Index commence a 0. Stocke une collection ordonnee.","Index 0 = premier. arr.length-1 = dernier. Convention universelle.","push fin, pop fin, shift debut, unshift debut. 4 operations de base.","arr.length = nombre d elements. arr[i] accede a l index i.","for/forEach pour parcourir. forEach est plus lisible et fonctionnel.","slice extrait sans modifier. splice modifie. concat fusionne."],
-'p8':["Objet = paires cle-valeur. Comme un dictionnaire.","obj.nom ou obj['nom'] pour acceder. Crochets si cle dans variable.","Methode = fonction dans un objet. obj.saluer().","this = l objet courant dans une methode.","Destructuring: const {nom, age} = personne. Raccourci d extraction.","Object.keys/values/entries pour iterer sur un objet."],
-'p9':["Concatenation: 'A'+'B'. Template literals: \x60Hello \x24{name}\x60.","Backticks permettent interpolation et retours a la ligne.","length, toUpperCase, toLowerCase: methodes de base.","indexOf position, includes true/false, slice sous-chaine.","split decoupe en tableau. join fusionne en chaine.","Regex: patterns pour chercher/remplacer du texte."],
-'p10':["try/catch/finally: gerer les erreurs sans crash.","SyntaxError, TypeError, ReferenceError, RangeError.","throw lance volontairement une erreur pour signaler un probleme.","Error: message, name, stack. Utile pour debug et logging.","console.log est ton meilleur ami pour debugger.","Stack trace: lire de bas en haut pour trouver l origine."],
-'p11':["Classe = plan pour creer des objets. new cree une instance.","Constructeur initialise les proprietes avec this.","Proprietes = donnees. Methodes = comportements.","Encapsulation: cacher les details internes, exposer le necessaire.","Heritage: class Enfant extends Parent. Reutiliser du code.","Polymorphisme: meme methode, comportement different selon la classe."],
-'p12':["export rend disponible. import utilise du code d un autre fichier.","ES6: export/import. CommonJS: require. ES6 est le standard moderne.","require() = ancien Node.js. Les ES modules le remplacent.","Un fichier par fonctionnalite. utils.js, api.js, etc.","Dependance = module externe. Listees dans package.json.","npm installe des packages. npm install, npm start."],
-'p13':["Noms clairs: nombreUtilisateurs plutot que n ou x.","Commentaires expliquent POURQUOI, pas QUOI.","DRY: ne repete pas. Si tu copies-colles, cree une fonction.","KISS: solutions simples = meilleures solutions.","Fonctions courtes < 20 lignes. Un seul role par fonction.","Indentation coherente, lignes < 120 car. Utilise Prettier."],
-function rF(){let h='<div class="card"><h2>&#x1F4CB; Ma Formation</h2><p style="font-size:12px;color:#888;margin-bottom:12px">Clique sur une matiere puis un module pour voir les lecons.</p>';
-F.matieres.forEach((mat,mi)=>{let md=0,mt=0;mat.modules.forEach(mod=>mod.lessons.forEach(l=>{mt++;if(en.gl(l.id).d)md++}));const mp=mt>0?Math.round(md/mt*100):0;const io=S.om===mi;
-h+='<div style="margin:6px 0;border:1px solid #1a1a2e;border-radius:10px;overflow:hidden"><div class="module-header" onclick="ss({om:'+(io?'null':mi)+',omod:null})"><div><span style="color:'+(mp===100?'#4ade80':'#a78bfa')+';font-family:JetBrains Mono;font-size:13px">'+(io?'&#9660;':'&#9654;')+' '+mat.name+'</span><span style="font-size:11px;color:#888;margin-left:8px">'+mat.modules.length+' modules</span></div><div style="display:flex;align-items:center;gap:8px">'+pr(mp,36,mp===100?'#4ade80':'#a78bfa')+'<span style="font-size:11px;color:#888">'+md+'/'+mt+'</span></div></div>';
-if(io){h+='<div style="padding:0 10px 10px">';mat.modules.forEach((mod,modi)=>{let mdd=0;mod.lessons.forEach(l=>{if(en.gl(l.id).d)mdd++});const modp=Math.round(mdd/mod.lessons.length*100);const imo=S.omod===modi;
-h+='<div style="margin:4px 0;border:1px solid #ffffff08;border-radius:8px"><div class="module-header" onclick="ss({omod:'+(imo?'null':modi)+'})" style="padding:6px 8px"><div><span class="cyan" style="font-size:12px">'+(imo?'&#9660;':'&#9654;')+' '+mod.name+'</span><span style="font-size:10px;color:#666;margin-left:6px">'+mod.lessons.length+' lecons</span></div><span style="font-size:11px;color:'+(modp===100?'#4ade80':'#888')+'">'+modp+'%</span></div>';
-if(imo){h+='<div style="padding:4px 8px 8px">';mod.lessons.forEach(l=>{const ld=en.gl(l.id);h+='<div class="lesson-item"><input type="checkbox" '+(ld.d?'checked':'')+' onchange="en.md(\''+l.id+'\',this.checked);render()"><span style="flex:1;font-size:12px;color:'+(ld.d?'#4ade80':'#e2e8f0')+'">'+l.name+'</span>'+sb(ld.sr)+(ld.qa>0?db(ld.df):'')+'<button class="tab-btn" style="font-size:10px;padding:2px 6px" onclick="event.stopPropagation();ol(\''+l.id+'\')">&#x1F4D6;</button><button class="tab-btn" style="font-size:10px;padding:2px 6px" onclick="event.stopPropagation();sq(\''+l.id+'\')">&#127942;</button></div>'});h+='</div>'}h+='</div>'});h+='</div>'}h+='</div>'});h+='</div>';return h}
-function rL(){let h='<div class="card">';if(S.al){const f=fl(S.al);if(!f){h+='<p>Lecon non trouvee</p></div>';return h}const{l,mod,m}=f;h+='<div class="flex-between"><div><span style="font-size:10px;color:#888">'+m.name+' > '+mod.name+'</span><h2 style="margin:4px 0">&#x1F4D6; '+l.name+'</h2></div><button class="tab-btn" onclick="ss({al:null})">&#x2190; Retour</button></div>';h+='<h3>&#x1F3AF; Concepts cles</h3><div style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0">';l.concepts.forEach(c=>{h+='<span class="badge bg-cyan">'+c+'</span>'});h+='</div><h3>&#x1F50D; Explication</h3>';l.concepts.forEach((c,i)=>{h+='<div class="concept-card"><h4>&#9654; '+c+'</h4><p>'+gce(l.id,i)+'</p></div>'});h+='<div style="margin-top:16px;text-align:center"><button class="tab-btn active" style="padding:12px 24px;font-size:14px" onclick="sq(\''+l.id+'\')">&#127942; Tester mes connaissances</button></div>'}else{const rec=en.grn();h+='<h2>&#x1F4D6; Apprendre</h2><p style="font-size:12px;color:#888;margin-bottom:12px">Selectionne une lecon ou suis la recommandation.</p>';if(rec){if(rec.t==='rev')h+='<div class="concept-card" style="border-color:#fbbf2440"><h4 class="yellow">&#x1F504; Revision recommandee</h4><p>'+rec.i.l.name+'</p><button class="tab-btn" style="margin-top:8px" onclick="ol(\''+rec.i.l.id+'\')">Reviser</button></div>';else h+='<div class="concept-card" style="border-color:#22d3ee40"><h4 class="cyan">&#x1F680; Prochaine lecon</h4><p>'+rec.l.name+' ('+rec.mod.name+')</p><button class="tab-btn" style="margin-top:8px" onclick="ol(\''+rec.l.id+'\')">Commencer</button></div>'}h+='<h3 style="margin-top:16px">Acces rapide</h3>';F.matieres.forEach((m,mi)=>{m.modules.forEach((mod,modi)=>{h+='<button class="tab-btn" style="width:100%;text-align:left;padding:6px 10px;font-size:11px;margin:2px 0" onclick="ss({tab:\'formation\',om:'+mi+',omod:'+modi+'})"><span class="violet">'+m.name+'</span> &#9654; <span class="cyan">'+mod.name+'</span> ('+mod.lessons.length+')</button>'})})}h+='</div>';return h}
-'a1':["Suite finie d instructions claires pour resoudre un probleme. Comme une recette.","Entree (donnees) > Traitement (etapes) > Sortie (resultat).","Pseudo-code: algorithme en langage naturel structure, non executable.","Organigramme: representation visuelle. Rectangles=actions, Losanges=decisions.","Complexite: efficacite en temps et espace selon la taille des donnees.","Exemples: chercher un mot (recherche), trier des cartes (tri), GPS (chemin)."],
-'a2':["Sequence: instructions les unes apres les autres dans l ordre.","Selection (if/else): choisir un chemin selon une condition.","Iteration (boucle): repeter un bloc d instructions.","Combiner avec ET, OU, NON pour des decisions complexes.","Imbrication: une structure dans une autre. Puissant mais prudence."],
-'a3':["Tri a bulles: compare chaque paire adjacente et echange. Simple mais O(n2).","Tri selection: cherche le minimum et le place au debut. Moins d echanges.","Tri insertion: insere chaque element a sa place. Bon pour petites donnees.","O(n2): donnees x2 = temps x4. O(n log n) bien meilleur.","Quick sort: pivot, gauche/droite, recurse. Generalement le plus rapide.","Bubble=simple/lent. Selection=peu echanges. Quick=meilleur en general."],
-'a4':["Lineaire: parcourt tout un par un. O(n). Simple mais lent.","Binaire: divise par 2 a chaque etape. O(log n). Extremement rapide.","Binaire EXIGE des donnees triees. Trier puis chercher.","Dans les chaines: indexOf, includes, regex.","Hash tables O(1) en moyenne. Arbres de recherche O(log n)."],
-'a5':["Fonction qui s appelle elle-meme. factorielle(5) appelle factorielle(4)...","Cas de base = condition d arret. Sans lui, recursion infinie et stack overflow.","Cas recursif: le probleme devient plus petit a chaque appel.","Chaque appel empile dans la call stack. Le cas de base depile.","Factorielle: n! = n*(n-1)!. Fibonacci: fib(n) = fib(n-1)+fib(n-2).","Elegant pour arbres et fractales. Limites: memoire, risque overflow."],
-'a6':["Tableau: memoire contigue, acces O(1) par index. Insert/suppr milieu O(n).","Liste chainee: elements lies par pointeurs. Insert O(1) si reference, acces O(n).","Pile LIFO: push ajoute, pop retire du sommet. Undo, parsing, recursion.","File FIFO: enqueue fin, dequeue debut. Impressions, BFS, buffers.","Deque: ajouter/retirer aux deux extremites. Combinaison pile + file.","Pile=historique navigateur. File=impressions. Tableau=donnees indexees."],
-'a7':["Arbre binaire: max 2 enfants par noeud. BST maintient les elements tries.","Racine=tout en haut. Feuilles=sans enfants. Profondeur=distance a la racine.","DFS: explore une branche completement. BFS: explore niveau par niveau.","Graphe oriente: aretes avec direction. Non oriente: les deux sens.","Arbres: fichiers, DOM, decisions IA. Graphes: reseaux sociaux, GPS."],
-'a8':["Big O mesure la croissance du temps en fonction de n. Ignore les constantes.","O(1) constant. O(n) lineaire. O(n2) quadratique. O(log n) logarithmique.","Pire cas: Big O garantit une borne superieure.","Complexite espace: memoire utilisee. Compromis avec le temps.","Optimiser = reduire la complexite. O(n2) -> O(n log n) change tout.","Cache/memoization: plus rapide mais plus de memoire. Choix strategique."],
-function rQ(){let h='<div class="card">';if(S.qm&&S.ql){const l=S.ql;const q=l.quiz[S.qi];const tot=l.quiz.length;const ld=en.gl(l.id);h+='<div class="flex-between"><h2>&#127942; Quiz: '+l.name+'</h2><span class="cyan" style="font-family:JetBrains Mono">'+(S.qi+1)+'/'+tot+'</span></div><div class="xp-bar" style="margin:10px 0"><div class="xp-fill" style="width:'+((S.qi+1)/tot*100)+'%"></div></div><div style="padding:16px;background:#0d0d1a;border-radius:10px;margin:12px 0"><p style="font-size:15px;line-height:1.6">'+q.q+'</p></div>';q.o.forEach((opt,i)=>{let cls='quiz-option';if(S.qa){cls+=' disabled';if(i===q.a)cls+=' correct';else if(i===S.qs&&i!==q.a)cls+=' wrong'}h+='<button class="'+cls+'" onclick="aq('+i+')">'+String.fromCharCode(65+i)+'. '+opt+'</button>'});if(S.qa){const ok=S.qs===q.a;h+='<div style="padding:12px;margin-top:10px;border-radius:8px;background:'+(ok?'#4ade8010':'#f8717110')+';border:1px solid '+(ok?'#4ade8040':'#f8717140')+'"><span style="color:'+(ok?'#4ade80':'#f87171')+';font-weight:700">'+(ok?'&#10003; Correct!':'&#10007; Incorrect')+'</span>';if(!ok)h+='<div style="font-size:12px;color:#888;margin-top:4px">Reponse: <span class="green">'+q.o[q.a]+'</span></div>';h+='</div>';if(S.qi<tot-1)h+='<button class="tab-btn active" style="margin-top:10px;padding:10px 20px" onclick="ss({qi:S.qi+1,qa:false,qt:Date.now()})">Suivante &#x279C;</button>';else{const ac=ld.qa>0?Math.round(ld.qc/ld.qa*100):0;h+='<div style="text-align:center;margin-top:16px;padding:16px;background:#0a0a14;border-radius:10px"><h3 class="cyan">Quiz termine!</h3><div class="stat-val cyan" style="font-size:30px;margin:8px 0">'+ac+'%</div><div style="color:#888;font-size:12px">Precision</div><button class="tab-btn" style="margin:4px" onclick="sq(\''+l.id+'\')">&#x1F504; Recommencer</button><button class="tab-btn" style="margin:4px" onclick="ss({tab:\'formation\',qm:false})">&#x1F4CB; Formation</button></div>'}}}else{h+='<h2>&#127942; Quiz Adaptatif</h2><p style="font-size:12px;color:#888;margin-bottom:12px">Choisis un quiz.</p>';const wk=[];F.matieres.forEach(m=>m.modules.forEach(mod=>mod.lessons.forEach(l=>{if(l.quiz&&l.quiz.length){const ld=en.gl(l.id);if(ld.df>=2||ld.qa===0)wk.push(l)}})));if(wk.length){const rw=wk[Math.floor(Math.random()*wk.length)];h+='<div class="concept-card" style="border-color:#f472b640"><h4 class="rose">&#x1F3AF; Quiz intelligent</h4><button class="tab-btn active" style="margin-top:8px" onclick="sq(\''+rw.id+'\')">Lancer</button></div>'}h+='<h3 style="margin-top:16px">Par module</h3>';F.matieres.forEach(m=>{m.modules.forEach(mod=>{const ql=mod.lessons.filter(l=>l.quiz&&l.quiz.length);if(!ql.length)return;h+='<div style="margin:4px 0"><div style="font-size:11px;color:#a78bfa;margin-bottom:4px">'+mod.name+'</div>';ql.forEach(l=>{const ld=en.gl(l.id);h+='<button class="tab-btn" style="margin:2px;font-size:10px" onclick="sq(\''+l.id+'\')">'+l.name;if(ld.qa>0)h+=' <span style="color:'+(ld.df<=1?'#4ade80':ld.df>=3?'#f87171':'#fbbf24')+'">'+Math.round(ld.qc/ld.qa*100)+'%</span>';h+='</button>'});h+='</div>'})})}h+='</div>';return h}
-function rFl(){let h='<div class="card"><h2>&#9889; Flash Cards</h2><p style="font-size:12px;color:#888;margin-bottom:12px">Clique pour reveler la reponse.</p>';const cards=[];F.matieres.forEach(m=>m.modules.forEach(mod=>mod.lessons.forEach(l=>{l.concepts.forEach((c,i)=>{cards.push({f:c,b:gce(l.id,i),ln:l.name,mn:mod.name})})})));if(!cards.length){h+='</div>';return h}const ci=S.fi%cards.length;const card=cards[ci];h+='<div style="text-align:center;margin:8px 0"><span class="cyan" style="font-family:JetBrains Mono">'+(ci+1)+'/'+cards.length+'</span><span style="font-size:11px;color:#888;margin-left:12px">'+card.mn+' > '+card.ln+'</span></div><div class="flash-card '+(S.ff?'flipped':'')+'" onclick="ss({ff:!S.ff})" style="height:160px"><div class="flash-inner"><div class="flash-front"><div><div style="font-size:11px;color:#888;margin-bottom:8px">Concept</div><div style="font-size:16px;font-family:JetBrains Mono">'+card.f+'</div></div></div><div class="flash-back"><div><div style="font-size:11px;color:#4ade8080;margin-bottom:8px">Explication</div><div style="font-size:13px">'+card.b+'</div></div></div></div></div><div style="display:flex;justify-content:center;gap:10px;margin-top:12px"><button class="tab-btn" onclick="ss({fi:Math.max(0,S.fi-1),ff:false})">&#x2190;</button><button class="tab-btn" onclick="ss({fi:Math.floor(Math.random()*'+cards.length+'),ff:false})">&#x1F3B2;</button><button class="tab-btn active" onclick="ss({fi:S.fi+1,ff:false})">&#x2192;</button></div></div>';return h}
-'h1':["HTML structure le contenu: <p> paragraphe, <a> lien, <img> image.","<!DOCTYPE html>, <html>, <head> metadonnees, <body> contenu visible.","<h1>-<h6> titres. <p> paragraphes. Un seul <h1> par page.","<ul>/<ol> listes. <li> chaque element.","<a href='url'>texte</a> lien. <img src='img.jpg' alt='desc'> image."],
-'h2':["<form action='/submit' method='POST'> englobe les champs.","input types: text, email, password, number, date, checkbox, radio.","<select><option>Choix</option></select> menu deroulant.","<textarea> texte multiligne.","<button type='submit'> envoie. type='button' pour JS.","required: obligatoire. pattern: format impose."],
-'h3':["header, footer, nav, main, aside, section, article: balises semantiques.","ARIA ameliore l accessibilite pour les lecteurs d ecran.","Semantique aide les moteurs de recherche a comprendre la structure.","SEO beneficie du HTML semantique.","<figure> + <figcaption> pour images avec legendes."],
-'h4':["element: p {}. classe: .rouge {}. id: #titre {}.","hex: #ff0000. rgb: rgb(255,0,0). hsl: hsl(0,100%,50%).","px fixe. em relatif parent. rem relatif root. vw/vh fenetre.","margin: exterieur. padding: interieur. border: entre les deux.","border: 1px solid #000. border-radius: 50% = cercle.","block: toute largeur. inline: dans le texte. none: cache."],
-'h5':["display:flex active Flexbox sur le conteneur.","justify-content: axe principal. align-items: axe secondaire.","flex-direction: row horizontal, column vertical.","flex-wrap: passage a la ligne quand pas de place.","gap: espacement entre flex items.","flex-grow/shrink/basis: controle de la taille des items."],
-'h6':["display:grid cree une grille 2D.","grid-template-columns/rows definit la structure.","gap: espacement entre cellules.","grid-area: nommer et placer des zones.","1fr = fraction de l espace disponible.","repeat(3,1fr) et minmax(200px,1fr) pour le responsive."],
-'h7':["@media (max-width:768px) {} adapte le CSS selon la taille d ecran.","Mobile first: CSS mobile par defaut, media queries pour plus grand.","Breakpoints: 576px, 768px, 992px, 1200px.","<meta viewport> OBLIGATOIRE pour le responsive.","max-width:100% pour images responsives. srcset pour differentes tailles.","Unites relatives (rem, vw, vh, %) s adaptent automatiquement."],
-'h8':["transition: animation douce quand une propriete change.","@keyframes definit les etapes d une animation.","animation applique l animation avec duree et iteration.","transform: translate deplace, rotate tourne, scale agrandit.","opacity:0 invisible. visibility:hidden invisible+pas de clic. display:none supprime.","Anime uniquement transform et opacity pour la performance."],
-'h9':["--ma-var: valeur dans :root {}. Utilise var(--ma-var).","var(--variable, fallback) avec valeur par defaut.","Sass ajoute $variables, nesting, mixins, fonctions. Compile en CSS.","Nesting: imbriquer les selecteurs pour plus de lisibilite.","Mixins: blocs CSS reutilisables avec parametres.","BEM: .bloc__element--modifier. Convention de nommage CSS."],
-'j1':["JS est le seul langage natif des navigateurs. Rend les pages interactives.","Console (F12): tester du JS en direct. console.log pour debugger.","<script src='app.js'></script> avec defer pour charger apres le HTML.","let: modifiable. const: constante. var: ancien, a eviter.","Typage dynamique: let x=5; x='hello' est valide.","Premier programme: console.log('Hello World!');"],
-'j2':["Types: string, number, boolean, null, undefined, symbol, bigint.","typeof 42 = 'number'. typeof null = 'object' (bug historique).","=== verifie valeur ET type. Toujours utiliser ===.","&& ET, || OU, ! NON. Court-circuit: false && x ne regarde pas x.","Template literals avec backticks et interpolation.","Coercion: '5'+3='53' (string). '5'-3=2 (number). Source de bugs."],
-'j3':["if/else if/else pour les conditions en JS.","switch(val) { case 'a': ... break; default: ... }.","Ternaire: condition ? a : b. Compact pour assignations.","?? nullish: retourne droite si gauche est null/undefined.","?. optional chaining: ne plante pas si null/undefined.","Falsy: false, 0, '', null, undefined, NaN. Tout le reste est truthy."],
-'j4':["for classique avec compteur. Utile quand on a besoin de l index.","while repete tant que vrai. Attention aux boucles infinies.","for..of parcourt les valeurs d un tableau.","for..in parcourt les cles d un objet. Inclut les heritees.","break sort, continue saute. Controlent le flux des boucles.","forEach: plus fonctionnel. Pas de break possible dedans."],
-'j5':["function add(a,b){return a+b;} Declaration classique, hoisted.","Expression: const add = function(a,b){return a+b};","Arrow: const add = (a,b) => a+b. Syntaxe courte.","Parametres defaut: function f(n='World') {}.","Rest: function sum(...nums) {} collecte en tableau.","Callback: fonction passee en argument. setTimeout(fn, 1000)."],
-'j6':["const arr=['a','b']. Acces: arr[0]. Tableaux dynamiques.","push/pop fin, shift/unshift debut.","map transforme, filter filtre, reduce accumule.","find premier element, findIndex son index, includes true/false.","sort trie (attention: string par defaut!). reverse inverse.","Spread [...arr] copie. [...a,...b] fusionne."],
-'j7':["const user={nom:'Ali',age:25}. Paires cle-valeur.","Methodes: fonctions dans un objet. this refere a l objet.","Destructuring: const {nom,age} = user.","Spread: {...original, age:30} copie avec modification.","Object.keys/values/entries pour iterer.","JSON.stringify objet->string. JSON.parse string->objet."],
-'j8':["getElementById, querySelector, querySelectorAll.","createElement, appendChild. Construire des elements.","innerHTML: tout le HTML (risque XSS). textContent: texte seul, plus sur.","classList.add/remove/toggle pour les classes CSS.","element.style.color='red' pour le style inline.","parentNode, childNodes pour naviguer dans le DOM."],
-'j9':["addEventListener('click', handler). Attache un evenement.","click, submit, keydown, input, mouseenter, load, scroll.","e.target: element clique. e.key: touche. e.clientX/Y: position.","preventDefault empeche le comportement par defaut.","Bubbling: evenement remonte aux parents. stopPropagation l arrete.","Delegation: UN listener au parent au lieu de chaque enfant."],
-function rS(st){let h='<div class="card"><h2>&#x1F4CA; Tableau de bord</h2><div class="stats-grid"><div class="stat-card"><div class="stat-val cyan">'+st.prog+'%</div><div class="stat-label">Progression</div></div><div class="stat-card"><div class="stat-val violet">'+st.dL+'</div><div class="stat-label">Lecons</div></div><div class="stat-card"><div class="stat-val rose">'+st.tQ+'</div><div class="stat-label">Quiz</div></div><div class="stat-card"><div class="stat-val '+(st.acc>=70?'green':st.acc>=40?'yellow':'red')+'">'+st.acc+'%</div><div class="stat-label">Precision</div></div><div class="stat-card"><div class="stat-val yellow">'+st.sk.c+'</div><div class="stat-label">Streak</div></div><div class="stat-card"><div class="stat-val cyan">'+st.days+'</div><div class="stat-label">Jours</div></div></div>';h+='<h3 style="margin-top:16px">Par matiere</h3>';F.matieres.forEach(m=>{let d=0,t=0;m.modules.forEach(mod=>mod.lessons.forEach(l=>{t++;if(en.gl(l.id).d)d++}));const p=t>0?Math.round(d/t*100):0;h+='<div style="margin:8px 0"><div class="flex-between" style="margin-bottom:4px"><span style="font-size:12px">'+m.name+'</span><span class="cyan" style="font-size:11px;font-family:JetBrains Mono">'+p+'%</span></div><div class="xp-bar"><div class="xp-fill" style="width:'+p+'%"></div></div></div>'});if(st.wk.length){h+='<h3 style="margin-top:16px">&#x26A0; Points faibles</h3>';st.wk.forEach(t=>{h+='<div class="weak-topic">'+t.n+' '+db(t.df)+'<button class="tab-btn" style="font-size:10px;padding:2px 6px;margin-left:8px" onclick="sq(\''+t.id+'\')">Quiz</button></div>'})}const rc=en.d.qh.slice(-20);if(rc.length){h+='<h3 style="margin-top:16px">Historique</h3><div style="display:flex;align-items:end;gap:3px;height:60px;padding:8px 0">';rc.forEach(r=>{h+='<div style="flex:1;height:'+(r.ok?'100':'30')+'%;background:'+(r.ok?'#4ade80':'#f87171')+';border-radius:2px;min-width:8px"></div>'});h+='</div>'}h+='</div>';return h}
-function rR(){let h='<div class="card"><h2>&#x1F504; Revisions</h2>';const due=en.gdr();if(due.length){h+='<div class="concept-card" style="border-color:#fbbf2440"><h4 class="yellow">'+due.length+' a reviser</h4></div>';due.forEach(d=>{h+='<div class="lesson-item">'+sb(d.d.sr)+'<span style="flex:1;font-size:12px">'+d.l.name+'</span><button class="tab-btn" style="font-size:10px;padding:4px 8px" onclick="sq(\''+d.l.id+'\')">Quiz</button><button class="tab-btn" style="font-size:10px;padding:4px 8px" onclick="ol(\''+d.l.id+'\')">Relire</button></div>'})}else h+='<div class="concept-card" style="border-color:#4ade8040"><h4 class="green">&#x2705; Rien a reviser!</h4><p style="font-size:12px;color:#888">Continue a apprendre.</p></div>';let sr=[0,0,0,0];F.matieres.forEach(m=>m.modules.forEach(mod=>mod.lessons.forEach(l=>{sr[en.gl(l.id).sr]++})));h+='<h3 style="margin-top:16px">Niveaux</h3><div class="stats-grid">';['Nouveau','En cours','Revision','Maitrise'].forEach((lb,i)=>{h+='<div class="stat-card"><div class="stat-val" style="color:'+['#22d3ee','#fbbf24','#a78bfa','#4ade80'][i]+'">'+sr[i]+'</div><div class="stat-label">'+lb+'</div></div>'});h+='</div></div>';return h}
-function gce(lid,ci){const X={'l1':["Nee du besoin de calculer. Pascaline, Babbage, ENIAC 1946.","ARPANET 1969: premier reseau US. Devenu Internet annees 80-90.","TCP decoupe en paquets, IP gere adressage. Chaque appareil a une IP.","1989 Tim Berners-Lee invente Web au CERN. HTML, HTTP, premier navigateur.","FTP fichiers, SMTP e-mails, TELNET connexion distance. Avant le Web.","Systemes differents communiquent grace aux standards TCP/IP, HTTP, HTML."],'l2':["Client envoie requete, serveur renvoie reponse HTML ou JSON.","DNS traduit noms domaine en IP. Annuaire Internet.","HTTP protocole web. HTTPS ajoute chiffrement SSL/TLS.","IPv4: 4x 0-255. IPv6: 128 bits, plus appareils.","Paquets voyagent via routeurs. TCP reassemble a destination.","FAI connectent via cables, fibres, satellites."],'l3':["Phishing: faux sites/mails pour voler identifiants.","Virus replique, Trojan deguise, Ransomware chiffre, Spyware espionne.","12+ caracteres, maj/min/chiffres/symboles. Gestionnaire recommande.","Pare-feu filtre trafic. Antivirus detecte malwares.","RGPD: droits acces, rectification, effacement donnees EU.","Chiffrement: AES fichiers, SSL/TLS web, E2E messages."]};if(X[lid]&&X[lid][ci])return X[lid][ci];let cn='';for(const m of F.matieres)for(const mod of m.modules)for(const l of mod.lessons)if(l.id===lid&&l.concepts[ci])cn=l.concepts[ci];return'Concept: '+cn+'. Etudie ce sujet dans le cours Studi.'}
-initMatrix();render();
-</script></body></html>
-'ja1':["Scope: global=partout. local=fonction. bloc=let/const dans {}.","Closure: fonction interne garde acces au scope parent apres son execution.","Lexical scoping: scope determine par l endroit ou le code est ECRIT.","IIFE: (function(){})() s execute immediatement, scope isole.","Module pattern: closures pour creer des variables privees.","Closures partout: callbacks, event handlers, factories, memoization."],
-'ja2':["Callbacks: fonction en argument. Probleme: callback hell.","Promises: then/catch. Resolue ou rejetee. Plus lisible que callbacks.","async/await: code semble synchrone mais est asynchrone. Tres lisible.","Promise.all attend toutes. Promise.race retourne la premiere resolue.","Event loop: code synchrone, puis microtasks (promises), puis macrotasks.","Microtasks ont priorite sur macrotasks (setTimeout)."],
-'ja3':["fetch('url') retourne une Promise. .then(r=>r.json()) pour parser.","GET: fetch(url). POST: fetch(url, {method:'POST', body:JSON.stringify(data)}).","Headers: Content-Type, Authorization. Definissent le type et l auth.","response.ok si 200-299. .status code. .json() parse.","try/catch avec await pour gerer les erreurs reseau.","CORS: le serveur definit quels domaines peuvent l appeler."],
-'ja4':["let/const: scope bloc, pas hoisted. const empeche reassignation.","Destructuring objets {a,b} et tableaux [x,y]. Avec renommage et defaut.","Spread etale: [...arr,4]. Rest collecte: function(...args). Meme syntaxe.","?. evite erreurs sur null: user?.profile?.name retourne undefined.","?? retourne droite si gauche null/undefined. Plus precis que ||.","Map: cle-valeur tout type. Set: valeurs uniques."],
-'ja5':["class: sucre syntaxique sur les prototypes JS.","constructor() appele par new. Initialise avec this.propriete.","extends herite. super() appelle le constructeur parent.","static: appartient a la CLASSE, pas aux instances.","get/set controlent l acces aux proprietes. Validation.","Polymorphisme: meme methode, comportement different selon le type."],
-'ja6':["export default: un element principal. export {}: elements nommes.","import Default from './f'. import {named} from './f'. import * as All.","Dynamic import: const mod = await import('./heavy.js'). Chargement a la demande.","Tree shaking supprime le code non utilise lors du build.","Vite: bundler rapide et moderne. Webpack: le plus configurable.","package.json: dependances, scripts, metadonnees du projet."],
-'g1':["Git: historique complet de chaque modification. Revenir a n importe quelle version.","Git=outil local. GitHub=plateforme en ligne. GitLab, Bitbucket=alternatives.","Repo local=ton PC. Remote=GitHub. push envoie, pull telecharge.","git init nouveau repo. git clone telecharge un existant.","Commit=snapshot du code. Messages clairs essentiels.","Staging area: choisis les fichiers pour le prochain commit avec git add."],
-'g2':["git add: staging. commit: snapshot. push: envoie. pull: telecharge.","git status: fichiers modifies. git log: historique. --oneline compact.","git diff: differences depuis le dernier commit.","git stash: met de cote temporairement. stash pop recupere.","git reset --soft: annule commit, garde changements. --hard: supprime tout.","gitignore: node_modules/, .env, *.log. Ne pas commiter dependances."],
-'g3':["git branch feature-login cree. git switch bascule. Lignes paralleles.","git switch ou checkout pour changer. -c ou -b pour creer et basculer.","git merge fusionne une branche dans la courante.","Conflit: memes lignes modifiees. Choisir manuellement, puis commiter.","Rebase rejoue les commits. Historique lineaire mais reecrit l histoire.","Feature branch: une branche par fonctionnalite, merge via Pull Request."],
-'g4':["Pull Request: demande de fusion. Equipe revoit, commente, approuve.","Code review: relecture qualite, bugs, lisibilite. Apprentissage pour tous.","Fork: copier un repo. Clone: telecharger. PR vers l original.","Issues: tickets bugs/features. Projects: tableaux Kanban.","GitHub Actions: automatise tests, deploiement via YAML.","README: ce que fait le projet, installation, utilisation, contribution."],
-'if1':["IA generative peut ecrire, expliquer, debugger du code. Assistant puissant.","Copilot: integre a VS Code, suggestions en temps reel.","Bon prompt = precis, contextuel, avec langage et contraintes.","Automatiser les taches repetitives: generer composants, tests, convertir.","Ethique: verifier le code genere, comprendre ce qu il fait.","Limites: hallucinations, code non optimal, pas de contexte metier."],
-'if2':["Prompt efficace: langage, framework, contexte, objectif, contraintes.","IA genere HTML/CSS/JS. Toujours verifier et tester.","Pour debug: coller code + erreur. IA identifie souvent vite.","Suggestions d optimisation: complexite, lisibilite, patterns modernes.","Tests generes couvrent les cas de base. Ajouter tes propres cas limites."],
-'ph1':["PHP s execute sur le serveur. L utilisateur ne voit jamais le code PHP.","<?php ?> delimite le code PHP. Le reste est du HTML simple.","echo affiche du texte. print aussi mais retourne 1. echo plus courant.","Variables commencent par $: $nom='Ali'; $age=25; Typage dynamique.","Types: string, int, float, bool, array, object, null.","XAMPP/WAMP: Apache + MySQL + PHP sur ton PC. Fichiers dans htdocs."],
-'ph2':["if/elseif/else en PHP. Meme logique que JS.","switch/case. N oublie pas le break.","for, while, do while identiques a JS.","foreach ($arr as $val) ou foreach ($arr as $k => $v). Prefere pour tableaux.","break sort, continue saute. Comme en JS.","PHP 8 match: plus strict et propre que switch."],
-'ph3':["function add($a, $b) { return $a + $b; }. Appel: add(3,5).","PHP 7+: function add(int $a, int $b): int {}. Type hints.","return renvoie et arrete. Sans return, retourne null.","Fonctions anonymes: $fn = function($x) { return $x*2; };","PHP 7.4: fn($x) => $x*2. Arrow functions courtes.","Builtin: strlen, array_push, str_replace, date, json_encode."],
-'ph4':["$arr = ['a','b','c']; Index 0. Acces: $arr[0].","Associatif: $user = ['nom'=>'Ali']; Acces: $user['nom'].","Multidim: $m = [[1,2],[3,4]]; $m[0][1] = 2.","array_push ajoute fin. array_pop retire fin.","array_map transforme. array_filter filtre.","sort, asort (garde cles), ksort (par cles), usort (custom)."],
-'ph5':["$_GET: donnees URL. $_POST: formulaire POST. POST plus securise.","Superglobales: $_GET, $_POST, $_SESSION, $_COOKIE, $_FILES, $_SERVER.","Toujours valider et nettoyer les donnees utilisateur.","htmlspecialchars empeche injection HTML/JS (XSS).","filter_var valide format email, URL. FILTER_SANITIZE nettoie.","CSRF: token unique par formulaire verifie a la soumission."],
-'ph6':["PDO: new PDO('mysql:host=localhost;dbname=test', 'user', 'pass').","Requetes preparees: prepare + execute avec parametres. TOUJOURS.","INSERT, SELECT, UPDATE, DELETE: les 4 CRUD.","Injections SQL: requetes preparees les empechent car donnees = valeurs.","Transactions: beginTransaction, commit, rollBack. Tout ou rien.","fetch une ligne. fetchAll toutes. FETCH_ASSOC pour tableau associatif."],
-'ph7':["session_start() au debut de chaque page. Avant tout echo/HTML.","$_SESSION['user']='Ali' stocke. unset supprime. session_destroy tout.","setcookie('nom','val',time()+3600) cree un cookie 1h.","$_COOKIE['nom'] lit. Cookies envoyes avec chaque requete HTTP.","Securite: HTTPS, session_regenerate_id, flags httponly et secure.","Sessions: fin navigateur. Cookies: expiration explicite."],
-'ph8':["class User { public $nom; public function __construct($nom){$this->nom=$nom;} }","__construct constructeur. __destruct destructeur. __toString conversion string.","public partout. private classe seule. protected classe + enfants.","class Admin extends User {}. Heritage. parent::method() version parente.","interface: contrat. abstract: ne peut pas etre instanciee.","Namespaces evitent conflits. Autoload PSR-4 charge automatiquement."],
-'py1':["Python: web, data, IA, automatisation. Syntaxe simple et lisible.","Indentation 4 espaces definit les blocs. Incorrecte = erreur.","print('Hello'). input('Nom: ') lit la saisie, retourne string.","x = 42. name = 'Ali'. Type determine automatiquement.","# commentaire. Docstrings '''...''' documentent fonctions/classes.","Python 3 obligatoire. Python 2 obsolete depuis 2020."],
-'py2':["int, float, str, bool. Aussi complex pour maths avancees.","list modifiable. tuple immutable. dict cle-valeur. set sans doublons.","None = absence de valeur. Equivalent de null en JS.","int('42'), str(42), float('3.14'). Conversion explicite.","f'Bonjour {name}' f-strings. f'{price:.2f}' 2 decimales.","type(42) = int. isinstance(42, int) = True."],
-'py3':["if/elif/else avec : et indentation. Pas de parentheses obligatoires.","for x in list. range(5)=0,1,2,3,4. range(2,10,2)=2,4,6,8.","while condition: bloc. Attention boucles infinies.","break sort. continue saute. pass ne fait rien (placeholder).","[x*2 for x in range(5)] list comprehension. Avec condition: if x>0.","enumerate donne index+valeur. zip combine deux listes."],
-'py4':["def add(a, b): return a + b. Mot-cle def.","*args: tuple d args positionnels. **kwargs: dict d args nommes.","return renvoie. Sans return, retourne None. Peut retourner plusieurs.","lambda a,b: a+b. Fonction anonyme une ligne.","Decorateurs modifient le comportement: @timer au-dessus de def f.","Type hints: def add(a: int, b: int) -> int. Non obligatoires."],
-'py5':["open('f.txt','r') lecture. 'w' ecriture. 'a' ajout.","with open('f') as f: garantit la fermeture meme en cas d erreur.","try/except/finally. Attraper des types d erreurs specifiques.","raise ValueError('msg') lance une erreur volontairement.","class MonErreur(Exception): pass. Exceptions personnalisees.","pathlib.Path moderne. os.listdir, os.makedirs."],
-'py6':["class User: def __init__(self, name): self.name = name. self = instance.","__init__ constructeur appele par User('Ali').","class Admin(User): super().__init__(name). Heritage.","__str__ pour print. __repr__ pour debug. __len__ pour len.","@property: methode en attribut. user.full_name sans parentheses.","_attribut protege. __attribut prive (name mangling)."],
-'py7':["import math. from math import sqrt. Importer des modules.","pip install requests. pip freeze. pip uninstall.","pip freeze > requirements.txt. pip install -r requirements.txt.","python -m venv mon_env. source/activate pour l activer.","__init__.py transforme un dossier en package importable.","PyPI: depot central des packages Python. Comme npm pour Python."],
-'py8':["Flask: micro-framework leger et flexible. pip install flask.","@app.route('/') def home(): return 'Hello'. Routes et vues.","Jinja2: {{ variable }}, {% if %}, {% for %}. Templates HTML+Python.","Django MTV: Model donnees, Template affichage, View logique.","ORM: manipuler la BDD avec des classes Python au lieu de SQL.","FastAPI: ultra-rapide, doc Swagger auto. Flask-RESTful pour API."],
-'ib1':["IA genere du code backend: routes, SQL, validations. Toujours verifier.","IA automatise la creation d endpoints API CRUD.","IA genere des requetes SQL a partir de descriptions naturelles.","Tests auto par IA couvrent les cas courants. Completer soi-meme.","IA suggere optimisations: complexite, performance, design patterns.","IA identifie des failles de securite. Audit humain reste indispensable."],
-'ib2':["Supervise: donnees avec labels. Non supervise: sans labels, trouve patterns.","Dataset train: le modele apprend. Dataset test: verifie performances.","Regression: predire nombre. Classification: predire categorie.","Scikit-learn: model.fit(X_train, y_train); model.predict(X_test).","Evaluation: accuracy, precision, recall, F1-score, matrice confusion.","Overfitting: memorise trop. Underfitting: trop simple. Trouver l equilibre."],
-'ib3':["Neurone: entrees x poids + biais + activation. Unite de base.","Couches: input, hidden, output. Plus de couches = deep learning.","Poids: importance connexions. Biais: decalage. Ajustes par entrainement.","Activation (ReLU, sigmoid, softmax): introduit non-linearite.","Backpropagation: calcule contribution de chaque poids a l erreur.","TensorFlow (Google) et PyTorch (Meta). PyTorch recherche, TF production."]
-};const e=E[lid];if(e&&e[ci])return e[ci];return "Contenu detaille bientot disponible. Consulte la lecon sur Studi."}
-initMatrix();render();
-</script></body></html>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NUIT DORÉE — Maison de Parfums</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Raleway:wght@300;400;500;600&display=swap');
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --gold: #c9a84c;
+            --gold-light: #e8d5a3;
+            --dark: #0a0a0a;
+            --dark-soft: #1a1a1a;
+            --cream: #f5f0e8;
+            --white: #ffffff;
+            --text-light: #b0a89a;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Raleway', sans-serif;
+            background: var(--dark);
+            color: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* ═══════════ NAVIGATION ═══════════ */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.4s, padding 0.4s;
+        }
+
+        nav.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem 4rem;
+            border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            letter-spacing: 6px;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 400;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .nav-hamburger span {
+            width: 25px;
+            height: 1.5px;
+            background: var(--gold);
+            transition: 0.3s;
+        }
+
+        /* ═══════════ HERO ═══════════ */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1510 50%, #0a0a0a 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(201, 168, 76, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-subtitle {
+            font-size: 0.85rem;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+            animation: fadeUp 1s ease 0.3s both;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            animation: fadeUp 1s ease 0.5s both;
+        }
+
+        .hero-title span {
+            display: block;
+            color: var(--gold);
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .hero-tagline {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: var(--text-light);
+            margin-bottom: 3rem;
+            letter-spacing: 2px;
+            animation: fadeUp 1s ease 0.7s both;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            padding: 1rem 3rem;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            transition: all 0.4s;
+            animation: fadeUp 1s ease 0.9s both;
+        }
+
+        .hero-btn:hover {
+            background: var(--gold);
+            color: var(--dark);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            animation: fadeUp 1s ease 1.2s both;
+        }
+
+        .scroll-indicator span {
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-light);
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+            animation: scrollDown 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollDown {
+            0% { transform: scaleY(0); transform-origin: top; }
+            50% { transform: scaleY(1); transform-origin: top; }
+            51% { transform: scaleY(1); transform-origin: bottom; }
+            100% { transform: scaleY(0); transform-origin: bottom; }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ═══════════ SECTION STYLES ═══════════ */
+        section {
+            padding: 8rem 4rem;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+
+        .section-text {
+            font-size: 1rem;
+            line-height: 1.9;
+            color: var(--text-light);
+            max-width: 550px;
+            font-weight: 300;
+        }
+
+        /* ═══════════ À PROPOS ═══════════ */
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+            background: var(--dark);
+        }
+
+        .about-image {
+            width: 100%;
+            height: 600px;
+            background: linear-gradient(145deg, #1a1510, #2a2015, #1a1510);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            inset: 15px;
+            border: 1px solid rgba(201, 168, 76, 0.2);
+        }
+
+        .about-image .perfume-icon {
+            font-size: 8rem;
+            opacity: 0.6;
+        }
+
+        .about-details {
+            display: flex;
+            gap: 3rem;
+            margin-top: 2.5rem;
+        }
+
+        .about-detail {
+            text-align: center;
+        }
+
+        .about-detail .number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            display: block;
+        }
+
+        .about-detail .label {
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-top: 0.3rem;
+        }
+
+        /* ═══════════ COLLECTIONS ═══════════ */
+        .collections {
+            background: var(--dark-soft);
+            text-align: center;
+        }
+
+        .collections-header {
+            margin-bottom: 5rem;
+        }
+
+        .collections-header .section-text {
+            margin: 0 auto;
+        }
+
+        .collections-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .perfume-card {
+            background: var(--dark);
+            padding: 3rem 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s, box-shadow 0.4s;
+            cursor: pointer;
+            border: 1px solid rgba(201, 168, 76, 0.05);
+        }
+
+        .perfume-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(201, 168, 76, 0.1);
+            border-color: rgba(201, 168, 76, 0.2);
+        }
+
+        .perfume-card .card-icon {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+            display: block;
+            transition: transform 0.4s;
+        }
+
+        .perfume-card:hover .card-icon {
+            transform: scale(1.1);
+        }
+
+        .card-collection {
+            font-size: 0.65rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.8rem;
+        }
+
+        .card-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-notes {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            font-weight: 300;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--gold);
+        }
+
+        .card-volume {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin-left: 0.3rem;
+        }
+
+        .card-btn {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.7rem 2rem;
+            border: 1px solid rgba(201, 168, 76, 0.3);
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+
+        .card-btn:hover {
+            background: var(--gold);
+            color: var(--dark);
+        }
+
+        /* ═══════════ INGRÉDIENTS ═══════════ */
+        .ingredients {
+            background: var(--dark);
+        }
+
+        .ingredients-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .ingredients-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .ingredient-item {
+            padding: 1.5rem;
+            border: 1px solid rgba(201, 168, 76, 0.1);
+            transition: border-color 0.3s;
+        }
+
+        .ingredient-item:hover {
+            border-color: rgba(201, 168, 76, 0.4);
+        }
+
+        .ingredient-item .ing-icon {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+
+        .ingredient-item h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            margin-bottom: 0.4rem;
+            font-weight: 400;
+        }
+
+        .ingredient-item p {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        .ingredients-visual {
+            height: 500px;
+            background: linear-gradient(145deg, #1a1510, #2a2015);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .ingredients-visual::after {
+            content: '';
+            position: absolute;
+            inset: 20px;
+            border: 1px solid rgba(201, 168, 76, 0.15);
+        }
+
+        .ingredients-visual .big-icon {
+            font-size: 6rem;
+            opacity: 0.5;
+        }
+
+        /* ═══════════ EXPÉRIENCE ═══════════ */
+        .experience {
+            background: linear-gradient(135deg, #0a0a0a, #1a1510);
+            text-align: center;
+        }
+
+        .experience-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 4rem auto 0;
+        }
+
+        .step {
+            padding: 2rem;
+            position: relative;
+        }
+
+        .step-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: rgba(201, 168, 76, 0.15);
+            margin-bottom: 1rem;
+        }
+
+        .step-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .step h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            font-weight: 400;
+        }
+
+        .step p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        /* ═══════════ TÉMOIGNAGES ═══════════ */
+        .testimonials {
+            background: var(--dark-soft);
+            text-align: center;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 4rem auto 0;
+        }
+
+        .testimonial {
+            padding: 2.5rem;
+            border: 1px solid rgba(201, 168, 76, 0.08);
+            position: relative;
+        }
+
+        .testimonial .quote-mark {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            color: var(--gold);
+            opacity: 0.3;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            font-style: italic;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .testimonial .author {
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .stars {
+            color: var(--gold);
+            margin-bottom: 1rem;
+            letter-spacing: 3px;
+        }
+
+        /* ═══════════ NEWSLETTER ═══════════ */
+        .newsletter {
+            background: var(--dark);
+            text-align: center;
+            padding: 6rem 4rem;
+        }
+
+        .newsletter .section-text {
+            margin: 0 auto 2.5rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 0;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            background: transparent;
+            border: 1px solid rgba(201, 168, 76, 0.3);
+            color: var(--white);
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .newsletter-form input::placeholder {
+            color: var(--text-light);
+        }
+
+        .newsletter-form input:focus {
+            border-color: var(--gold);
+        }
+
+        .newsletter-form button {
+            padding: 1rem 2rem;
+            background: var(--gold);
+            border: 1px solid var(--gold);
+            color: var(--dark);
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .newsletter-form button:hover {
+            background: transparent;
+            color: var(--gold);
+        }
+
+        /* ═══════════ FOOTER ═══════════ */
+        footer {
+            background: var(--dark-soft);
+            padding: 5rem 4rem 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-brand .nav-logo {
+            display: inline-block;
+            margin-bottom: 1.2rem;
+        }
+
+        .footer-brand p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            line-height: 1.8;
+            font-weight: 300;
+            max-width: 300px;
+        }
+
+        .footer-col h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+            color: var(--gold-light);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col ul a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 300;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(201, 168, 76, 0.1);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            letter-spacing: 1px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .social-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--gold);
+        }
+
+        /* ═══════════ ANIMATIONS ═══════════ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ═══════════ RESPONSIVE ═══════════ */
+        @media (max-width: 1024px) {
+            section {
+                padding: 5rem 3rem;
+            }
+
+            .collections-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .experience-steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1.2rem 2rem;
+            }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(10, 10, 10, 0.98);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-hamburger {
+                display: flex;
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .about-image {
+                height: 350px;
+            }
+
+            .collections-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ingredients-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .ingredients-visual {
+                height: 300px;
+                order: -1;
+            }
+
+            .experience-steps {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══════════ NAVIGATION ═══════════ -->
+    <nav id="navbar">
+        <a href="#" class="nav-logo">NUIT DORÉE</a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#about" onclick="closeMenu()">Maison</a></li>
+            <li><a href="#collections" onclick="closeMenu()">Collections</a></li>
+            <li><a href="#ingredients" onclick="closeMenu()">Ingrédients</a></li>
+            <li><a href="#experience" onclick="closeMenu()">Expérience</a></li>
+            <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+        </ul>
+        <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- ═══════════ HERO ═══════════ -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <p class="hero-subtitle">Maison de Parfums</p>
+            <h1 class="hero-title">
+                Nuit
+                <span>Dorée</span>
+            </h1>
+            <p class="hero-tagline">L'art de capturer l'essence de la nuit</p>
+            <a href="#collections" class="hero-btn">Découvrir nos créations</a>
+        </div>
+        <div class="scroll-indicator">
+            <span>Défiler</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- ═══════════ À PROPOS ═══════════ -->
+    <section class="about" id="about">
+        <div class="about-image">
+            <div class="perfume-icon">🌙</div>
+        </div>
+        <div class="about-text reveal">
+            <p class="section-label">Notre Maison</p>
+            <h2 class="section-title">L'élégance née de la passion</h2>
+            <p class="section-text">
+                Fondée sur l'amour de la parfumerie d'exception, Nuit Dorée crée des fragrances
+                qui racontent des histoires. Chaque flacon est une invitation au voyage,
+                une porte ouverte vers un univers de sensations raffinées.
+            </p>
+            <p class="section-text" style="margin-top: 1.2rem;">
+                Nos maîtres parfumeurs sélectionnent les matières premières les plus nobles
+                pour composer des accords uniques, entre tradition et modernité.
+            </p>
+            <div class="about-details">
+                <div class="about-detail">
+                    <span class="number">12</span>
+                    <span class="label">Créations</span>
+                </div>
+                <div class="about-detail">
+                    <span class="number">47</span>
+                    <span class="label">Ingrédients</span>
+                </div>
+                <div class="about-detail">
+                    <span class="number">3</span>
+                    <span class="label">Collections</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ COLLECTIONS ═══════════ -->
+    <section class="collections" id="collections">
+        <div class="collections-header reveal">
+            <p class="section-label">Nos Créations</p>
+            <h2 class="section-title">Collections d'Exception</h2>
+            <p class="section-text">
+                Trois univers olfactifs, douze fragrances uniques.
+                Chacune compose une symphonie de notes rares et précieuses.
+            </p>
+        </div>
+
+        <div class="collections-grid">
+            <!-- Parfum 1 -->
+            <div class="perfume-card reveal">
+                <span class="card-icon">✨</span>
+                <p class="card-collection">Collection Nuit</p>
+                <h3 class="card-name">Éclat de Lune</h3>
+                <p class="card-notes">
+                    Notes de tête : Bergamote, Poivre rose<br>
+                    Cœur : Iris, Jasmin de Grasse<br>
+                    Fond : Musc blanc, Bois de santal
+                </p>
+                <span class="card-price">185€ <small class="card-volume">/ 50ml</small></span>
+                <br>
+                <a href="#contact" class="card-btn">Découvrir</a>
+            </div>
+
+            <!-- Parfum 2 -->
+            <div class="perfume-card reveal">
+                <span class="card-icon">🌹</span>
+                <p class="card-collection">Collection Jardin</p>
+                <h3 class="card-name">Rose d'Orient</h3>
+                <p class="card-notes">
+                    Notes de tête : Rose de Damas, Safran<br>
+                    Cœur : Oud, Patchouli<br>
+                    Fond : Ambre, Vanille de Madagascar
+                </p>
+                <span class="card-price">220€ <small class="card-volume">/ 50ml</small></span>
+                <br>
+                <a href="#contact" class="card-btn">Découvrir</a>
+            </div>
+
+            <!-- Parfum 3 -->
+            <div class="perfume-card reveal">
+                <span class="card-icon">🍊</span>
+                <p class="card-collection">Collection Soleil</p>
+                <h3 class="card-name">Aube Dorée</h3>
+                <p class="card-notes">
+                    Notes de tête : Néroli, Mandarine<br>
+                    Cœur : Fleur d'oranger, Ylang-ylang<br>
+                    Fond : Cèdre, Vétiver
+                </p>
+                <span class="card-price">165€ <small class="card-volume">/ 50ml</small></span>
+                <br>
+                <a href="#contact" class="card-btn">Découvrir</a>
+            </div>
+
+            <!-- Parfum 4 -->
+            <div class="perfume-card reveal">
+                <span class="card-icon">🌿</span>
+                <p class="card-collection">Collection Jardin</p>
+                <h3 class="card-name">Vert Absolu</h3>
+                <p class="card-notes">
+                    Notes de tête : Basilic, Citron vert<br>
+                    Cœur : Thé vert, Galbanum<br>
+                    Fond : Mousse de chêne, Muscs
+                </p>
+                <span class="card-price">175€ <small class="card-volume">/ 50ml</small></span>
+                <br>
+                <a href="#contact" class="card-btn">Découvrir</a>
+            </div>
+
+            <!-- Parfum 5 -->
+            <div class="perfume-card reveal">
+                <span class="card-icon">🌌</span>
+                <p class="card-collection">Collection Nuit</p>
+                <h3 class="card-name">Velours Noir</h3>
+                <p class="card-notes">
+                    Notes de tête : Encens, Cardamome<br>
+                    Cœur : Tubéreuse, Absolu de cacao<br>
+                    Fond : Cuir, Benjoin, Oud
+                </p>
+                <span class="card-price">295€ <small class="card-volume">/ 50ml</small></span>
+                <br>
+                <a href="#contact" class="card-btn">Découvrir</a>
+            </div>
+
+            <!-- Parfum 6 -->
+            <div class="perfume-card reveal">
+                <span class="card-icon">☀️</span>
+                <p class="card-collection">Collection Soleil</p>
+                <h3 class="card-name">Lumière d'Été</h3>
+                <p class="card-notes">
+                    Notes de tête : Pêche, Osmanthus<br>
+                    Cœur : Pivoine, Magnolia<br>
+                    Fond : Muscs blancs, Ambroxan
+                </p>
+                <span class="card-price">155€ <small class="card-volume">/ 50ml</small></span>
+                <br>
+                <a href="#contact" class="card-btn">Découvrir</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ INGRÉDIENTS ═══════════ -->
+    <section class="ingredients" id="ingredients">
+        <div class="ingredients-content">
+            <div class="reveal">
+                <p class="section-label">Savoir-Faire</p>
+                <h2 class="section-title">Des ingrédients d'exception</h2>
+                <p class="section-text">
+                    Nous parcourons le monde pour sélectionner les matières premières
+                    les plus rares et les plus nobles, au cœur de terroirs d'exception.
+                </p>
+                <div class="ingredients-list">
+                    <div class="ingredient-item">
+                        <span class="ing-icon">🌸</span>
+                        <h4>Jasmin de Grasse</h4>
+                        <p>Cueilli à l'aube dans les champs de Grasse</p>
+                    </div>
+                    <div class="ingredient-item">
+                        <span class="ing-icon">🪵</span>
+                        <h4>Oud d'Assam</h4>
+                        <p>Bois d'agar vieilli naturellement en Inde</p>
+                    </div>
+                    <div class="ingredient-item">
+                        <span class="ing-icon">🫧</span>
+                        <h4>Ambre Gris</h4>
+                        <p>Trésor des océans, notes chaleureuses</p>
+                    </div>
+                    <div class="ingredient-item">
+                        <span class="ing-icon">🌺</span>
+                        <h4>Rose de Damas</h4>
+                        <p>Récoltée en Bulgarie au petit matin</p>
+                    </div>
+                </div>
+            </div>
+            <div class="ingredients-visual">
+                <span class="big-icon">🧪</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ EXPÉRIENCE ═══════════ -->
+    <section class="experience" id="experience">
+        <div class="reveal">
+            <p class="section-label">L'Expérience</p>
+            <h2 class="section-title">Un rituel de découverte</h2>
+        </div>
+        <div class="experience-steps">
+            <div class="step reveal">
+                <div class="step-number">01</div>
+                <span class="step-icon">💎</span>
+                <h4>Sélection</h4>
+                <p>Choisissez parmi nos collections celle qui résonne avec votre personnalité</p>
+            </div>
+            <div class="step reveal">
+                <div class="step-number">02</div>
+                <span class="step-icon">📦</span>
+                <h4>Coffret Découverte</h4>
+                <p>Recevez un coffret de miniatures pour explorer nos univers olfactifs</p>
+            </div>
+            <div class="step reveal">
+                <div class="step-number">03</div>
+                <span class="step-icon">✉️</span>
+                <h4>Consultation</h4>
+                <p>Un expert vous guide pour trouver la fragrance qui vous correspond</p>
+            </div>
+            <div class="step reveal">
+                <div class="step-number">04</div>
+                <span class="step-icon">🎁</span>
+                <h4>Livraison</h4>
+                <p>Votre parfum livré dans un écrin luxueux, prêt à offrir ou à s'offrir</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ TÉMOIGNAGES ═══════════ -->
+    <section class="testimonials" id="testimonials">
+        <div class="reveal">
+            <p class="section-label">Témoignages</p>
+            <h2 class="section-title">Ce qu'ils disent de nous</h2>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial reveal">
+                <div class="quote-mark">"</div>
+                <div class="stars">★ ★ ★ ★ ★</div>
+                <p>Éclat de Lune est devenu ma signature. On me demande sans cesse quel parfum je porte. Une pure merveille.</p>
+                <span class="author">— Sophie M.</span>
+            </div>
+            <div class="testimonial reveal">
+                <div class="quote-mark">"</div>
+                <div class="stars">★ ★ ★ ★ ★</div>
+                <p>La qualité des ingrédients se ressent dès la première vaporisation. Velours Noir est intense, profond, inoubliable.</p>
+                <span class="author">— Alexandre D.</span>
+            </div>
+            <div class="testimonial reveal">
+                <div class="quote-mark">"</div>
+                <div class="stars">★ ★ ★ ★ ★</div>
+                <p>J'ai offert Rose d'Orient à ma mère. Elle n'a jamais reçu autant de compliments. Un cadeau qui marque les esprits.</p>
+                <span class="author">— Leila K.</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ NEWSLETTER ═══════════ -->
+    <section class="newsletter" id="contact">
+        <div class="reveal">
+            <p class="section-label">Restez Informé</p>
+            <h2 class="section-title">Rejoignez l'univers Nuit Dorée</h2>
+            <p class="section-text">
+                Inscrivez-vous pour recevoir en avant-première nos nouveautés,
+                nos éditions limitées et nos invitations aux événements exclusifs.
+            </p>
+            <form class="newsletter-form" onsubmit="handleSubmit(event)">
+                <input type="email" placeholder="Votre adresse email" required>
+                <button type="submit">S'inscrire</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ═══════════ FOOTER ═══════════ -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="#" class="nav-logo">NUIT DORÉE</a>
+                <p>
+                    Maison de parfums d'exception.
+                    Chaque fragrance est une invitation au voyage,
+                    un hommage à l'art de la parfumerie française.
+                </p>
+            </div>
+            <div class="footer-col">
+                <h4>Collections</h4>
+                <ul>
+                    <li><a href="#collections">Collection Nuit</a></li>
+                    <li><a href="#collections">Collection Jardin</a></li>
+                    <li><a href="#collections">Collection Soleil</a></li>
+                    <li><a href="#collections">Éditions Limitées</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Maison</h4>
+                <ul>
+                    <li><a href="#about">Notre Histoire</a></li>
+                    <li><a href="#ingredients">Savoir-Faire</a></li>
+                    <li><a href="#experience">L'Expérience</a></li>
+                    <li><a href="#testimonials">Témoignages</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="mailto:contact@nuitdoree.fr">contact@nuitdoree.fr</a></li>
+                    <li><a href="tel:+33145678900">+33 1 45 67 89 00</a></li>
+                    <li><a href="#">12 Rue du Faubourg<br>Saint-Honoré, Paris</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Nuit Dorée — Tous droits réservés</p>
+            <div class="social-links">
+                <a href="#">Instagram</a>
+                <a href="#">Pinterest</a>
+                <a href="#">Facebook</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ═══════════ JAVASCRIPT ═══════════ -->
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            nav.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Mobile menu
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        function closeMenu() {
+            document.getElementById('navLinks').classList.remove('active');
+        }
+
+        // Scroll reveal animations
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Newsletter form
+        function handleSubmit(e) {
+            e.preventDefault();
+            const input = e.target.querySelector('input');
+            const btn = e.target.querySelector('button');
+            btn.textContent = 'MERCI !';
+            btn.style.background = 'transparent';
+            btn.style.color = '#c9a84c';
+            input.value = '';
+            setTimeout(() => {
+                btn.textContent = "S'INSCRIRE";
+                btn.style.background = '#c9a84c';
+                btn.style.color = '#0a0a0a';
+            }, 3000);
+        }
+    </script>
+
+</body>
+</html>
