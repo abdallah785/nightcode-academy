@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin — Golden Moon</title>
+<link rel="icon" href="/img/lune-doree.svg">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="/"><span class="brand-mark"></span> Golden Moon — Admin</a>
+    <div class="nav-links">
+      <a href="/">Retour au site</a>
+    </div>
+  </div>
+</nav>
+
+<section class="container" style="padding:40px 20px">
+  <div id="login" class="panel" style="max-width:420px;margin:40px auto">
+    <h2 class="gold">Connexion admin</h2>
+    <p class="muted" style="margin:8px 0 20px">Entrez votre jeton d’accès administrateur.</p>
+    <div class="field"><label>Jeton</label><input id="token" type="password" placeholder="goldenmoon-dev"></div>
+    <button class="btn block" id="login-btn">Entrer</button>
+    <div id="login-msg"></div>
+  </div>
+
+  <div id="dash" hidden>
+    <h2>Tableau de bord</h2>
+    <div class="stats" id="stats"></div>
+    <h3 style="margin:28px 0 14px">Dernières commandes</h3>
+    <div id="orders"></div>
+    <h3 style="margin:28px 0 14px">Derniers messages</h3>
+    <div id="contacts"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="container" style="text-align:center"><small>© <span id="y"></span> Golden Moon</small></div>
+</footer>
+
+<script src="/js/common.js"></script>
+<script>
+document.getElementById('y').textContent = new Date().getFullYear();
+
+const login = document.getElementById('login');
+const dash = document.getElementById('dash');
+
+document.getElementById('login-btn').addEventListener('click', async () => {
+  const token = document.getElementById('token').value.trim();
+  const msg = document.getElementById('login-msg');
+  msg.innerHTML = '';
+  try {
+    const r = await fetch('/api/admin/overview', { headers: { 'x-admin-token': token } });
+    if (!r.ok) throw new Error('Jeton invalide');
+    const data = await r.json();
+    sessionStorage.setItem('gm_admin_token', token);
+    login.hidden = true;
+    dash.hidden = false;
+    render(data);
+  } catch (e) {
+    msg.innerHTML = `<div class="alert err">${e.message}</div>`;
+  }
+});
+
+function render({ stats, recentOrders, recentContacts }) {
+  document.getElementById('stats').innerHTML = `
+    <div class="stat"><div class="v">${stats.products}</div><div class="k">Produits</div></div>
+    <div class="stat"><div class="v">${stats.orders}</div><div class="k">Commandes</div></div>
+    <div class="stat"><div class="v">${money(stats.revenue)}</div><div class="k">Revenu total</div></div>
+    <div class="stat"><div class="v">${stats.contacts}</div><div class="k">Messages</div></div>
+    <div class="stat"><div class="v">${stats.subscribers}</div><div class="k">Newsletter</div></div>`;
+
+  document.getElementById('orders').innerHTML = recentOrders.length === 0
+    ? '<div class="empty">Aucune commande pour le moment.</div>'
+    : `<table><thead><tr><th>#</th><th>Client</th><th>Email</th><th>Total</th><th>Statut</th><th>Date</th></tr></thead>
+       <tbody>${recentOrders.map(o => `<tr><td>${o.id}</td><td>${o.customer}</td><td>${o.email}</td><td>${money(o.total)}</td><td>${o.status}</td><td class="muted">${o.created_at}</td></tr>`).join('')}</tbody></table>`;
+
+  document.getElementById('contacts').innerHTML = recentContacts.length === 0
+    ? '<div class="empty">Aucun message pour le moment.</div>'
+    : `<table><thead><tr><th>#</th><th>Nom</th><th>Email</th><th>Sujet</th><th>Date</th></tr></thead>
+       <tbody>${recentContacts.map(c => `<tr><td>${c.id}</td><td>${c.name}</td><td>${c.email}</td><td>${c.subject}</td><td class="muted">${c.created_at}</td></tr>`).join('')}</tbody></table>`;
+}
+
+(async () => {
+  const saved = sessionStorage.getItem('gm_admin_token');
+  if (!saved) return;
+  try {
+    const r = await fetch('/api/admin/overview', { headers: { 'x-admin-token': saved } });
+    if (!r.ok) return;
+    const data = await r.json();
+    login.hidden = true; dash.hidden = false; render(data);
+  } catch {}
+})();
+</script>
+</body>
+</html>

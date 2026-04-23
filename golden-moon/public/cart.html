@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Panier — Golden Moon</title>
+<link rel="icon" href="/img/lune-doree.svg">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="/"><span class="brand-mark"></span> Golden Moon</a>
+    <button class="burger" aria-label="Menu">☰</button>
+    <div class="nav-links">
+      <a href="/">Accueil</a>
+      <a href="/shop.html">Boutique</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/cart.html" class="cart-chip">Panier · <span data-cart-count>0</span></a>
+    </div>
+  </div>
+</nav>
+
+<section class="container">
+  <div class="section-head" style="margin-top:30px">
+    <div><h2>Votre panier</h2><p>Finalisez votre commande ci-dessous.</p></div>
+  </div>
+
+  <div id="cart-content"></div>
+</section>
+
+<footer>
+  <div class="container" style="text-align:center"><small>© <span id="y"></span> Golden Moon</small></div>
+</footer>
+
+<script src="/js/common.js"></script>
+<script>
+document.getElementById('y').textContent = new Date().getFullYear();
+const root = document.getElementById('cart-content');
+
+function render() {
+  const items = cart.read();
+  if (items.length === 0) {
+    root.innerHTML = `<div class="empty"><p>Votre panier est vide.</p><p style="margin-top:14px"><a class="btn" href="/shop.html">Découvrir la boutique</a></p></div>`;
+    return;
+  }
+  root.innerHTML = `
+    <div class="card" style="padding:24px">
+      <div id="lines"></div>
+      <div class="cart-totals"><span>Total</span><strong>${money(cart.total())}</strong></div>
+    </div>
+
+    <form id="checkout" class="panel" style="margin-top:24px">
+      <h3 class="gold" style="margin-bottom:16px">Vos coordonnées</h3>
+      <div class="row">
+        <div class="field"><label>Nom complet</label><input name="customer" required></div>
+        <div class="field"><label>Email</label><input type="email" name="email" required></div>
+      </div>
+      <div class="field"><label>Adresse de livraison</label><textarea name="address" required></textarea></div>
+      <button class="btn block" type="submit">Passer commande · ${money(cart.total())}</button>
+      <div id="msg"></div>
+    </form>`;
+
+  const linesEl = document.getElementById('lines');
+  linesEl.innerHTML = items.map(it => `
+    <div class="cart-line">
+      <div class="thumb-sm"><img src="${it.image}" alt="${it.name}"></div>
+      <div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem">${it.name}</div>
+        <div class="muted" style="font-size:.85rem">${money(it.price)} l'unité</div>
+      </div>
+      <div class="qty">
+        <button data-dec="${it.id}">−</button><span>${it.quantity}</span><button data-inc="${it.id}">+</button>
+      </div>
+      <div style="text-align:right">
+        <div class="gold" style="font-weight:600">${money(it.price * it.quantity)}</div>
+        <button class="remove" data-rm="${it.id}">Retirer</button>
+      </div>
+    </div>`).join('');
+
+  linesEl.querySelectorAll('[data-inc]').forEach(b => b.onclick = () => cart.setQty(Number(b.dataset.inc), cart.read().find(x => x.id == b.dataset.inc).quantity + 1));
+  linesEl.querySelectorAll('[data-dec]').forEach(b => b.onclick = () => cart.setQty(Number(b.dataset.dec), cart.read().find(x => x.id == b.dataset.dec).quantity - 1));
+  linesEl.querySelectorAll('[data-rm]').forEach(b => b.onclick = () => cart.remove(Number(b.dataset.rm)));
+
+  document.getElementById('checkout').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const f = e.target;
+    const msg = document.getElementById('msg');
+    msg.innerHTML = '';
+    try {
+      const body = {
+        customer: f.customer.value.trim(),
+        email: f.email.value.trim(),
+        address: f.address.value.trim(),
+        items: cart.read().map(it => ({ product_id: it.id, quantity: it.quantity }))
+      };
+      const r = await api.post('/api/orders', body);
+      cart.clear();
+      root.innerHTML = `
+        <div class="card" style="padding:40px;text-align:center">
+          <h2 class="gold">Merci pour votre commande ✨</h2>
+          <p class="muted" style="margin-top:10px">Commande n°${r.id} · Total ${money(r.total)}</p>
+          <p style="margin-top:14px">Vous recevrez un email de confirmation à très bientôt.</p>
+          <p style="margin-top:24px"><a class="btn" href="/shop.html">Continuer votre chemin</a></p>
+        </div>`;
+    } catch (err) {
+      msg.innerHTML = `<div class="alert err">${err.message}</div>`;
+    }
+  });
+}
+
+document.addEventListener('cart:change', render);
+render();
+</script>
+</body>
+</html>

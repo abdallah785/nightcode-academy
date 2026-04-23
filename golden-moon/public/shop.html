@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Boutique — Golden Moon</title>
+<link rel="icon" href="/img/lune-doree.svg">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="/"><span class="brand-mark"></span> Golden Moon</a>
+    <button class="burger" aria-label="Menu">☰</button>
+    <div class="nav-links">
+      <a href="/">Accueil</a>
+      <a href="/shop.html">Boutique</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/cart.html" class="cart-chip">Panier · <span data-cart-count>0</span></a>
+    </div>
+  </div>
+</nav>
+
+<section class="container">
+  <div class="section-head" style="margin-top:30px">
+    <div>
+      <h2>La boutique</h2>
+      <p>Explorez nos collections par catégorie.</p>
+    </div>
+    <div style="display:flex; gap:10px; align-items:center">
+      <input id="search" placeholder="Rechercher…" style="width:220px">
+    </div>
+  </div>
+  <div class="pills" id="filters"></div>
+  <div id="grid" class="grid products" style="margin-top:24px"></div>
+  <div id="empty" class="empty" hidden>Aucun produit ne correspond à votre recherche.</div>
+</section>
+
+<footer>
+  <div class="container" style="text-align:center"><small>© <span id="y"></span> Golden Moon</small></div>
+</footer>
+
+<script src="/js/common.js"></script>
+<script>
+document.getElementById('y').textContent = new Date().getFullYear();
+
+const params = new URLSearchParams(location.search);
+let currentCat = params.get('cat') || '';
+let currentQ = '';
+
+const filtersEl = document.getElementById('filters');
+const gridEl = document.getElementById('grid');
+const emptyEl = document.getElementById('empty');
+const searchEl = document.getElementById('search');
+
+async function loadFilters() {
+  const cats = await api.get('/api/categories');
+  filtersEl.innerHTML = `
+    <button class="pill ${!currentCat ? 'active' : ''}" data-cat="">Tout</button>
+    ${cats.map(c => `<button class="pill ${currentCat===c.category ? 'active' : ''}" data-cat="${c.category}">${c.category} · ${c.n}</button>`).join('')}`;
+  filtersEl.querySelectorAll('.pill').forEach(b => b.addEventListener('click', () => {
+    currentCat = b.dataset.cat;
+    filtersEl.querySelectorAll('.pill').forEach(x => x.classList.toggle('active', x === b));
+    render();
+  }));
+}
+
+async function render() {
+  const q = new URLSearchParams();
+  if (currentCat) q.set('category', currentCat);
+  if (currentQ) q.set('q', currentQ);
+  const list = await api.get('/api/products?' + q.toString());
+  emptyEl.hidden = list.length > 0;
+  gridEl.innerHTML = list.map(p => `
+    <article class="card">
+      <a href="/product.html?slug=${p.slug}" class="thumb"><img src="${p.image}" alt="${p.name}"></a>
+      <div class="body">
+        <span class="cat">${p.category}</span>
+        <a href="/product.html?slug=${p.slug}"><span class="name">${p.name}</span></a>
+        <p class="muted" style="font-size:.9rem">${p.short_desc}</p>
+        <div class="actions">
+          <span class="price">${money(p.price)}</span>
+          <button class="btn sm" data-add='${JSON.stringify(p).replace(/'/g,"&#39;")}' style="margin-left:auto">Ajouter</button>
+        </div>
+      </div>
+    </article>`).join('');
+  gridEl.querySelectorAll('[data-add]').forEach(b => b.addEventListener('click', () => {
+    cart.add(JSON.parse(b.dataset.add.replace(/&#39;/g,"'")));
+    toast('Ajouté au panier');
+  }));
+}
+
+let t;
+searchEl.addEventListener('input', (e) => {
+  clearTimeout(t);
+  t = setTimeout(() => { currentQ = e.target.value.trim(); render(); }, 200);
+});
+
+(async () => { await loadFilters(); await render(); })();
+</script>
+</body>
+</html>

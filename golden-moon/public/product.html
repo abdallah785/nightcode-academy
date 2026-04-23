@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Produit — Golden Moon</title>
+<link rel="icon" href="/img/lune-doree.svg">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="/"><span class="brand-mark"></span> Golden Moon</a>
+    <button class="burger" aria-label="Menu">☰</button>
+    <div class="nav-links">
+      <a href="/">Accueil</a>
+      <a href="/shop.html">Boutique</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/cart.html" class="cart-chip">Panier · <span data-cart-count>0</span></a>
+    </div>
+  </div>
+</nav>
+
+<section class="container">
+  <div id="detail"></div>
+</section>
+
+<footer>
+  <div class="container" style="text-align:center"><small>© <span id="y"></span> Golden Moon</small></div>
+</footer>
+
+<script src="/js/common.js"></script>
+<script>
+document.getElementById('y').textContent = new Date().getFullYear();
+const slug = new URLSearchParams(location.search).get('slug');
+const root = document.getElementById('detail');
+
+(async () => {
+  if (!slug) { root.innerHTML = '<div class="empty">Produit introuvable.</div>'; return; }
+  try {
+    const p = await api.get('/api/products/' + encodeURIComponent(slug));
+    let qty = 1;
+    root.innerHTML = `
+      <a href="/shop.html" class="muted" style="display:inline-block;margin-top:20px">← Retour à la boutique</a>
+      <div class="detail">
+        <div class="visual"><img src="${p.image}" alt="${p.name}" style="max-width:280px"></div>
+        <div>
+          <span class="cat muted" style="letter-spacing:.15em;text-transform:uppercase;font-size:.75rem">${p.category}</span>
+          <h1 style="margin-top:8px">${p.name}</h1>
+          <div class="price-lg">${money(p.price)}</div>
+          <p class="muted">${p.long_desc}</p>
+          <p style="margin-top:20px;font-size:.9rem" class="muted">Stock : <strong style="color:${p.stock > 0 ? 'var(--ok)' : 'var(--danger)'}">${p.stock > 0 ? p.stock + ' disponibles' : 'épuisé'}</strong></p>
+          <div style="display:flex;gap:14px;align-items:center;margin-top:24px;flex-wrap:wrap">
+            <div class="qty">
+              <button id="minus">−</button><span id="q">1</span><button id="plus">+</button>
+            </div>
+            <button class="btn" id="add" ${p.stock === 0 ? 'disabled style="opacity:.4;cursor:not-allowed"' : ''}>Ajouter au panier</button>
+          </div>
+        </div>
+      </div>`;
+    const qEl = document.getElementById('q');
+    document.getElementById('minus').onclick = () => { qty = Math.max(1, qty - 1); qEl.textContent = qty; };
+    document.getElementById('plus').onclick = () => { qty = Math.min(99, qty + 1); qEl.textContent = qty; };
+    document.getElementById('add').onclick = () => {
+      if (p.stock === 0) return;
+      cart.add(p, qty); toast(`${qty} × ${p.name} ajouté`);
+    };
+  } catch (e) {
+    root.innerHTML = '<div class="empty">Produit introuvable.</div>';
+  }
+})();
+</script>
+</body>
+</html>

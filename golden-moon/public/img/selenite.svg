@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <g transform="rotate(-20 100 100)">
+    <polygon points="100,30 130,100 100,170 70,100" fill="#f5ecd7" opacity=".9"/>
+    <polygon points="100,30 130,100 100,170" fill="#e9c46a" opacity=".55"/>
+    <polygon points="100,30 70,100 100,170" fill="#b4893d" opacity=".4"/>
+  </g>
+</svg>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contact — Golden Moon</title>
+<link rel="icon" href="/img/lune-doree.svg">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="/"><span class="brand-mark"></span> Golden Moon</a>
+    <button class="burger" aria-label="Menu">☰</button>
+    <div class="nav-links">
+      <a href="/">Accueil</a>
+      <a href="/shop.html">Boutique</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/cart.html" class="cart-chip">Panier · <span data-cart-count>0</span></a>
+    </div>
+  </div>
+</nav>
+
+<section class="container">
+  <div class="section-head" style="margin-top:30px">
+    <div>
+      <h2>Écrivez-nous</h2>
+      <p>Une question, un projet sur-mesure, un souhait particulier ? Nous répondons sous 48 h.</p>
+    </div>
+  </div>
+
+  <div class="grid" style="grid-template-columns: 1.1fr .9fr; gap:32px">
+    <form id="contact-form" class="panel" novalidate>
+      <div class="row">
+        <div class="field"><label>Votre nom</label><input name="name" required></div>
+        <div class="field"><label>Votre email</label><input type="email" name="email" required></div>
+      </div>
+      <div class="field"><label>Sujet</label><input name="subject" required></div>
+      <div class="field"><label>Votre message</label><textarea name="message" required></textarea></div>
+      <button class="btn" type="submit">Envoyer</button>
+      <div id="msg"></div>
+    </form>
+
+    <aside class="panel">
+      <h3 class="gold">Golden Moon</h3>
+      <p class="muted" style="margin-top:8px">12 rue de l’Éclipse<br>75011 Paris, France</p>
+      <p style="margin-top:14px"><strong>bonjour@goldenmoon.shop</strong></p>
+      <p class="muted" style="margin-top:4px">Boutique ouverte du mardi au samedi, 11h–19h.</p>
+      <hr style="margin:20px 0;border:none;border-top:1px solid var(--border)">
+      <p class="muted" style="font-size:.9rem">Pour toute question sur une commande, mentionnez votre numéro de commande dans votre message pour accélérer notre réponse.</p>
+    </aside>
+  </div>
+</section>
+
+<footer>
+  <div class="container" style="text-align:center"><small>© <span id="y"></span> Golden Moon</small></div>
+</footer>
+
+<script src="/js/common.js"></script>
+<script>
+document.getElementById('y').textContent = new Date().getFullYear();
+document.getElementById('contact-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const f = e.target;
+  const msg = document.getElementById('msg');
+  msg.innerHTML = '';
+  try {
+    await api.post('/api/contact', {
+      name: f.name.value.trim(),
+      email: f.email.value.trim(),
+      subject: f.subject.value.trim(),
+      message: f.message.value.trim()
+    });
+    f.reset();
+    msg.innerHTML = '<div class="alert ok">Message envoyé, merci ! Nous revenons vers vous très vite.</div>';
+  } catch (err) {
+    msg.innerHTML = `<div class="alert err">${err.message}</div>`;
+  }
+});
+</script>
+</body>
+</html>

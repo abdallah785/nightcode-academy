@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Golden Moon — Boutique mystique & lifestyle</title>
+<meta name="description" content="Bijoux, bougies, cristaux et rituels inspirés de la lune. Fabrication artisanale, expédition sous 48h.">
+<link rel="icon" href="/img/lune-doree.svg">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="/"><span class="brand-mark"></span> Golden Moon</a>
+    <button class="burger" aria-label="Menu">☰</button>
+    <div class="nav-links">
+      <a href="/">Accueil</a>
+      <a href="/shop.html">Boutique</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/cart.html" class="cart-chip">Panier · <span data-cart-count>0</span></a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero container">
+  <div class="stars"></div>
+  <div class="hero-grid">
+    <div>
+      <h1>Sous la lumière de la <span>Lune&nbsp;Dorée</span>.</h1>
+      <p>Bijoux, bougies, cristaux et rituels doux, pensés pour cultiver votre nuit intérieure. Chaque pièce est imaginée à Paris et façonnée à la main en Europe.</p>
+      <div class="hero-cta">
+        <a class="btn" href="/shop.html">Découvrir la boutique</a>
+        <a class="btn ghost" href="#nouveautes">Nos coups de cœur</a>
+      </div>
+    </div>
+    <div class="moon" aria-hidden="true"></div>
+  </div>
+</header>
+
+<section id="nouveautes" class="container">
+  <div class="section-head">
+    <div>
+      <h2>Pièces mises en lumière</h2>
+      <p>Les favoris de la saison, en édition limitée.</p>
+    </div>
+    <a class="btn ghost sm" href="/shop.html">Voir tout →</a>
+  </div>
+  <div class="grid products" id="featured"></div>
+</section>
+
+<section class="container">
+  <div class="section-head">
+    <div>
+      <h2>Notre univers</h2>
+      <p>Trois promesses qui guident chacune de nos créations.</p>
+    </div>
+  </div>
+  <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
+    <div class="card" style="padding:24px"><h3 class="gold">Fait à la main</h3><p class="muted">Ateliers français et italiens, séries courtes, matières nobles.</p></div>
+    <div class="card" style="padding:24px"><h3 class="gold">Ingrédients honnêtes</h3><p class="muted">Cires végétales, parfums naturels, or 18 carats recyclé.</p></div>
+    <div class="card" style="padding:24px"><h3 class="gold">Livré avec soin</h3><p class="muted">Expédition sous 48 h en emballage recyclé, écrin inclus.</p></div>
+  </div>
+</section>
+
+<footer>
+  <div class="container foot-grid">
+    <div>
+      <h4>Golden Moon</h4>
+      <p class="muted">Boutique mystique fondée en 2024. Nos créations célèbrent la nuit et ses lumières discrètes.</p>
+      <form id="newsletter-form" class="newsletter" novalidate>
+        <input type="email" name="email" placeholder="votre@email.com" required>
+        <button type="submit">S’inscrire</button>
+      </form>
+    </div>
+    <div>
+      <h4>Boutique</h4>
+      <ul>
+        <li><a href="/shop.html?cat=bijoux">Bijoux</a></li>
+        <li><a href="/shop.html?cat=bougies">Bougies</a></li>
+        <li><a href="/shop.html?cat=cristaux">Cristaux</a></li>
+        <li><a href="/shop.html?cat=oracles">Oracles</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Aide</h4>
+      <ul>
+        <li><a href="/contact.html">Nous contacter</a></li>
+        <li><a href="/shop.html">Toute la boutique</a></li>
+        <li><a href="/cart.html">Mon panier</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container" style="margin-top:28px; text-align:center;">
+    <small>© <span id="y"></span> Golden Moon — Tous droits réservés.</small>
+  </div>
+</footer>
+
+<script src="/js/common.js"></script>
+<script>
+document.getElementById('y').textContent = new Date().getFullYear();
+(async () => {
+  try {
+    const list = await api.get('/api/products?featured=1');
+    const el = document.getElementById('featured');
+    el.innerHTML = list.slice(0, 4).map(p => `
+      <article class="card">
+        <a href="/product.html?slug=${p.slug}" class="thumb"><img src="${p.image}" alt="${p.name}"></a>
+        <div class="body">
+          <span class="cat">${p.category}</span>
+          <a href="/product.html?slug=${p.slug}"><span class="name">${p.name}</span></a>
+          <p class="muted" style="font-size:.9rem">${p.short_desc}</p>
+          <div class="actions">
+            <span class="price">${money(p.price)}</span>
+            <button class="btn sm" data-add='${JSON.stringify(p).replace(/'/g,"&#39;")}' style="margin-left:auto">Ajouter</button>
+          </div>
+        </div>
+      </article>`).join('');
+    el.querySelectorAll('[data-add]').forEach(b => b.addEventListener('click', () => {
+      cart.add(JSON.parse(b.dataset.add.replace(/&#39;/g,"'")));
+      toast('Ajouté au panier');
+    }));
+  } catch (e) { console.error(e); }
+})();
+</script>
+</body>
+</html>
